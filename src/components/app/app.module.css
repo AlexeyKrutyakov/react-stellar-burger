@@ -1,7 +1,14 @@
 .app {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 1080px;
   background-color: #131316;
   color: #f2f2f3;
+}
+
+.content {
+  background-color: #131316;
+  display: flex;
+  gap: 40px;
+  align-self: center;
 }
