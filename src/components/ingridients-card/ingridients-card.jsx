@@ -1,5 +1,6 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingridients-card.module.css';
+import PropTypes from 'prop-types';
 
 function IngridientsCard(props) {
   return (
@@ -13,6 +14,12 @@ function IngridientsCard(props) {
       <h5 className={`${styles.card__title} text text_type_main-default `}>{props.name}</h5>
     </li>
   );
+}
+
+IngridientsCard.propTypes = {
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
 }
 
 export default IngridientsCard;

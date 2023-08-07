@@ -1,5 +1,6 @@
 import styles from './ingridients-gallery.module.css';
 import IngridientsCard from '../ingridients-card/ingridients-card';
+import PropTypes from 'prop-types';
 
 import { data } from '../../utils/data';
 
@@ -10,6 +11,14 @@ function IngridientsGallery(props) {
       {ingridients.map(item => (<IngridientsCard key={item._id} name={item.name} image={item.image} price={item.price} />))}
     </ul>
   );
+}
+
+IngridientsGallery.propTypes = {
+  type: PropTypes.string,
+  _id: PropTypes.number,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
 }
 
 export default IngridientsGallery;

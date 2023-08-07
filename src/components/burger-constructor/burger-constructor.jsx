@@ -3,7 +3,15 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 import { data } from '../../utils/data';
+
+ConstructorElement.propTypes = {
+  _id: PropTypes.number,
+  text: PropTypes.string,
+  price: PropTypes.number,
+  image: PropTypes.string,
+}
 
 function BurgerConstructor() {
   const bun = data.filter(ingridient => ingridient.type === 'bun')[0];
