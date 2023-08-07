@@ -10,7 +10,7 @@ function IngridientsCard(props) {
         <span>{props.price}</span>
         <CurrencyIcon type='primary'/>
       </h4>
-      <h3 className={`${styles.card__title} text text_type_main-default `}>{props.name}</h3>
+      <h5 className={`${styles.card__title} text text_type_main-default `}>{props.name}</h5>
     </li>
   );
 }

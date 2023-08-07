@@ -8,11 +8,11 @@ function BurgerIngridients() {
       <h1 className='text text_type_main-large mt-10'>Соберите бургер</h1>
       <Tabs />
       <div className={`${styles.ingridients} custom-scroll`}>
-        <h2 className="text text_type_main-medium mt-10">Булки</h2>
+        <h3 className="text text_type_main-medium mt-10">Булки</h3>
         <IngridientsGallery type='bun' />
-        <h2 className="text text_type_main-medium mt-10">Соусы</h2>
+        <h3 className="text text_type_main-medium mt-10">Соусы</h3>
         <IngridientsGallery type='sauce' />
-        <h2 className="text text_type_main-medium mt-10">Начинки</h2>
+        <h3 className="text text_type_main-medium mt-10">Начинки</h3>
         <IngridientsGallery type='main' />
       </div>
     </section>
