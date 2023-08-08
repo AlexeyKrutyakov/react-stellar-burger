@@ -4,7 +4,7 @@ import styles from './tabs.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import scroll from '../../utils/scroll';
 
-function MenuIngridients() {
+function Tabs() {
   const [current, setCurrent] = React.useState('buns');
   return (
     <nav className={`${styles.tabs} mt-5`} style={{ display: 'flex' }}>
@@ -48,4 +48,4 @@ function MenuIngridients() {
   );
 }
 
-export default MenuIngridients;
+export default Tabs;
