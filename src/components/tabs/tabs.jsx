@@ -5,15 +5,15 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import scroll from '../../utils/scroll';
 
 function MenuIngridients() {
-  const [current, setCurrent] = React.useState('Булки');
+  const [current, setCurrent] = React.useState('buns');
   return (
     <nav className={`${styles.tabs} mt-5`} style={{ display: 'flex' }}>
       <Tab
-        value="Булки"
-        active={current === 'Булки'}
+        value='buns'
+        active={current === 'buns'}
         onClick={
           () => {
-            setCurrent('Булки');
+            setCurrent('buns');
             scroll('buns');
           }
         }
@@ -21,11 +21,11 @@ function MenuIngridients() {
         Булки
       </Tab>
       <Tab
-        value="Соусы"
-        active={current === 'Соусы'}
+        value='sauces'
+        active={current === 'sauces'}
         onClick={
           () => {
-            setCurrent('Соусы');
+            setCurrent('sauces');
             scroll('sauces');
           }
         }
@@ -33,11 +33,11 @@ function MenuIngridients() {
         Соусы
       </Tab>
       <Tab
-        value="Начинки"
-        active={current === 'Начинки'}
+        value='mains'
+        active={current === 'mains'}
         onClick={
           () => {
-            setCurrent('Начинки');
+            setCurrent('mains');
             scroll('mains');
           }
         }
