@@ -6,13 +6,6 @@ import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import { data } from '../../utils/data';
 
-ConstructorElement.propTypes = {
-  _id: PropTypes.number,
-  text: PropTypes.string,
-  price: PropTypes.number,
-  image: PropTypes.string,
-}
-
 function BurgerConstructor() {
   const bun = data.filter(ingridient => ingridient.type === 'bun')[0];
   const mains = data.filter(ingridient => ingridient.type === 'main');
@@ -59,6 +52,14 @@ function BurgerConstructor() {
       </form>
     </section>
   );
+}
+
+ConstructorElement.propTypes = {
+  text: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  isLocked: PropTypes.bool,
 }
 
 export default BurgerConstructor;
