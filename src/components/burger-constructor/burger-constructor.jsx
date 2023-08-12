@@ -1,14 +1,15 @@
+import React from 'react';
 import styles from './burger-constructor.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { data } from '../../utils/data';
 
-function BurgerConstructor() {
-  const bun = data.filter(ingridient => ingridient.type === 'bun')[0];
-  const mains = data.filter(ingridient => ingridient.type === 'main');
+function BurgerConstructor({ data }) {
+  console.log('BurgerConstsructor.data = ', data);
+  const bun = data.filter(ingredient => ingredient.type === 'bun')[0];
+  const mains = data.filter(ingredient => ingredient.type === 'main');
   return(
     <section className={`${styles.burger_constructor}`}>
       <article className={`mt-25 mr-4`}>
@@ -20,9 +21,9 @@ function BurgerConstructor() {
           thumbnail={bun.image}
         />
       </article>
-      <ul className={`${styles.ingridients_unlocked} custom-scroll`}>
+      <ul className={`${styles.ingredients_unlocked} custom-scroll`}>
         {mains.map(main => (
-          <li className={`${styles.ingridient} mr-1`} key={main._id}>
+          <li className={`${styles.ingredient} mr-1`} key={main._id}>
             <DragIcon type="primary" />
             <ConstructorElement
             text={main.name}

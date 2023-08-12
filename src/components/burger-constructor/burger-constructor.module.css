@@ -1,4 +1,4 @@
-.burger_constructor, .ingridients_unlocked {
+.burger_constructor, .ingredients_unlocked {
   width: 600px;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@
   max-height: 912px;
 }
 
-.ingridients_unlocked {
+.ingredients_unlocked {
   margin: 0;
   list-style: none;
   overflow: auto;
@@ -31,7 +31,7 @@
   line-height: 36px;
 }
 
-.ingridient {
+.ingredient {
   width: 568px;
   display: flex;
   flex-direction: row;
