@@ -5,14 +5,20 @@ import { getIngredients } from "../../utils/api";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 import { ingredientsPropType } from "../../utils/prop-types";
 
 function App() {
   const [error, setError] = React.useState(null);
+  const [modalType, setModalType] = React.useState('ingredient__details');
+  // order__details
+  // ingredient__details
   const [data, setData] = React.useState(
     {
       ingredients: [],
-      loading: true,
+      isLoaded: false,
     }
   );
 
@@ -20,23 +26,26 @@ function App() {
     setData({...data, loading: true});
     getIngredients()
       .then(res => {
-        setData({ ...data, ingredients: [...res.data], loading: false });
+        setData({ ...data, ingredients: [...res.data], isLoaded: true});
         })
       .catch(err => {
         setError(err.message);
-        console.log(error);
-        }
-      )
+        console.log('Error: ', error);
+        })
     // eslint-disable-next-line
   }, []);
 
   return (
     <div className={styles.app}>
-      <AppHeader />
+      <AppHeader data={data.ingredients} />
       <main className={`${styles.content}`}>
-        <BurgerIngredients data={ data.ingredients } />
-        {/* <BurgerConstructor data={ data.ingredients } /> */}
+        {data.isLoaded &&<BurgerIngredients data={ data.ingredients } />}
+        {data.isLoaded && <BurgerConstructor data={ data.ingredients } />}
       </main>
+      <Modal>
+        {modalType === 'order__details' && <OrderDetails />}
+        {modalType === 'ingredient__details' && <IngredientDetails />}
+      </Modal>
     </div>
   );
 }

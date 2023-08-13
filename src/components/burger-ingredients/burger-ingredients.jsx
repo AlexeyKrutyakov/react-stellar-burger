@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { ingredientsPropType } from '../../utils/prop-types';
 
 function BurgerIngredients({ data }) {
-  console.log('BurgerIngredients.data = ', data);
   return(
     <section className={`${styles.burger__tools}`}>
       <h1 className='text text_type_main-large mt-10'>Соберите бургер</h1>
