@@ -6,7 +6,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
-function BurgerConstructor({ data }) {
+function BurgerConstructor({ data, onModalOpen }) {
   const bun = data.filter(ingredient => ingredient.type === 'bun')[0];
   const mains = data.filter(ingredient => ingredient.type === 'main');
   return(
@@ -46,7 +46,7 @@ function BurgerConstructor({ data }) {
            6820
            <span className='ml-2'><CurrencyIcon type='primary' /></span>
          </h2>
-         <Button htmlType="button" type="primary" size="large">
+         <Button htmlType="button" type="primary" size="large" onClick={onModalOpen}>
            Оформить заказ
          </Button>
        </form>

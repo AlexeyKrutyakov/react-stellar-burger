@@ -1,6 +1,5 @@
 import styles from './ingredient-details.module.css';
 import { data } from '../../utils/data';
-console.log(data);
 const image = data[2].image_large;
 const name = data[2].name;
 const calories = data[2].calories;

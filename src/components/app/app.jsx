@@ -12,15 +12,41 @@ import { ingredientsPropType } from "../../utils/prop-types";
 
 function App() {
   const [error, setError] = React.useState(null);
-  const [modalType, setModalType] = React.useState('ingredient__details');
-  // order__details
-  // ingredient__details
+  const [modal, setModal] = React.useState(
+    {
+      type: 'ingredient__details',
+      isActive: true,
+    }
+  );
+
   const [data, setData] = React.useState(
     {
       ingredients: [],
       isLoaded: false,
     }
   );
+
+  const handleCloseModal = () => {
+    setModal(
+      {
+        ...modal,
+        isActive: false,
+      }
+    );
+  }
+
+  const handleOpenModal = (e) => {
+    const classNames = e.target.className;
+    if (classNames.includes('button')) {
+      setModal(
+        {
+          ...modal,
+          type: 'order__details',
+          isActive: true,
+        }
+      );
+    }
+  }
 
   React.useEffect(() => {
     setData({...data, loading: true});
@@ -40,12 +66,14 @@ function App() {
       <AppHeader data={data.ingredients} />
       <main className={`${styles.content}`}>
         {data.isLoaded &&<BurgerIngredients data={ data.ingredients } />}
-        {data.isLoaded && <BurgerConstructor data={ data.ingredients } />}
+        {data.isLoaded && <BurgerConstructor data={ data.ingredients } onModalOpen={handleOpenModal} />}
       </main>
-      <Modal>
-        {modalType === 'order__details' && <OrderDetails />}
-        {modalType === 'ingredient__details' && <IngredientDetails />}
+      {modal.isActive &&
+      <Modal onCloseModal={handleCloseModal}>
+        {modal.type === 'order__details' && <OrderDetails />}
+        {modal.type === 'ingredient__details' && <IngredientDetails />}
       </Modal>
+      }
     </div>
   );
 }
