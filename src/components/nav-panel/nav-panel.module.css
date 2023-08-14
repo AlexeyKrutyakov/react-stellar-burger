@@ -1,0 +1,37 @@
+.panel {
+  /* background-color: green; */
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1280px;
+  min-width: 1120px;
+}
+
+.list {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  list-style: none;
+}
+
+.list__element {
+  display: flex;
+  align-items: center;
+}
+
+.wrapper_logo {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.link {
+  display: flex;
+  gap: 8px;
+  text-decoration: none;
+  color: #F2F2F3;
+}

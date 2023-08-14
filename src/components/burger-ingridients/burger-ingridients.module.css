@@ -1,0 +1,13 @@
+.burger__tools {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  max-height: 912px;
+
+}
+
+.ingridients {
+  max-height: 756px;
+  overflow: auto;
+  overflow-x: hidden;
+}

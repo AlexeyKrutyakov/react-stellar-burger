@@ -1,0 +1,40 @@
+.burger_constructor, .ingridients_unlocked {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.burger_constructor {
+  max-height: 912px;
+}
+
+.ingridients_unlocked {
+  margin: 0;
+  list-style: none;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.total_price {
+  margin: 40px 16px 52px 0;
+  height: 64px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-end;
+  gap: 40px;
+}
+
+.price_value {
+  line-height: 36px;
+}
+
+.ingridient {
+  width: 568px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
