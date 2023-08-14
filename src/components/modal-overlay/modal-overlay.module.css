@@ -1,8 +1,7 @@
 .modal__overlay {
-  background-color: #6e3a3a;
+  background-color: rgba(0, 0, 0, 0.6);
   width: 100%;
   min-height: 100%;
-  opacity: .6;
   z-index: 1;
   position: absolute;
   top: 0;

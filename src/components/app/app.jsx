@@ -14,8 +14,9 @@ function App() {
   const [error, setError] = React.useState(null);
   const [modal, setModal] = React.useState(
     {
-      type: 'ingredient__details',
-      isActive: true,
+      type: '',
+      isActive: false,
+      ingredient: {},
     }
   );
 
@@ -35,18 +36,32 @@ function App() {
     );
   }
 
-  const handleOpenModal = (e) => {
-    const classNames = e.target.className;
-    if (classNames.includes('button')) {
-      setModal(
-        {
-          ...modal,
-          type: 'order__details',
-          isActive: true,
-        }
-      );
+  const handleOpenModal = (modalType, item = {}) => {
+    switch (modalType) {
+      case 'submit':
+        setModal(
+          {
+            ...modal,
+            type: 'order__details',
+            isActive: true,
+          }
+        );
+        break;
+      case 'ingredient':
+        setModal(
+          {
+            ...modal,
+            type: 'ingredient__details',
+            isActive: true,
+            ingredient: item,
+          }
+        );
+        break;
+      default: 
+        break;
     }
   }
+   
 
   React.useEffect(() => {
     setData({...data, loading: true});
@@ -65,13 +80,13 @@ function App() {
     <div className={styles.app}>
       <AppHeader data={data.ingredients} />
       <main className={`${styles.content}`}>
-        {data.isLoaded && <BurgerIngredients data={ data.ingredients } />}
+        {data.isLoaded && <BurgerIngredients data={ data.ingredients } onModalOpen={handleOpenModal} />}
         {data.isLoaded && <BurgerConstructor data={ data.ingredients } onModalOpen={handleOpenModal} />}
       </main>
       {modal.isActive &&
         <Modal onCloseModal={handleCloseModal}>
           {modal.type === 'order__details' && <OrderDetails />}
-          {modal.type === 'ingredient__details' && <IngredientDetails />}
+          {modal.type === 'ingredient__details' && <IngredientDetails ingredient={modal.ingredient} />}
         </Modal>
       }
     </div>
