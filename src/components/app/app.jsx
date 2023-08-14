@@ -65,14 +65,14 @@ function App() {
     <div className={styles.app}>
       <AppHeader data={data.ingredients} />
       <main className={`${styles.content}`}>
-        {data.isLoaded &&<BurgerIngredients data={ data.ingredients } />}
+        {data.isLoaded && <BurgerIngredients data={ data.ingredients } />}
         {data.isLoaded && <BurgerConstructor data={ data.ingredients } onModalOpen={handleOpenModal} />}
       </main>
       {modal.isActive &&
-      <Modal onCloseModal={handleCloseModal}>
-        {modal.type === 'order__details' && <OrderDetails />}
-        {modal.type === 'ingredient__details' && <IngredientDetails />}
-      </Modal>
+        <Modal onCloseModal={handleCloseModal}>
+          {modal.type === 'order__details' && <OrderDetails />}
+          {modal.type === 'ingredient__details' && <IngredientDetails />}
+        </Modal>
       }
     </div>
   );

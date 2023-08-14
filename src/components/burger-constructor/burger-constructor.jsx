@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './burger-constructor.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -15,7 +14,7 @@ function BurgerConstructor({ data, onModalOpen }) {
          <ConstructorElement
           type="top"
           isLocked={true}
-          text={bun.name}
+          text={`${bun.name} (верх)`}
           price={bun.price}
           thumbnail={bun.image}
         /> 
