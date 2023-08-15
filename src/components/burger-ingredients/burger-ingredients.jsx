@@ -21,9 +21,9 @@ function BurgerIngredients({ data, onModalOpen }) {
   );
 }
 
-IngredientsGallery.propTypes = {
-  type: PropTypes.string.isRequired,
+BurgerIngredients.propTypes = {
   data: ingredientsPropType,
+  onModalOpen: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients;

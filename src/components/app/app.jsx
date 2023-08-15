@@ -8,7 +8,6 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { ingredientsPropType } from "../../utils/prop-types";
 
 function App() {
   const [error, setError] = React.useState(null);
@@ -91,14 +90,6 @@ function App() {
       }
     </div>
   );
-}
-
-BurgerIngredients.propTypes = {
-  data: ingredientsPropType,
-}
-
-BurgerConstructor.propTypes = {
-  data: ingredientsPropType,
 }
 
 export default App;

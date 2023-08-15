@@ -1,6 +1,7 @@
 import styles from './ingredient-details.module.css';
+import { ingredientPropType } from '../../utils/prop-types';
 
-export default function IngredientDetails({ ingredient }) {
+function IngredientDetails({ ingredient }) {
   return (
     <>
       <h1 className={`${styles.title} text text_type_main-large mt-8`}>
@@ -29,3 +30,9 @@ export default function IngredientDetails({ ingredient }) {
     </>
   );
 }
+
+IngredientDetails.propTypes = {
+  ingredient: ingredientPropType
+}
+
+export default IngredientDetails;

@@ -4,6 +4,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import { ingredientsPropType } from '../../utils/prop-types';
 
 function BurgerConstructor({ data, onModalOpen }) {
   const bun = data.filter(ingredient => ingredient.type === 'bun')[0];
@@ -53,12 +54,9 @@ function BurgerConstructor({ data, onModalOpen }) {
   );
 }
 
-ConstructorElement.propTypes = {
-  text: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  thumbnail: PropTypes.string.isRequired,
-  type: PropTypes.string,
-  isLocked: PropTypes.bool,
+BurgerConstructor.propTypes = {
+  data: ingredientsPropType,
+  onModalOpen: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;
