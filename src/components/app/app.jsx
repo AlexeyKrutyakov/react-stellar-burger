@@ -78,7 +78,7 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <AppHeader data={data.ingredients} />
+      <AppHeader />
       <main className={`${styles.content}`}>
         {data.isLoaded && <BurgerIngredients data={ data.ingredients } onModalOpen={handleOpenModal} />}
         {data.isLoaded && <BurgerConstructor data={ data.ingredients } onModalOpen={handleOpenModal} />}
