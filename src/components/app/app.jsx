@@ -60,7 +60,10 @@ function App() {
         break;
     }
   }
-   
+
+  const handleAddIngredient = (elementName, ingredient) => {
+    console.log(`${elementName}`, ingredient);
+  } 
 
   React.useEffect(() => {
     setData({...data, loading: true});
@@ -79,7 +82,8 @@ function App() {
     <div className={styles.app}>
       <AppHeader />
       <main className={`${styles.content}`}>
-        {data.isLoaded && <BurgerIngredients data={ data.ingredients } onModalOpen={handleOpenModal} />}
+        {/* {data.isLoaded && <BurgerIngredients data={ data.ingredients } onModalOpen={handleOpenModal} />} */}
+        {data.isLoaded && <BurgerIngredients data={ data.ingredients } onModalOpen={handleAddIngredient} />}
         {data.isLoaded && <BurgerConstructor data={ data.ingredients } onModalOpen={handleOpenModal} />}
       </main>
       {modal.isActive &&
