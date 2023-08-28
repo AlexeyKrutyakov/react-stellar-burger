@@ -4,11 +4,14 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { ingredientsPropType } from '../../utils/prop-types';
+import { useContext, useState } from 'react';
+import { IngredientsContext } from '../../services/ingredientsContext';
 
-function BurgerConstructor({ data, onModalOpen }) {
-  const bun = data.filter(ingredient => ingredient.type === 'bun')[0];
-  const mains = data.filter(ingredient => ingredient.type === 'main');
+function BurgerConstructor({ ingredients, onModalOpen }) {
+  // const [ingredients, setIngredients] = useState(useContext(IngredientsContext).ingredients);
+  // const ingredients = useContext(IngredientsContext).ingredients;
+  const bun = ingredients.filter(ingredient => ingredient.type === 'bun')[0];
+  const mains = ingredients.filter(ingredient => ingredient.type === 'main' || ingredient.type === 'sauce');
   return(
     <section className={`${styles.burger_constructor}`}>
        <article className={`mt-25 mr-4`}>
@@ -21,7 +24,7 @@ function BurgerConstructor({ data, onModalOpen }) {
         /> 
        </article>
        <ul className={`${styles.ingredients_unlocked} custom-scroll`}>
-         {mains.map(main => (
+         {mains && mains.map(main => (
            <li className={`${styles.ingredient} mr-1`} key={main._id}>
              <DragIcon type="primary" />
              <ConstructorElement
@@ -55,7 +58,6 @@ function BurgerConstructor({ data, onModalOpen }) {
 }
 
 BurgerConstructor.propTypes = {
-  data: ingredientsPropType,
   onModalOpen: PropTypes.func.isRequired
 }
 
