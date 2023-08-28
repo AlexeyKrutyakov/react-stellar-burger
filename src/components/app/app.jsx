@@ -94,15 +94,12 @@ function App() {
   }
 
   const handleAddIngredient = (elementName, ingredient) => {
-    console.log(`${elementName}`, ingredient);
     dispatchIngredients(
       {
         type: 'add',
         ingredient: ingredient
       }
     );
-    console.log('ingredients: ', ingredientsState.ingredients);
-    console.log('typeof ingredients: ', typeof ingredientsState.ingredients);
   } 
 
   React.useEffect(() => {
@@ -127,7 +124,7 @@ function App() {
         {data.isLoaded
           &&
           <IngredientsContext.Provider value={ingredientsState}>
-            <BurgerConstructor ingredients={ingredientsState.ingredients} onModalOpen={handleOpenModal} />
+            <BurgerConstructor onModalOpen={handleOpenModal} />
           </IngredientsContext.Provider>
         }
       </main>

@@ -1,15 +1,14 @@
+import { useContext } from 'react';
 import styles from './burger-constructor.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { useContext, useState } from 'react';
 import { IngredientsContext } from '../../services/ingredientsContext';
 
-function BurgerConstructor({ ingredients, onModalOpen }) {
-  // const [ingredients, setIngredients] = useState(useContext(IngredientsContext).ingredients);
-  // const ingredients = useContext(IngredientsContext).ingredients;
+function BurgerConstructor({ onModalOpen }) {
+  const ingredients = useContext(IngredientsContext).ingredients;
   const bun = ingredients.filter(ingredient => ingredient.type === 'bun')[0];
   const mains = ingredients.filter(ingredient => ingredient.type === 'main' || ingredient.type === 'sauce');
   return(
