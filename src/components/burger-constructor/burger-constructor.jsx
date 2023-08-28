@@ -11,6 +11,7 @@ function BurgerConstructor({ onModalOpen }) {
   const ingredients = useContext(IngredientsContext).ingredients;
   const bun = ingredients.filter(ingredient => ingredient.type === 'bun')[0];
   const mains = ingredients.filter(ingredient => ingredient.type === 'main' || ingredient.type === 'sauce');
+  const totalPrice = bun.price * 2 + mains.reduce((totalPrice, ingredient) => totalPrice + ingredient.price, 0);
   return(
     <section className={`${styles.burger_constructor}`}>
        <article className={`mt-25 mr-4`}>
@@ -45,7 +46,7 @@ function BurgerConstructor({ onModalOpen }) {
        </article>
        <form className={styles.total_price}>
          <h2 className='text text_type_digits-medium'>
-           6820
+           {totalPrice}
            <span className='ml-2'><CurrencyIcon type='primary' /></span>
          </h2>
          <Button htmlType="button" type="primary" size="large" onClick={() => onModalOpen('submit')}>
