@@ -1,6 +1,6 @@
 import styles from "./app.module.css";
 import React, { useReducer } from "react";
-import { getIngredients } from "../../utils/api";
+import { getIngredients, submitOrder } from "../../utils/api";
 
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
@@ -9,17 +9,10 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { IngredientsContext } from "../../services/ingredientsContext";
+import { ModalContext } from "../../services/modalContext";
 
 function App() {
   const [error, setError] = React.useState(null);
-  const [modal, setModal] = React.useState(
-    {
-      type: '',
-      isActive: false,
-      ingredient: {},
-    }
-  );
-
   const [data, setData] = React.useState(
     {
       ingredients: [],
@@ -28,62 +21,89 @@ function App() {
   );
 
   const initialIngredients = {
-    ingredients:
-    [
-      {
-        "_id":"60666c42cc7b410027a1a9b1",
-        "name":"Краторная булка N-200i",
-        "type":"bun",
-        "proteins":80,
-        "fat":24,
-        "carbohydrates":53,
-        "calories":420,
-        "price":1255,
-        "image":"https://code.s3.yandex.net/react/code/bun-02.png",
-        "image_mobile":"https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-        "image_large":"https://code.s3.yandex.net/react/code/bun-02-large.png",
-        "__v":0
-      }
-    ]
+    ingredients: []
   };
+
+  const InitialModal = {
+    type: '',
+    isActive: false,
+    ingredient: {},
+    ingredientsIdList: [],
+    orderNumber: 0,
+  }
 
   const ingredientsReducer = (state, action) => {
     switch (action.type) {
       case 'add':
         return { ingredients: [...state.ingredients, action.ingredient]};
+      case 'details':
+        return { ingredient: action.ingredient }
       default:
         return new Error(`Error: unknown action type '${action.type}'`);
     }
   }
 
+  const modalReducer = (state, modal) => {
+    switch(modal.type) {
+      case 'order':
+        return {
+          ...state,
+          type: 'order__details',
+          isActive: true,
+          ingredientsIdList: modal.ingredientsIdList,
+          orderNumber: modal.orderNumber,
+        };
+      case 'ingredient':
+        return {
+          ...state,
+          type: 'ingredient__details',
+          isActive: true,
+          ingredient: modal.ingredient,
+        }
+      case 'closed':
+        return {
+          ...state,
+          isActive: false,
+        }
+      default:
+        return new Error(`Error: unknown modal type '${modal.type}'`);
+    }
+  }
+
   const [ingredientsState, dispatchIngredients] = useReducer(ingredientsReducer, initialIngredients, undefined);
 
+  const [modalState, dispatchModal] = useReducer(modalReducer, InitialModal, undefined);
+
   const handleCloseModal = () => {
-    setModal(
+    dispatchModal(
       {
-        ...modal,
+        type: 'closed',
         isActive: false,
       }
     );
   }
 
-  const handleOpenModal = (modalType, item = {}) => {
+  const handleOpenModal = (modalType, item) => {
     switch (modalType) {
       case 'submit':
-        setModal(
+        submitOrder(
           {
-            ...modal,
-            type: 'order__details',
-            isActive: true,
-          }
-        );
+            "ingredients": item,
+          })
+          .then((json) => {
+            dispatchModal(
+              {
+                type: 'order',
+                orderNumber: json.order.number,
+              }
+            );
+          })
+          .catch(err => console.log('Error in handleOpenModal: ', err));
         break;
       case 'ingredient':
-        setModal(
+        dispatchModal(
           {
-            ...modal,
-            type: 'ingredient__details',
-            isActive: true,
+            type: 'ingredient',
             ingredient: item,
           }
         );
@@ -114,7 +134,7 @@ function App() {
         })
     // eslint-disable-next-line
   }, []);
-
+  
   return (
     <div className={styles.app}>
       <AppHeader />
@@ -128,12 +148,15 @@ function App() {
           </IngredientsContext.Provider>
         }
       </main>
-      {modal.isActive &&
-        <Modal onCloseModal={handleCloseModal}>
-          {modal.type === 'order__details' && <OrderDetails />}
-          {modal.type === 'ingredient__details' && <IngredientDetails ingredient={modal.ingredient} />}
-        </Modal>
-      }
+      <ModalContext.Provider value={modalState}>
+        {
+          modalState.isActive &&
+          <Modal onCloseModal={handleCloseModal}>
+            {modalState.type === 'order__details' && <OrderDetails />}
+            {modalState.type === 'ingredient__details' && <IngredientDetails ingredient={modalState.ingredient} />}
+          </Modal>
+        }
+      </ModalContext.Provider>
     </div>
   );
 }

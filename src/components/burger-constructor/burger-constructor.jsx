@@ -11,10 +11,16 @@ function BurgerConstructor({ onModalOpen }) {
   const ingredients = useContext(IngredientsContext).ingredients;
   const bun = ingredients.filter(ingredient => ingredient.type === 'bun')[0];
   const mains = ingredients.filter(ingredient => ingredient.type === 'main' || ingredient.type === 'sauce');
-  const totalPrice = bun.price * 2 + mains.reduce((totalPrice, ingredient) => totalPrice + ingredient.price, 0);
+  const uniqueMains = [...new Set(mains)];
+  const bunPrice = bun ? bun.price * 2 : 0;
+  const totalPrice = bunPrice + mains.reduce((totalPrice, ingredient) => totalPrice + ingredient.price, 0);
+  const bunId = bun ? bun._id : null;
+  const uniqueMainsIdList = uniqueMains.map((main) => main._id)
+  const ingredientsIdList = bun ? [bunId, ...uniqueMainsIdList] : [...uniqueMainsIdList];
+
   return(
     <section className={`${styles.burger_constructor}`}>
-       <article className={`mt-25 mr-4`}>
+       {bun && <article className={`mt-25 mr-4`}>
          <ConstructorElement
           type="top"
           isLocked={true}
@@ -22,9 +28,9 @@ function BurgerConstructor({ onModalOpen }) {
           price={bun.price}
           thumbnail={bun.image}
         /> 
-       </article>
+       </article>}
        <ul className={`${styles.ingredients_unlocked} custom-scroll`}>
-         {mains && mains.map(main => (
+         {uniqueMains && uniqueMains.map(main => (
            <li className={`${styles.ingredient} mr-1`} key={main._id}>
              <DragIcon type="primary" />
              <ConstructorElement
@@ -35,7 +41,7 @@ function BurgerConstructor({ onModalOpen }) {
            </li>
          ))}
        </ul>
-       <article className={`mr-4`}>
+       {bun && <article className={`mr-4`}>
          <ConstructorElement
            type="bottom"
            isLocked={true}
@@ -43,13 +49,13 @@ function BurgerConstructor({ onModalOpen }) {
            price={bun.price}
            thumbnail={bun.image}
          />
-       </article>
+       </article>}
        <form className={styles.total_price}>
          <h2 className='text text_type_digits-medium'>
            {totalPrice}
            <span className='ml-2'><CurrencyIcon type='primary' /></span>
          </h2>
-         <Button htmlType="button" type="primary" size="large" onClick={() => onModalOpen('submit')}>
+         <Button htmlType="button" type="primary" size="large" onClick={() => onModalOpen('submit', ingredientsIdList)}>
            Оформить заказ
          </Button>
        </form>
