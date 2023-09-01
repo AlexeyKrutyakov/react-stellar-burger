@@ -142,7 +142,6 @@ function App() {
   } 
 
   React.useEffect(() => {
-    // setData({...data, loading: true});
     dispatchIngredients(
       {
         type: 'load',
@@ -150,7 +149,6 @@ function App() {
     );
     getIngredients()
       .then(json => {
-        // setData({ ...data, ingredients: [...json.data], isLoaded: true});
         dispatchIngredients(
           {
             type: 'save',
