@@ -5,10 +5,10 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { IngredientsContext } from '../../services/ingredientsContext';
+import { ConstructorIngredientsContext } from '../../services/constructorIngredientsContext';
 
 function BurgerConstructor({ onModalOpen }) {
-  const ingredients = useContext(IngredientsContext).ingredients;
+  const ingredients = useContext(ConstructorIngredientsContext).ingredients;
   const bun = ingredients.filter(ingredient => ingredient.type === 'bun')[0];
   const mains = ingredients.filter(ingredient => ingredient.type === 'main' || ingredient.type === 'sauce');
   const uniqueMains = [...new Set(mains)];

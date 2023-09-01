@@ -1,10 +1,11 @@
 import styles from './ingredients-gallery.module.css';
+import { useContext } from 'react';
 import IngredientsCard from '../ingredients-card/ingredients-card';
 import PropTypes from 'prop-types';
-import { ingredientsPropType } from '../../utils/prop-types';
+import { IngredientsContext } from '../../services/ingredientsContext';
 
-function IngredientsGallery({ type, data, onModalOpen }) {
-  const ingredients = data.filter(ingredient => ingredient.type === type);
+function IngredientsGallery({ type, onModalOpen }) {
+  const ingredients = useContext(IngredientsContext).ingredients.filter(ingredient => ingredient.type === type);
   return (
     <ul className={`${styles.ingredients__gallery} mt-6 mr-3 mb-10 ml-3`}>
       {ingredients.map(item =>
@@ -20,7 +21,6 @@ function IngredientsGallery({ type, data, onModalOpen }) {
 
 IngredientsGallery.propTypes = {
   type: PropTypes.string.isRequired,
-  data: ingredientsPropType,
   onModalOpen: PropTypes.func.isRequired
 }
 

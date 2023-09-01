@@ -30,7 +30,7 @@ function requestApi(requestMethod, url, body={}) {
 }
 
 function checkResult(res) {
-  return res.ok ? res.json() : Promise.reject('Error in checkResult: ', res.status);
+  return res.ok ? res.json() : Promise.reject('requestApi error');
 }
 
 export function getIngredients(){

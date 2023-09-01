@@ -8,23 +8,22 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+// import Context
 import { IngredientsContext } from "../../services/ingredientsContext";
+import { ConstructorIngredientsContext } from "../../services/constructorIngredientsContext";
 import { ModalContext } from "../../services/modalContext";
 
 function App() {
-  const [error, setError] = React.useState(null);
-  const [data, setData] = React.useState(
-    {
-      ingredients: [],
-      isLoaded: false,
-    }
-  );
-
   const initialIngredients = {
+    ingredients: [],
+    isLoaded: false,
+  }
+
+  const initialConstructorIngredients = {
     ingredients: []
   };
 
-  const InitialModal = {
+  const initialModal = {
     type: '',
     isActive: false,
     ingredient: {},
@@ -34,17 +33,34 @@ function App() {
 
   const ingredientsReducer = (state, action) => {
     switch (action.type) {
+      case 'load':
+        return {
+          ...state,
+          isLoaded: false,
+        };
+      case 'save':
+        return {
+          ingredients: action.ingredients,
+          isLoaded: true,
+        };
+      default:
+        return new Error(`Error: unknown action type '${action.type}'`);
+    }
+  }
+
+  const constructorIngredientsReducer = (state, action) => {
+    switch (action.type) {
       case 'add':
         return { ingredients: [...state.ingredients, action.ingredient]};
       case 'details':
-        return { ingredient: action.ingredient }
+        return { ingredient: action.ingredient };
       default:
         return new Error(`Error: unknown action type '${action.type}'`);
     }
   }
 
   const modalReducer = (state, modal) => {
-    switch(modal.type) {
+    switch (modal.type) {
       case 'order':
         return {
           ...state,
@@ -72,7 +88,10 @@ function App() {
 
   const [ingredientsState, dispatchIngredients] = useReducer(ingredientsReducer, initialIngredients, undefined);
 
-  const [modalState, dispatchModal] = useReducer(modalReducer, InitialModal, undefined);
+  const [constructorIngredientsState, dispatchConstructorIngredients] =
+    useReducer(constructorIngredientsReducer, initialConstructorIngredients, undefined);
+  
+  const [modalState, dispatchModal] = useReducer(modalReducer, initialModal, undefined);
 
   const handleCloseModal = () => {
     dispatchModal(
@@ -114,7 +133,7 @@ function App() {
   }
 
   const handleAddIngredient = (elementName, ingredient) => {
-    dispatchIngredients(
+    dispatchConstructorIngredients(
       {
         type: 'add',
         ingredient: ingredient
@@ -123,15 +142,25 @@ function App() {
   } 
 
   React.useEffect(() => {
-    setData({...data, loading: true});
+    // setData({...data, loading: true});
+    dispatchIngredients(
+      {
+        type: 'load',
+      }
+    );
     getIngredients()
-      .then(res => {
-        setData({ ...data, ingredients: [...res.data], isLoaded: true});
+      .then(json => {
+        // setData({ ...data, ingredients: [...json.data], isLoaded: true});
+        dispatchIngredients(
+          {
+            type: 'save',
+            ingredients: [...json.data],
+          }
+        );
         })
       .catch(err => {
-        setError(err.message);
-        console.log('Error: ', error);
-        })
+        console.log('Error: ', err);
+        });
     // eslint-disable-next-line
   }, []);
   
@@ -139,14 +168,16 @@ function App() {
     <div className={styles.app}>
       <AppHeader />
       <main className={`${styles.content}`}>
-        {/* {data.isLoaded && <BurgerIngredients data={ data.ingredients } onModalOpen={handleOpenModal} />} */}
-        {data.isLoaded && <BurgerIngredients data={ data.ingredients } onModalOpen={handleAddIngredient} />}
-        {data.isLoaded
-          &&
-          <IngredientsContext.Provider value={ingredientsState}>
-            <BurgerConstructor onModalOpen={handleOpenModal} />
-          </IngredientsContext.Provider>
-        }
+        <IngredientsContext.Provider value={ingredientsState}>
+          {/* {ingredientsState.isLoaded && <BurgerIngredients onModalOpen={handleOpenModal} />} */}
+          {ingredientsState.isLoaded && <BurgerIngredients onModalOpen={handleAddIngredient} />}
+          {ingredientsState.isLoaded
+            &&
+            <ConstructorIngredientsContext.Provider value={constructorIngredientsState}>
+              <BurgerConstructor onModalOpen={handleOpenModal} />
+            </ConstructorIngredientsContext.Provider>
+          }
+        </IngredientsContext.Provider>
       </main>
       <ModalContext.Provider value={modalState}>
         {
