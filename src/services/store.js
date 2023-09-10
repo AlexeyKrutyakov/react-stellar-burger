@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 
 import { ingredientsReducer } from "./ingredientsSlice";
 import { modalReducer } from "./modalSlice";
 
-import { data } from "../utils/data";
+import { burgerReducer } from "./burgerSlice";
 
 
 const preloadedState = {
@@ -13,6 +13,9 @@ const preloadedState = {
     isLoaded: false,
     loadingHasError: false,
     errorMessage: '',
+  },
+  burger: {
+    ingredients: [],
   },
   modal: {
     type: '',
@@ -27,6 +30,7 @@ const preloadedState = {
 export const store = configureStore({
   reducer: {
     ingredients: ingredientsReducer,
+    burger: burgerReducer,
     modal: modalReducer
   },
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

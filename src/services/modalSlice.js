@@ -4,13 +4,12 @@ const modalSlice = createSlice({
   name: '@@modal',
   initialState: null,
   reducers: {
-    showOrder: (state, action) => {
+    openModal: (state, action) => {
       return {
         ...state,
-        type: 'order',
+        type: action.payload,
         isActive: true,
-        ingredientsIdList: action.payload.ingredientsIdList,
-        orderNumber: action.payload.orderNumber
+        orderNumber: 456789
       }
     },
     showSpinner: (state, _) => {
@@ -21,19 +20,20 @@ const modalSlice = createSlice({
         
       }
     },
-    closeSpinner: (state, _) => {
+    closeModal: (state, _) => {
       return {
         ...state,
+        type: '',
         isActive: false,
       }
-    }
+    },
   }
 });
 
 export const {
-  showOrder,
+  openModal,
+  closeModal,
   showSpinner,
-  closeSpinner
 } = modalSlice.actions;
 
 export const modalReducer = modalSlice.reducer;

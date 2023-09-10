@@ -1,22 +1,22 @@
-import { useContext } from 'react';
 import styles from './burger-constructor.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { ConstructorIngredientsContext } from '../../services/constructorIngredientsContext';
+import { useSelector } from 'react-redux';
 
 function BurgerConstructor({ onModalOpen }) {
-  const ingredients = useContext(ConstructorIngredientsContext).ingredients;
+  const ingredients = useSelector(state => state.burger.ingredients);
+  
   const bun = ingredients.filter(ingredient => ingredient.type === 'bun')[0];
   const mains = ingredients.filter(ingredient => ingredient.type === 'main' || ingredient.type === 'sauce');
   const uniqueMains = [...new Set(mains)];
   const bunPrice = bun ? bun.price * 2 : 0;
   const totalPrice = bunPrice + mains.reduce((totalPrice, ingredient) => totalPrice + ingredient.price, 0);
-  const bunId = bun ? bun._id : null;
-  const uniqueMainsIdList = uniqueMains.map((main) => main._id)
-  const ingredientsIdList = bun ? [bunId, ...uniqueMainsIdList] : [...uniqueMainsIdList];
+  // const bunId = bun ? bun._id : null;
+  // const uniqueMainsIdList = uniqueMains.map((main) => main._id)
+  // const ingredientsIdList = bun ? [bunId, ...uniqueMainsIdList] : [...uniqueMainsIdList];
 
   return(
     <section className={`${styles.burger_constructor}`}>
@@ -55,7 +55,7 @@ function BurgerConstructor({ onModalOpen }) {
            {totalPrice}
            <span className='ml-2'><CurrencyIcon type='primary' /></span>
          </h2>
-         <Button htmlType="button" type="primary" size="large" onClick={() => onModalOpen('submit', ingredientsIdList)}>
+         <Button htmlType="button" type="primary" size="large" onClick={() => onModalOpen('order')}>
            Оформить заказ
          </Button>
        </form>

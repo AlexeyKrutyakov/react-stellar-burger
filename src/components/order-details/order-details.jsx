@@ -1,10 +1,10 @@
 import styles from './order-details.module.css';
 import imageDone from '../../images/graphics.png';
-import { ModalContext } from '../../services/modalContext';
-import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 
 function OrderDetails() {
-  const orderNumber = useContext(ModalContext).orderNumber;
+  const orderNumber = useSelector(state => state.modal.orderNumber);
+  
   return (
     <>
       <p className={`${styles.text_glow} text text_type_digits-large mt-30`}>{orderNumber}</p>
