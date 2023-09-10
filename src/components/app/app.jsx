@@ -1,5 +1,6 @@
 import styles from "./app.module.css";
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { getIngredients, submitOrder } from "../../utils/api";
 
 import AppHeader from "../app-header/app-header";
@@ -14,24 +15,30 @@ import { ConstructorIngredientsContext } from "../../services/constructorIngredi
 import { ModalContext } from "../../services/modalContext";
 import LoadingSpinner from "../loading-spinner/loading-spinner";
 
+import { store } from "../../services/store";
+import { loadIngredients, saveError, saveIngredients } from "../../services/ingredientsSlice";
+import { closeSpinner, showSpinner } from "../../services/modalSlice";
+
 function App() {
-  const initialIngredients = {
-    ingredients: [],
-    isLoaded: false,
-  }
+  const ingredientsIsLoaded = useSelector(state => state.ingredients.isLoaded);
+  const currentModal = useSelector(state => state.modal);
+  // const initialIngredients = {
+  //   ingredients: [],
+  //   isLoaded: false,
+  // }
 
-  const initialConstructorIngredients = {
-    ingredients: []
-  };
+  // const initialConstructorIngredients = {
+  //   ingredients: []
+  // };
 
-  const initialModal = {
-    type: '',
-    isActive: false,
-    ingredient: {},
-    ingredientsIdList: [],
-    orderNumber: 0,
-    loadingSpinner: false,
-  }
+  // const initialModal = {
+  //   type: '',
+  //   isActive: false,
+  //   ingredient: {},
+  //   ingredientsIdList: [],
+  //   orderNumber: 0,
+  //   loadingSpinner: false,
+  // }
 
   const ingredientsReducer = (state, action) => {
     switch (action.type) {
@@ -98,20 +105,20 @@ function App() {
     }
   }
 
-  const [ingredientsState, dispatchIngredients] = useReducer(ingredientsReducer, initialIngredients, undefined);
+  // const [ingredientsState, dispatchIngredients] = useReducer(ingredientsReducer, initialIngredients, undefined);
 
-  const [constructorIngredientsState, dispatchConstructorIngredients] =
-    useReducer(constructorIngredientsReducer, initialConstructorIngredients, undefined);
+  // const [constructorIngredientsState, dispatchConstructorIngredients] =
+  //   useReducer(constructorIngredientsReducer, initialConstructorIngredients, undefined);
   
-  const [modalState, dispatchModal] = useReducer(modalReducer, initialModal, undefined);
+  // const [modalState, dispatchModal] = useReducer(modalReducer, initialModal, undefined);
 
   const handleCloseModal = () => {
-    dispatchModal(
-      {
-        type: 'closed',
-        isActive: false,
-      }
-    );
+    // dispatchModal(
+    //   {
+    //     type: 'closed',
+    //     isActive: false,
+    //   }
+    // );
   }
 
   const handleOpenModal = (modalType, item) => {
@@ -122,22 +129,22 @@ function App() {
             "ingredients": item,
           })
           .then((json) => {
-            dispatchModal(
-              {
-                type: 'order',
-                orderNumber: json.order.number,
-              }
-            );
+            // dispatchModal(
+            //   {
+            //     type: 'order',
+            //     orderNumber: json.order.number,
+            //   }
+            // );
           })
           .catch(err => console.log('Error in handleOpenModal: ', err));
         break;
       case 'ingredient':
-        dispatchModal(
-          {
-            type: 'ingredient',
-            ingredient: item,
-          }
-        );
+        // dispatchModal(
+        //   {
+        //     type: 'ingredient',
+        //     ingredient: item,
+        //   }
+        // );
         break;
       default: 
         break;
@@ -145,62 +152,74 @@ function App() {
   }
 
   const handleAddIngredient = (elementName, ingredient) => {
-    dispatchConstructorIngredients(
-      {
-        type: 'add',
-        ingredient: ingredient
-      }
-    );
+    // dispatchConstructorIngredients(
+    //   {
+    //     type: 'add',
+    //     ingredient: ingredient
+    //   }
+    // );
   } 
 
-  React.useEffect(() => {
-    dispatchModal(
-      {
-        type: 'start-loading',
-      }
-    );
+  const dispatch = useDispatch();
 
-    dispatchIngredients(
-      {
-        type: 'load',
-      }
-    );
+  useEffect(() => {
+    // // old code
+    // dispatchModal(
+    //   {
+    //     type: 'start-loading',
+    //   }
+    // );
+    // dispatchIngredients(
+    //   {
+    //     type: 'load',
+    //   }
+    // );
+    // getIngredients()
+    //   .then(json => {
+    //     dispatchIngredients(
+    //       {
+    //         type: 'save',
+    //         ingredients: [...json.data],
+    //       }
+    //     );
+    //     dispatchModal(
+    //       {
+    //         type: 'stop-loading',
+    //       }
+    //     );
+    //     })
+    //   .catch(err => {
+    //     console.log('Error: ', err);
+    //     });
+    dispatch(showSpinner());
+    dispatch(loadIngredients());
     getIngredients()
-      .then(json => {
-        dispatchIngredients(
-          {
-            type: 'save',
-            ingredients: [...json.data],
-          }
-        );
-        dispatchModal(
-          {
-            type: 'stop-loading',
-          }
-        );
-        })
-      .catch(err => {
-        console.log('Error: ', err);
-        });
+    .then(res => {
+      dispatch(saveIngredients([...res.data]));
+      dispatch(closeSpinner());
+    })
+    .catch(err => dispatch(saveError({
+      hasError: true,
+      message: err
+    })));
     // eslint-disable-next-line
   }, []);
-  
+
   return (
     <div className={styles.app}>
       <AppHeader />
       <main className={`${styles.content}`}>
-        <IngredientsContext.Provider value={ingredientsState}>
-          {/* {ingredientsState.isLoaded && <BurgerIngredients onModalOpen={handleOpenModal} />} */}
-          {ingredientsState.isLoaded && <BurgerIngredients onModalOpen={handleAddIngredient} />}
+        {/* {console.log('store', store.getState().ingredients)} */}
+        {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleOpenModal} />}
+          {/* {ingredientsState.isLoaded && <BurgerIngredients onModalOpen={handleAddIngredient} />}
           {ingredientsState.isLoaded
             &&
             <ConstructorIngredientsContext.Provider value={constructorIngredientsState}>
               <BurgerConstructor onModalOpen={handleOpenModal} />
             </ConstructorIngredientsContext.Provider>
-          }
-        </IngredientsContext.Provider>
+          } */}
       </main>
-      <ModalContext.Provider value={modalState}>
+      {/* <ModalContext.Provider value={modalState}>
         {
           modalState.isActive &&
           <Modal onCloseModal={handleCloseModal}>
@@ -208,8 +227,8 @@ function App() {
             {modalState.type === 'ingredient__details' && <IngredientDetails ingredient={modalState.ingredient} />}
           </Modal>
         }
-      </ModalContext.Provider>
-      {modalState.loadingSpinner && <LoadingSpinner />}
+      </ModalContext.Provider>*/}
+      {currentModal.type === 'spinner' && currentModal.isActive && <LoadingSpinner />}
     </div>
   );
 }
