@@ -9,7 +9,6 @@ const modalSlice = createSlice({
         ...state,
         type: action.payload,
         isActive: true,
-        orderNumber: 456789
       }
     },
     showSpinner: (state, _) => {
