@@ -12,6 +12,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import { IngredientsContext } from "../../services/ingredientsContext";
 import { ConstructorIngredientsContext } from "../../services/constructorIngredientsContext";
 import { ModalContext } from "../../services/modalContext";
+import LoadingSpinner from "../loading-spinner/loading-spinner";
 
 function App() {
   const initialIngredients = {
@@ -29,6 +30,7 @@ function App() {
     ingredient: {},
     ingredientsIdList: [],
     orderNumber: 0,
+    loadingSpinner: false,
   }
 
   const ingredientsReducer = (state, action) => {
@@ -75,6 +77,16 @@ function App() {
           type: 'ingredient__details',
           isActive: true,
           ingredient: modal.ingredient,
+        }
+      case 'start-loading':
+        return {
+          ...state,
+          loadingSpinner: true,
+        }
+      case 'stop-loading':
+        return {
+          ...state,
+          loadingSpinner: false,
         }
       case 'closed':
         return {
@@ -142,6 +154,12 @@ function App() {
   } 
 
   React.useEffect(() => {
+    dispatchModal(
+      {
+        type: 'start-loading',
+      }
+    );
+
     dispatchIngredients(
       {
         type: 'load',
@@ -153,6 +171,11 @@ function App() {
           {
             type: 'save',
             ingredients: [...json.data],
+          }
+        );
+        dispatchModal(
+          {
+            type: 'stop-loading',
           }
         );
         })
@@ -186,6 +209,7 @@ function App() {
           </Modal>
         }
       </ModalContext.Provider>
+      {modalState.loadingSpinner && <LoadingSpinner />}
     </div>
   );
 }
