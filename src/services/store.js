@@ -23,6 +23,7 @@ const preloadedState = {
     currentIngredient: {},
   },
   order: {
+    status: '',
     number: 0,
     name: '',
     ingredientsIdList: [],

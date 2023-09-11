@@ -37,6 +37,8 @@ export function getIngredients(){
   return requestApi('GET', `${config.baseUrl}ingredients`);
 }
 
-export function submitOrder(body) {
-  return requestApi('POST',  `${config.baseUrl}orders`, body);
+export function submitOrder(idList) {
+  return requestApi('POST',  `${config.baseUrl}orders`, {
+    'ingredients': idList,
+  });
 }

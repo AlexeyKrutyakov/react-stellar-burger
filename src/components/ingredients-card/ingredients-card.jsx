@@ -5,8 +5,8 @@ import { ingredientPropType } from '../../utils/prop-types';
 
 function IngredientsCard({ ingredient, onModalOpen }) {
   return (
-    <li className={styles.ingredients__card} onClick={() => onModalOpen({type: 'ingredient__details', item: ingredient})} >
-    {/* <li className={styles.ingredients__card} onClick={() => onModalOpen(ingredient)} > */}
+    // <li className={styles.ingredients__card} onClick={() => onModalOpen({type: 'ingredient__details', item: ingredient})} >
+    <li className={styles.ingredients__card} onClick={() => onModalOpen(ingredient)} >
       <span className={`${styles.counter} text text_type_digits-default`}>1</span>
       <img className={`${styles.illustration}`} src={ingredient.image} alt={ingredient.name} />
       <h4 className={`${styles.ingredients__price} mt-1 mb-1 text text_type_digits-default`}>

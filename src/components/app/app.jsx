@@ -26,8 +26,8 @@ function App() {
     dispatch(openModal(type));
   }
 
-  const handleCloseModal = (type) => {
-   dispatch(closeModal(type));
+  const handleCloseModal = (payload) => {
+   dispatch(closeModal(payload));
   }
 
   const handleAddIngredient = (ingredient) => {
@@ -55,8 +55,8 @@ function App() {
       <AppHeader />
       <main className={`${styles.content}`}>
         {/* {console.log('store', store.getState().ingredients)} */}
-        {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleOpenModal} />}
-        {/* {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleAddIngredient} />} */}
+        {/* {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleOpenModal} />} */}
+        {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleAddIngredient} />}
         {ingredientsIsLoaded && <BurgerConstructor onModalOpen={handleOpenModal} />}
       </main>
       {currentModal.isActive &&

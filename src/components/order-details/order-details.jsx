@@ -3,7 +3,7 @@ import imageDone from '../../images/graphics.png';
 import { useSelector } from 'react-redux';
 
 function OrderDetails() {
-  const orderNumber = useSelector(state => state.modal.orderNumber);
+  const orderNumber = useSelector(state => state.order.number);
   
   return (
     <>

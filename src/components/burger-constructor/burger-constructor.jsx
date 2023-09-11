@@ -4,9 +4,14 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchOrder } from '../../services/orderSlice';
+import { openModal, showSpinner, closeModal } from '../../services/modalSlice';
+import { modal } from '../../utils/constants';
 
 function BurgerConstructor({ onModalOpen }) {
+  const dispatch = useDispatch();
+
   const ingredients = useSelector(state => state.burger.ingredients);
   
   const bun = ingredients.filter(ingredient => ingredient.type === 'bun')[0];
@@ -14,9 +19,18 @@ function BurgerConstructor({ onModalOpen }) {
   const uniqueMains = [...new Set(mains)];
   const bunPrice = bun ? bun.price * 2 : 0;
   const totalPrice = bunPrice + mains.reduce((totalPrice, ingredient) => totalPrice + ingredient.price, 0);
-  // const bunId = bun ? bun._id : null;
-  // const uniqueMainsIdList = uniqueMains.map((main) => main._id)
-  // const ingredientsIdList = bun ? [bunId, ...uniqueMainsIdList] : [...uniqueMainsIdList];
+  const bunId = bun ? bun._id : null;
+  const uniqueMainsIdList = uniqueMains.map((main) => main._id)
+  const ingredientsIdList = bun ? [bunId, ...uniqueMainsIdList] : [...uniqueMainsIdList];
+
+  const handleSubmitOrder = () => {
+    if (ingredientsIdList.length >= 1) {
+      dispatch(showSpinner())
+      dispatch(fetchOrder(ingredientsIdList));
+      dispatch(closeModal({ type: modal.type.loadingSpinner}));
+      dispatch(openModal({ type: modal.type.order }));
+    }
+  }
 
   return(
     <section className={`${styles.burger_constructor}`}>
@@ -55,7 +69,7 @@ function BurgerConstructor({ onModalOpen }) {
            {totalPrice}
            <span className='ml-2'><CurrencyIcon type='primary' /></span>
          </h2>
-         <Button htmlType="button" type="primary" size="large" onClick={() => onModalOpen({type: 'order', item: {}})}>
+         <Button htmlType="button" type="primary" size="large" onClick={handleSubmitOrder}>
            Оформить заказ
          </Button>
        </form>
