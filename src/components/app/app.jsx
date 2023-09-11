@@ -1,15 +1,15 @@
 import styles from "./app.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getIngredients } from "../../utils/api";
 
+import { getIngredients } from "../../utils/api";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import Modal from "../modal/modal";
 import LoadingSpinner from "../loading-spinner/loading-spinner";
 import OrderDetails from "../order-details/order-details";
-// import IngredientDetails from "../ingredient-details/ingredient-details";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 import { loadIngredients, saveError, saveIngredients } from "../../services/ingredientsSlice";
 import { openModal, showSpinner, closeModal } from "../../services/modalSlice";
@@ -54,14 +54,14 @@ function App() {
       <AppHeader />
       <main className={`${styles.content}`}>
         {/* {console.log('store', store.getState().ingredients)} */}
-        {/* {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleOpenModal} />} */}
-        {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleAddIngredient} />}
+        {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleOpenModal} />}
+        {/* {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleAddIngredient} />} */}
         {ingredientsIsLoaded && <BurgerConstructor onModalOpen={handleOpenModal} />}
       </main>
-      {currentModal.type === 'order' && currentModal.isActive &&
+      {currentModal.isActive &&
           <Modal onCloseModal={handleCloseModal}>
-            {<OrderDetails />}
-            {/* {modalState.type === 'ingredient__details' && <IngredientDetails ingredient={modalState.ingredient} />} */}
+            {currentModal.type === 'order' && <OrderDetails />}
+            {currentModal.type === 'ingredient__details' && <IngredientDetails />}
           </Modal>
         }
       {currentModal.type === 'spinner' && currentModal.isActive && <LoadingSpinner />}

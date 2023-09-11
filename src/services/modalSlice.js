@@ -5,10 +5,22 @@ const modalSlice = createSlice({
   initialState: null,
   reducers: {
     openModal: (state, action) => {
-      return {
-        ...state,
-        type: action.payload,
-        isActive: true,
+      switch (action.payload.type) {
+        case 'order':
+          return {
+            ...state,
+            type: action.payload.type,
+            isActive: true,
+          }
+        case 'ingredient__details':
+          return {
+            ...state,
+            type: action.payload.type,
+            isActive: true,
+            currentIngredient: action.payload.item,
+          }
+        default:
+          break;
       }
     },
     showSpinner: (state, _) => {

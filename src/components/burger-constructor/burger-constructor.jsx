@@ -55,7 +55,7 @@ function BurgerConstructor({ onModalOpen }) {
            {totalPrice}
            <span className='ml-2'><CurrencyIcon type='primary' /></span>
          </h2>
-         <Button htmlType="button" type="primary" size="large" onClick={() => onModalOpen('order')}>
+         <Button htmlType="button" type="primary" size="large" onClick={() => onModalOpen({type: 'order', item: {}})}>
            Оформить заказ
          </Button>
        </form>

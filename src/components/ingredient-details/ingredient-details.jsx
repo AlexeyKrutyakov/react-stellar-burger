@@ -1,7 +1,9 @@
 import styles from './ingredient-details.module.css';
 import { ingredientPropType } from '../../utils/prop-types';
+import { useSelector } from 'react-redux';
 
-function IngredientDetails({ ingredient }) {
+function IngredientDetails({}) {
+  const ingredient = useSelector(state => state.modal.currentIngredient);
   return (
     <>
       <h1 className={`${styles.title} text text_type_main-large mt-8`}>
