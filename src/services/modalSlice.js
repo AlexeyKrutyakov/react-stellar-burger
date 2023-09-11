@@ -1,18 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { modal } from "../utils/constants";
+
 const modalSlice = createSlice({
   name: '@@modal',
   initialState: null,
   reducers: {
     openModal: (state, action) => {
       switch (action.payload.type) {
-        case 'order':
+        case modal.type.order:
           return {
             ...state,
             type: action.payload.type,
             isActive: true,
           }
-        case 'ingredient__details':
+        case modal.type.ingredientsDetails:
           return {
             ...state,
             type: action.payload.type,
@@ -26,13 +28,13 @@ const modalSlice = createSlice({
     showSpinner: (state, _) => {
       return {
         ...state,
-        type: 'spinner',
+        type: modal.type.loadingSpinner,
         isActive: true,
         
       }
     },
     closeModal: (state, action) => {
-      if (action.payload.type === 'ingredient__details') {
+      if (action.payload.type === modal.type.ingredientsDetails) {
         return {
           ...state,
           type: '',

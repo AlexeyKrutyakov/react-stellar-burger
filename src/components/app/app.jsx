@@ -10,6 +10,7 @@ import Modal from "../modal/modal";
 import LoadingSpinner from "../loading-spinner/loading-spinner";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import { modal } from "../../utils/constants";
 
 import { loadIngredients, saveError, saveIngredients } from "../../services/ingredientsSlice";
 import { openModal, showSpinner, closeModal } from "../../services/modalSlice";
@@ -40,7 +41,7 @@ function App() {
     getIngredients()
     .then(res => {
       dispatch(saveIngredients([...res.data]));
-      dispatch(closeModal({ type: 'spinner'}));
+      dispatch(closeModal({ type: modal.type.loadingSpinner}));
     })
     .catch(err => dispatch(saveError({
       hasError: true,
@@ -60,11 +61,11 @@ function App() {
       </main>
       {currentModal.isActive &&
           <Modal onCloseModal={handleCloseModal}>
-            {currentModal.type === 'order' && <OrderDetails />}
-            {currentModal.type === 'ingredient__details' && <IngredientDetails />}
+            {currentModal.type === modal.type.order && <OrderDetails />}
+            {currentModal.type === modal.type.ingredientsDetails && <IngredientDetails />}
           </Modal>
         }
-      {currentModal.type === 'spinner' && currentModal.isActive && <LoadingSpinner />}
+      {currentModal.type === modal.type.loadingSpinner && currentModal.isActive && <LoadingSpinner />}
     </div>
   );
 }
