@@ -1,6 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { modal } from "../utils/constants";
+
+const fetchOrder = createAsyncThunk(
+  
+);
 
 const modalSlice = createSlice({
   name: '@@modal',

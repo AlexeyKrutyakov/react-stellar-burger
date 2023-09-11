@@ -3,8 +3,8 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { ingredientsReducer } from "./ingredientsSlice";
 import { modalReducer } from "./modalSlice";
-
 import { burgerReducer } from "./burgerSlice";
+import { orderReducer } from "./orderSlice";
 
 
 const preloadedState = {
@@ -21,9 +21,11 @@ const preloadedState = {
     type: '',
     isActive: false,
     currentIngredient: {},
+  },
+  order: {
+    number: 0,
+    name: '',
     ingredientsIdList: [],
-    orderNumber: 0,
-    loadingSpinner: false,
   }
 }
 
@@ -31,7 +33,8 @@ export const store = configureStore({
   reducer: {
     ingredients: ingredientsReducer,
     burger: burgerReducer,
-    modal: modalReducer
+    modal: modalReducer,
+    order: orderReducer
   },
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   devTools: true,
