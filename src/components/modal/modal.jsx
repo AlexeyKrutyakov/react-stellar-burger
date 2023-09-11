@@ -4,21 +4,20 @@ import { createPortal } from "react-dom";
 import PropTypes from 'prop-types';
 
 import ModalOverlay from "../modal-overlay/modal-overlay";
+import { useSelector } from "react-redux";
 
 function Modal({ children,  onCloseModal}) {
 
-  const modal = React.useRef();
+  const modalType = useSelector(state => state.modal.type);
   const modalRoot = document.getElementById('modal-root');
 
-  function handleButtonCloseClick() {
-    if (modal.current) {
-      onCloseModal();
-    }
+  function handleCloseClick() {
+    onCloseModal({ type: modalType });
   }
 
   function handleEscapeDown(e) {
     if (e.key === 'Escape') {
-      onCloseModal();
+      onCloseModal({ type: modalType });
     }
   }
 
@@ -32,11 +31,11 @@ function Modal({ children,  onCloseModal}) {
 
   return createPortal (
     (
-      <div className={styles.modal__container} ref={modal}>
-        <ModalOverlay onOverlayClick={onCloseModal} />
+      <div className={styles.modal__container}>
+        <ModalOverlay onOverlayClick={handleCloseClick} />
         <div className={styles.modal}>
           {children}
-          <button className={styles.modal__close_button} onClick={handleButtonCloseClick}></button>
+          <button className={styles.modal__close_button} onClick={handleCloseClick}></button>
         </div>
       </div>
     ), modalRoot

@@ -25,8 +25,8 @@ function App() {
     dispatch(openModal(type));
   }
 
-  const handleCloseModal = () => {
-   dispatch(closeModal());
+  const handleCloseModal = (type) => {
+   dispatch(closeModal(type));
   }
 
   const handleAddIngredient = (ingredient) => {
@@ -40,7 +40,7 @@ function App() {
     getIngredients()
     .then(res => {
       dispatch(saveIngredients([...res.data]));
-      dispatch(closeModal());
+      dispatch(closeModal({ type: 'spinner'}));
     })
     .catch(err => dispatch(saveError({
       hasError: true,
