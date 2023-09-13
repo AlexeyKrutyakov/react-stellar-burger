@@ -3,13 +3,12 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchOrder } from '../../services/orderSlice';
 import { openModal, showSpinner, closeModal } from '../../services/modalSlice';
 import { modal } from '../../utils/constants';
 
-function BurgerConstructor({ onModalOpen }) {
+function BurgerConstructor() {
   const dispatch = useDispatch();
 
   const ingredients = useSelector(state => state.burger.ingredients);
@@ -75,10 +74,6 @@ function BurgerConstructor({ onModalOpen }) {
        </form>
     </section>
   );
-}
-
-BurgerConstructor.propTypes = {
-  onModalOpen: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;

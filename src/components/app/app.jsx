@@ -1,6 +1,8 @@
 import styles from "./app.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 import { getIngredients } from "../../utils/api";
 import AppHeader from "../app-header/app-header";
@@ -51,22 +53,24 @@ function App() {
   }, []);
 
   return (
-    <div className={styles.app}>
-      <AppHeader />
-      <main className={`${styles.content}`}>
-        {/* {console.log('store', store.getState().ingredients)} */}
-        {/* {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleOpenModal} />} */}
-        {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleAddIngredient} />}
-        {ingredientsIsLoaded && <BurgerConstructor onModalOpen={handleOpenModal} />}
-      </main>
-      {currentModal.isActive &&
-          <Modal onCloseModal={handleCloseModal}>
-            {currentModal.type === modal.type.order && <OrderDetails />}
-            {currentModal.type === modal.type.ingredientsDetails && <IngredientDetails />}
-          </Modal>
-        }
-      {currentModal.type === modal.type.loadingSpinner && currentModal.isActive && <LoadingSpinner />}
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <div className={styles.app}>
+        <AppHeader />
+        <main className={`${styles.content}`}>
+          {/* {console.log('store', store.getState().ingredients)} */}
+          {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleOpenModal} />}
+          {/* {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleAddIngredient} />} */}
+          {ingredientsIsLoaded && <BurgerConstructor />}
+        </main>
+        {currentModal.isActive &&
+            <Modal onCloseModal={handleCloseModal}>
+              {currentModal.type === modal.type.order && <OrderDetails />}
+              {currentModal.type === modal.type.ingredientsDetails && <IngredientDetails />}
+            </Modal>
+          }
+        {currentModal.type === modal.type.loadingSpinner && currentModal.isActive && <LoadingSpinner />}
+      </div>
+    </DndProvider>
   );
 }
 

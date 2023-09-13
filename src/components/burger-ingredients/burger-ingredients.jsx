@@ -15,7 +15,7 @@ function BurgerIngredients({ onModalOpen }) {
   const mainsGallery = useRef(null);
   const delta = 150;
 
-  function getBorder (element) {
+  function getTopBorder (element) {
     return element.current.getBoundingClientRect().top;
   }
 
@@ -26,10 +26,10 @@ function BurgerIngredients({ onModalOpen }) {
   
   // TODO: try to use @researchgate/react-intersection-observer
   function handleIngredientsScroll() {
-    const ingredientsBorder = getBorder(ingredients);
-    const topBunsBorder = getBorder(bunsGallery);
-    const topSaucesBorder = getBorder(saucesGallery);
-    const topMainsBorder = getBorder(mainsGallery);
+    const ingredientsBorder = getTopBorder(ingredients);
+    const topBunsBorder = getTopBorder(bunsGallery);
+    const topSaucesBorder = getTopBorder(saucesGallery);
+    const topMainsBorder = getTopBorder(mainsGallery);
     
     function approximation(border) {
       return border - ingredientsBorder;
