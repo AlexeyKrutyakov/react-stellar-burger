@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { modal } from "../utils/constants";
+import { MODAL } from "../utils/constants";
 
 const modalSlice = createSlice({
   name: '@@modal',
@@ -8,13 +8,13 @@ const modalSlice = createSlice({
   reducers: {
     openModal: (state, action) => {
       switch (action.payload.type) {
-        case modal.type.order:
+        case MODAL.type.order:
           return {
             ...state,
             type: action.payload.type,
             isActive: true,
           }
-        case modal.type.ingredientsDetails:
+        case MODAL.type.ingredientsDetails:
           return {
             ...state,
             type: action.payload.type,
@@ -28,13 +28,13 @@ const modalSlice = createSlice({
     showSpinner: (state, _) => {
       return {
         ...state,
-        type: modal.type.loadingSpinner,
+        type: MODAL.type.loadingSpinner,
         isActive: true,
         
       }
     },
     closeModal: (state, action) => {
-      if (action.payload.type === modal.type.ingredientsDetails) {
+      if (action.payload.type === MODAL.type.ingredientsDetails) {
         return {
           ...state,
           type: '',

@@ -15,7 +15,8 @@ const preloadedState = {
     errorMessage: '',
   },
   burger: {
-    ingredients: [],
+    bun: null,
+    mains: [],
   },
   modal: {
     type: '',
@@ -35,7 +36,7 @@ export const store = configureStore({
     ingredients: ingredientsReducer,
     burger: burgerReducer,
     modal: modalReducer,
-    order: orderReducer
+    order: orderReducer,
   },
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   devTools: true,

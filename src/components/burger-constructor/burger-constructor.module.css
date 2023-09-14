@@ -8,6 +8,7 @@
 
 .burger_constructor {
   max-height: 912px;
+  border: 1px solid;
 }
 
 .ingredients_unlocked {
@@ -29,12 +30,4 @@
 
 .price_value {
   line-height: 36px;
-}
-
-.ingredient {
-  width: 568px;
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center;
 }

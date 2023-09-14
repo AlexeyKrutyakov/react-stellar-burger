@@ -12,13 +12,14 @@ import Modal from "../modal/modal";
 import LoadingSpinner from "../loading-spinner/loading-spinner";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { modal } from "../../utils/constants";
+import { MODAL } from "../../utils/constants";
 
 import { loadIngredients, saveError, saveIngredients } from "../../services/ingredientsSlice";
 import { openModal, showSpinner, closeModal } from "../../services/modalSlice";
-import { addIngredient } from "../../services/burgerSlice";
+import { addMain } from "../../services/burgerSlice";
 
 function App() {
+
   const dispatch = useDispatch();
   
   const ingredientsIsLoaded = useSelector(state => state.ingredients.isLoaded);
@@ -33,7 +34,7 @@ function App() {
   }
 
   const handleAddIngredient = (ingredient) => {
-    dispatch(addIngredient(ingredient));
+    dispatch(addMain(ingredient));
   } 
 
   useEffect(() => {
@@ -43,7 +44,7 @@ function App() {
     getIngredients()
     .then(res => {
       dispatch(saveIngredients([...res.data]));
-      dispatch(closeModal({ type: modal.type.loadingSpinner}));
+      dispatch(closeModal({ type: MODAL.type.loadingSpinner}));
     })
     .catch(err => dispatch(saveError({
       hasError: true,
@@ -64,11 +65,11 @@ function App() {
         </main>
         {currentModal.isActive &&
             <Modal onCloseModal={handleCloseModal}>
-              {currentModal.type === modal.type.order && <OrderDetails />}
-              {currentModal.type === modal.type.ingredientsDetails && <IngredientDetails />}
+              {currentModal.type === MODAL.type.order && <OrderDetails />}
+              {currentModal.type === MODAL.type.ingredientsDetails && <IngredientDetails />}
             </Modal>
           }
-        {currentModal.type === modal.type.loadingSpinner && currentModal.isActive && <LoadingSpinner />}
+        {currentModal.type === MODAL.type.loadingSpinner && currentModal.isActive && <LoadingSpinner />}
       </div>
     </DndProvider>
   );
