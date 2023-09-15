@@ -1,11 +1,13 @@
-import { useRef } from "react";
-import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
-
 import styles from './constructor-ingredient.module.css';
-import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+// imports from modules
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { useDrag, useDrop } from "react-dnd";
+// import components
+import { DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+// import services
 import { deleteMain, sortMains } from "../../services/burgerSlice";
+
 
 export default function ConstructorIngredient({ main, index }) {
   const dispatch = useDispatch();

@@ -1,10 +1,12 @@
-import React from "react";
 import styles from './modal.module.css';
-import { createPortal } from "react-dom";
+// imports from modules
+import React from "react";
 import PropTypes from 'prop-types';
-
-import ModalOverlay from "../modal-overlay/modal-overlay";
+import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
+// import components
+import ModalOverlay from "../modal-overlay/modal-overlay";
+
 
 function Modal({ children,  onCloseModal}) {
 

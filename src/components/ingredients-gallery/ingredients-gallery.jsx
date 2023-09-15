@@ -1,7 +1,10 @@
 import styles from './ingredients-gallery.module.css';
-import IngredientsCard from '../ingredients-card/ingredients-card';
+// imports from modules
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+// import components
+import IngredientsCard from '../ingredients-card/ingredients-card';
+
 
 function IngredientsGallery({ type, onModalOpen }) {
   const ingredients = useSelector((state) => state.ingredients.loaded);

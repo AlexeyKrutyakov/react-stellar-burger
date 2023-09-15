@@ -1,21 +1,24 @@
 import styles from "./app.module.css";
+// imports from modules
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
+import { useDispatch, useSelector } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
-
-import { getIngredients } from "../../utils/api";
+// import components
+import Modal from "../modal/modal";
 import AppHeader from "../app-header/app-header";
+import OrderDetails from "../order-details/order-details";
+import LoadingSpinner from "../loading-spinner/loading-spinner";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import Modal from "../modal/modal";
-import LoadingSpinner from "../loading-spinner/loading-spinner";
-import OrderDetails from "../order-details/order-details";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import { MODAL } from "../../utils/constants";
-
-import { loadIngredients, saveError, saveIngredients } from "../../services/ingredientsSlice";
+// import services
 import { openModal, showSpinner, closeModal } from "../../services/modalSlice";
+import { loadIngredients, saveError, saveIngredients } from "../../services/ingredientsSlice";
+// import utils
+import { MODAL } from "../../utils/constants";
+import { getIngredients } from "../../utils/api";
+
 
 function App() {
 

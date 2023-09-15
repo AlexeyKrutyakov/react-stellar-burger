@@ -1,14 +1,17 @@
 import styles from './burger-constructor.module.css';
-import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchOrder } from '../../services/orderSlice';
-import { openModal, showSpinner, closeModal } from '../../services/modalSlice';
+// imports from modules
 import { useDrop } from 'react-dnd';
-import { addBun, addMain } from '../../services/burgerSlice';
+import { useSelector, useDispatch } from 'react-redux';
+// import components
 import ConstructorIngredient from '../constructorIngredient/constructor-ingredient';
+import { Button, CurrencyIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+// import services
+import { fetchOrder } from '../../services/orderSlice';
+import { addBun, addMain } from '../../services/burgerSlice';
+import { openModal, showSpinner, closeModal } from '../../services/modalSlice';
+// import utils
 import { INGREDIENTS, MODAL } from '../../utils/constants';
+
 
 function BurgerConstructor() {
   const dispatch = useDispatch();

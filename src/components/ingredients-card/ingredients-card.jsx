@@ -1,31 +1,38 @@
-import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredients-card.module.css';
+// imports from modules
 import PropTypes from 'prop-types';
-import { ingredientPropType } from '../../utils/prop-types';
 import { useDrag } from 'react-dnd';
 import { useSelector } from 'react-redux';
-import countIngredients from '../../utils/count-ingredients';
+// import components
+import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+// import utils
 import { INGREDIENTS } from '../../utils/constants';
+import { ingredientPropType } from '../../utils/prop-types';
+import countIngredients from '../../utils/count-ingredients';
+
 
 function IngredientsCard({ ingredient, onModalOpen }) {
-  const constructorBun = useSelector(state => state.burger.bun);
-  const constructorMains = useSelector(state => state.burger.mains);
+
+  const burgerConstructorData = useSelector(state => state.burger);
+
+  const bun = burgerConstructorData.bun;  
+  const mains = burgerConstructorData.mains;
   
   let ingredientsQuantity = 0;
   let constructorIngredientsList = [];
 
   switch (ingredient.type) {
     case INGREDIENTS.type.bun:
-      if (constructorBun) {
-        constructorIngredientsList = [ constructorBun ];
+      if (bun) {
+        constructorIngredientsList = [ bun ];
       }
       break;
     case INGREDIENTS.type.main:
-      if (constructorMains.length > 0)
-      constructorIngredientsList = constructorMains;
+      if (mains.length > 0)
+      constructorIngredientsList = mains;
     break;
     case INGREDIENTS.type.sauce:
-      constructorIngredientsList = constructorMains;
+      constructorIngredientsList = mains;
       break;
     default:
       break;

@@ -1,9 +1,13 @@
 import styles from './burger-ingredients.module.css';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import scroll from '../../utils/scroll';
-import IngredientsGallery from '../ingredients-gallery/ingredients-gallery';
-import { useState, useRef } from 'react';
+// imports from modules
 import PropTypes from 'prop-types';
+import { useState, useRef } from 'react';
+// import components
+import IngredientsGallery from '../ingredients-gallery/ingredients-gallery';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+// import utils
+import scroll from '../../utils/scroll';
+
 
 function BurgerIngredients({ onModalOpen }) {
 
