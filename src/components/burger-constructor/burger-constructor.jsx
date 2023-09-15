@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchOrder } from '../../services/orderSlice';
 import { openModal, showSpinner, closeModal } from '../../services/modalSlice';
 import { useDrop } from 'react-dnd';
-import { addBun, addMain, sortMains } from '../../services/burgerSlice';
+import { addBun, addMain } from '../../services/burgerSlice';
 import ConstructorIngredient from '../constructorIngredient/constructor-ingredient';
 import { INGREDIENTS, MODAL } from '../../utils/constants';
 
@@ -14,7 +14,6 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
 
   const burgerConstructorData = useSelector(state => state.burger);
-  console.log('burgerConstructorData', burgerConstructorData);
   const bun = burgerConstructorData.bun;  
   const mains = burgerConstructorData.mains;
   
@@ -72,8 +71,8 @@ function BurgerConstructor() {
         /> 
       </article>}
       <ul className={`${styles.ingredients_unlocked} custom-scroll`}>
-      {mains && mains.map(main => (
-        <ConstructorIngredient main={main} mains={mains} key={main.constructorId} />
+      {mains && mains.map((main, index) => (
+        <ConstructorIngredient main={main} index={index} key={main.constructorId}/>
       ))}
       </ul>
       {bun && <article className={`mr-4`}>

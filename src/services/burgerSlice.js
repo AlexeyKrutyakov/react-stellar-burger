@@ -26,11 +26,15 @@ const burgerSlice = createSlice({
     },
     sortMains: {
       reducer: (state, action) => {
-        const dragItemIndex = action.payload.dragItemIndex;
-        const dropItemIndex = action.payload.dropItemIndex;
-        
-        console.log('dragItemIndex', dragItemIndex);
-        console.log('dropItemIndex', dropItemIndex);
+        const dragIndex = action.payload.dragIndex;
+        const hoverIndex = action.payload.hoverIndex;
+        const newMains = [...state.mains];
+        newMains.splice(hoverIndex, 0, newMains.splice(dragIndex, 1)[0]);
+
+        return {
+          ...state,
+          mains: newMains,
+        }
       },
     }
   }
