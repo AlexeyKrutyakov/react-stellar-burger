@@ -21,15 +21,3 @@
 .card__title {
   text-align: center;
 }
-
-.counter {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-  background-color: #4c4cff;
-  text-align: center;
-  line-height: 32px;
-}

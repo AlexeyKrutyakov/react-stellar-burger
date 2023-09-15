@@ -1,10 +1,34 @@
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredients-card.module.css';
 import PropTypes from 'prop-types';
 import { ingredientPropType } from '../../utils/prop-types';
 import { useDrag } from 'react-dnd';
+import { useSelector } from 'react-redux';
+import countIngredients from '../../utils/count-ingredients';
+import { INGREDIENTS } from '../../utils/constants';
 
 function IngredientsCard({ ingredient, onModalOpen }) {
+  const constructorMainsList = useSelector(state => state.burger.mains);
+  const constructorBun = useSelector(state => state.burger.bun);
+
+  let constructorIngredientsList = [];
+  let ingredientsQuantity = 0;
+
+  switch (ingredient.type) {
+    case INGREDIENTS.type.bun:
+      constructorIngredientsList = [ constructorBun ];
+      break;
+    case INGREDIENTS.type.main:
+      constructorIngredientsList = constructorMainsList;
+      break;
+    case INGREDIENTS.type.sauce:
+      constructorIngredientsList = constructorMainsList;
+      break;
+    default:
+      break;
+  }
+
+  ingredientsQuantity = countIngredients(constructorIngredientsList, ingredient._id);
 
   const [, drag] = useDrag(() => ({
     type: 'ingredient',
@@ -13,7 +37,8 @@ function IngredientsCard({ ingredient, onModalOpen }) {
 
   return (
     <li className={styles.ingredients__card} onClick={() => onModalOpen({type: 'ingredient__details', item: ingredient})}>
-      <span className={`${styles.counter} text text_type_digits-default`}>1</span>
+      {ingredientsQuantity > 0 && ingredientsQuantity < 10 && <Counter count={ingredientsQuantity} size="default" />}
+      {ingredientsQuantity > 0 && ingredientsQuantity >= 10 && <Counter count={ingredientsQuantity} size="small" />}
       <img className={`${styles.illustration}`} src={ingredient.image} alt={ingredient.name} ref={drag} />
       <h4 className={`${styles.ingredients__price} mt-1 mb-1 text text_type_digits-default`}>
         <span>{ingredient.price}</span>
