@@ -22,7 +22,18 @@ const burgerSlice = createSlice({
       prepare: (main) => {
         const constructorId = nanoid();
         return { payload: { ...main, constructorId }}
-      }
+      },
+    },
+    deleteMain: {
+      reducer: (state, action) => {
+        const newMains = [...state.mains];
+        newMains.splice(action.payload.index, 1);
+        
+        return {
+          ...state,
+          mains: newMains,
+        }
+      },
     },
     sortMains: {
       reducer: (state, action) => {
@@ -43,6 +54,7 @@ const burgerSlice = createSlice({
 export const {
   addBun,
   addMain,
+  deleteMain,
   sortMains,
 } = burgerSlice.actions;
 

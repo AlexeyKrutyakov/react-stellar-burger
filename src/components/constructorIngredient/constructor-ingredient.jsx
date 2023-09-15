@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import styles from './constructor-ingredient.module.css';
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { sortMains } from "../../services/burgerSlice";
+import { deleteMain, sortMains } from "../../services/burgerSlice";
 
 export default function ConstructorIngredient({ main, index }) {
   const dispatch = useDispatch();
@@ -56,6 +56,7 @@ export default function ConstructorIngredient({ main, index }) {
 
   const opacity = isDragging ? 0 : 1;
   const borderColor = isOver ? '#4C4CFF' : 'transparent';
+
   drag(drop(ref));
 
   return(
@@ -66,6 +67,7 @@ export default function ConstructorIngredient({ main, index }) {
           text={`${main.name}`}
           price={main.price}
           thumbnail={main.image}
+          handleClose={() => dispatch(deleteMain({ index }))}
         />
       </li>
     </div>
