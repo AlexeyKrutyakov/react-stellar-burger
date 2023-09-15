@@ -16,8 +16,6 @@ import { MODAL } from "../../utils/constants";
 
 import { loadIngredients, saveError, saveIngredients } from "../../services/ingredientsSlice";
 import { openModal, showSpinner, closeModal } from "../../services/modalSlice";
-import { addMain } from "../../services/burgerSlice";
-import countIngredients from "../../utils/count-ingredients";
 
 function App() {
 
@@ -33,10 +31,6 @@ function App() {
   const handleCloseModal = (payload) => {
    dispatch(closeModal(payload));
   }
-
-  const handleAddIngredient = (ingredient) => {
-    dispatch(addMain(ingredient));
-  } 
 
   useEffect(() => {
     dispatch(showSpinner());
@@ -59,9 +53,7 @@ function App() {
       <div className={styles.app}>
         <AppHeader />
         <main className={`${styles.content}`}>
-          {/* {console.log('store', store.getState().ingredients)} */}
           {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleOpenModal} />}
-          {/* {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleAddIngredient} />} */}
           {ingredientsIsLoaded && <BurgerConstructor />}
         </main>
         {currentModal.isActive &&

@@ -1,7 +1,7 @@
 import styles from './ingredient-details.module.css';
 import { useSelector } from 'react-redux';
 
-function IngredientDetails({}) {
+function IngredientDetails() {
   const ingredient = useSelector(state => state.modal.currentIngredient);
   return (
     <>

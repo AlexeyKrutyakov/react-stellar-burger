@@ -8,27 +8,32 @@ import countIngredients from '../../utils/count-ingredients';
 import { INGREDIENTS } from '../../utils/constants';
 
 function IngredientsCard({ ingredient, onModalOpen }) {
-  const constructorMainsList = useSelector(state => state.burger.mains);
   const constructorBun = useSelector(state => state.burger.bun);
-
-  let constructorIngredientsList = [];
+  const constructorMains = useSelector(state => state.burger.mains);
+  
   let ingredientsQuantity = 0;
+  let constructorIngredientsList = [];
 
   switch (ingredient.type) {
     case INGREDIENTS.type.bun:
-      constructorIngredientsList = [ constructorBun ];
+      if (constructorBun) {
+        constructorIngredientsList = [ constructorBun ];
+      }
       break;
     case INGREDIENTS.type.main:
-      constructorIngredientsList = constructorMainsList;
-      break;
+      if (constructorMains.length > 0)
+      constructorIngredientsList = constructorMains;
+    break;
     case INGREDIENTS.type.sauce:
-      constructorIngredientsList = constructorMainsList;
+      constructorIngredientsList = constructorMains;
       break;
     default:
       break;
   }
 
-  ingredientsQuantity = countIngredients(constructorIngredientsList, ingredient._id);
+  if (constructorIngredientsList.length > 0) {
+    ingredientsQuantity = countIngredients(constructorIngredientsList, ingredient._id);
+  }
 
   const [, drag] = useDrag(() => ({
     type: 'ingredient',
