@@ -20,14 +20,14 @@ function checkResult(res) {
   return res.ok ? res.json() : Promise.reject('requestApi error');
 }
 
-export function getIngredients(){
+export function requestIngredients(){
   return requestApi('ingredients', {
     method: 'GET',
     headers: config.headers
   });
 }
 
-export function submitOrder(idList) {
+export function requestOrder(idList) {
   return requestApi('orders', {
     method: 'POST',
     body: JSON.stringify({

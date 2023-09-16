@@ -14,10 +14,9 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 // import services
 import { openModal, showSpinner, closeModal } from "../../services/modalSlice";
-import { loadIngredients, saveError, saveIngredients } from "../../services/ingredientsSlice";
+import { loadIngredients } from "../../services/ingredientsSlice";
 // import utils
 import { MODAL } from "../../utils/constants";
-import { getIngredients } from "../../utils/api";
 
 
 function App() {
@@ -38,16 +37,7 @@ function App() {
   useEffect(() => {
     dispatch(showSpinner());
     dispatch(loadIngredients());
-    
-    getIngredients()
-    .then(res => {
-      dispatch(saveIngredients([...res.data]));
-      dispatch(closeModal({ type: MODAL.type.loadingSpinner}));
-    })
-    .catch(err => dispatch(saveError({
-      hasError: true,
-      message: err
-    })));
+    dispatch(closeModal({ type: MODAL.type.loadingSpinner}));
     // eslint-disable-next-line
   }, []);
 

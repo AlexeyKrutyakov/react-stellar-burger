@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ConstructorIngredient from '../constructorIngredient/constructor-ingredient';
 import { Button, CurrencyIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
-import { fetchOrder } from '../../services/orderSlice';
+import { submitOrder } from '../../services/orderSlice';
 import { addBun, addMain } from '../../services/burgerSlice';
 import { openModal, showSpinner, closeModal } from '../../services/modalSlice';
 // import utils
@@ -29,8 +29,8 @@ function BurgerConstructor() {
 
   const handleSubmitOrder = () => {
     if (ingredientsIdList.length >= 1) {
-      dispatch(showSpinner())
-      dispatch(fetchOrder(ingredientsIdList));
+      dispatch(showSpinner());
+      dispatch(submitOrder(ingredientsIdList));
       dispatch(closeModal({ type: MODAL.type.loadingSpinner}));
       dispatch(openModal({ type: MODAL.type.order }));
     }

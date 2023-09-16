@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { submitOrder } from "../utils/api";
+import { requestOrder } from "../utils/api";
 
-export const fetchOrder = createAsyncThunk(
-  'order/fetchOrder',
+export const submitOrder = createAsyncThunk(
+  '@@order/submitOrder',
   async (ingredientsIdList) => {
-    const orderData = await submitOrder(ingredientsIdList);
+    const orderData = await requestOrder(ingredientsIdList);
     return orderData;
   }
 );
@@ -16,10 +16,10 @@ const orderSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(fetchOrder.pending, state => {
+      .addCase(submitOrder.pending, state => {
         state.status = 'loading';
       })
-      .addCase(fetchOrder.fulfilled, (state, action) => {
+      .addCase(submitOrder.fulfilled, (state, action) => {
         return {
           ...state,
           status: 'loaded',
@@ -27,7 +27,7 @@ const orderSlice = createSlice({
           name: action.payload.name,
         }
       })
-      .addCase(fetchOrder.rejected, state => {
+      .addCase(submitOrder.rejected, state => {
         return {
           ...state,
           status: 'rejected',
