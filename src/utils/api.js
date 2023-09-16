@@ -5,28 +5,15 @@ const config = {
   },
 }
 
-function requestApi(requestMethod, url, body={}) {
-  switch (requestMethod) {
-    case 'GET':
-      return(
-        fetch(url, {
-          method: requestMethod,
-          headers: config.headers,
-        })
-        .then(res => checkResult(res))
-      );
-    case 'POST':
-      return(
-        fetch(url, {
-          method: requestMethod,
-          headers: config.headers,
-          body: JSON.stringify(body),
-        })
-        .then(res => checkResult(res))
-      );
-    default:
-      return new Error(`Error: unknown request method '${requestMethod}'`);
-  }
+function requestApi(endPoint, options) {
+  if (options.method === 'GET'
+  || options.method ==='POST') {
+    return request(endPoint, options);
+  } else return new Error(`Error: unknown request method '${options.method}'`);
+}
+      
+function request(endPoint, options) {
+  return fetch(`${config.baseUrl}${endPoint}`, options).then(checkResult);
 }
 
 function checkResult(res) {
@@ -34,11 +21,18 @@ function checkResult(res) {
 }
 
 export function getIngredients(){
-  return requestApi('GET', `${config.baseUrl}ingredients`);
+  return requestApi('ingredients', {
+    method: 'GET',
+    headers: config.headers
+  });
 }
 
 export function submitOrder(idList) {
-  return requestApi('POST',  `${config.baseUrl}orders`, {
-    'ingredients': idList,
+  return requestApi('orders', {
+    method: 'POST',
+    body: JSON.stringify({
+      'ingredients': idList
+    }),
+    headers: config.headers
   });
 }
