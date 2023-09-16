@@ -30,6 +30,7 @@ function BurgerConstructor() {
   const ingredientsIdList = bun ? [bunId, ...mainsIdList] : [...mainsIdList];
 
   const handleSubmitOrder = () => {
+    if (burgerConstructorData.bun === null) return;
     if (ingredientsIdList.length >= 1) {
       dispatch(showSpinner());
       dispatch(submitOrder(ingredientsIdList));
