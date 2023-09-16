@@ -1,8 +1,13 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
+const initialState = {
+  bun: null,
+  mains: [],
+};
+
 const burgerSlice = createSlice({
   name: '@@burger',
-  initialState: null,
+  initialState: initialState,
   reducers: {
     addBun: {
       reducer: (state, action) => {

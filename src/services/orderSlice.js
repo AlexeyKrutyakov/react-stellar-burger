@@ -8,10 +8,16 @@ export const submitOrder = createAsyncThunk(
   requestOrder
 );
 
+const initialState = {
+  status: '',
+  number: 0,
+  name: '',
+  ingredientsIdList: [],
+}
 
 const orderSlice = createSlice({
   name: '@@order',
-  initialState: null,
+  initialState: initialState,
   reducers: {},
   extraReducers: builder => {
     builder

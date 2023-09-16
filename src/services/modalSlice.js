@@ -2,9 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { MODAL } from "../utils/constants";
 
+const initialState = {
+  type: '',
+  isActive: false,
+  currentIngredient: {},
+};
+
 const modalSlice = createSlice({
   name: '@@modal',
-  initialState: null,
+  initialState: initialState,
   reducers: {
     openModal: (state, action) => {
       switch (action.payload.type) {

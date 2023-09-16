@@ -1,35 +1,14 @@
+// imports from modules
 import { configureStore } from "@reduxjs/toolkit";
+
 // import logger from 'redux-logger';
 
-import { ingredientsReducer } from "./ingredientsSlice";
+// import reducers
 import { modalReducer } from "./modalSlice";
-import { burgerReducer } from "./burgerSlice";
 import { orderReducer } from "./orderSlice";
+import { burgerReducer } from "./burgerSlice";
+import { ingredientsReducer } from "./ingredientsSlice";
 
-
-const preloadedState = {
-  ingredients: {
-    loaded: [],
-    status: '',
-    loadingHasError: false,
-    errorMessage: '',
-  },
-  burger: {
-    bun: null,
-    mains: [],
-  },
-  modal: {
-    type: '',
-    isActive: false,
-    currentIngredient: {},
-  },
-  order: {
-    status: '',
-    number: 0,
-    name: '',
-    ingredientsIdList: [],
-  }
-}
 
 export const store = configureStore({
   reducer: {
@@ -40,5 +19,4 @@ export const store = configureStore({
   },
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   devTools: true,
-  preloadedState,
 });

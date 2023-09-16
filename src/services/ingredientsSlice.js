@@ -8,9 +8,16 @@ export const loadIngredients = createAsyncThunk(
   requestIngredients
 );
 
+const initialState = {
+  loaded: [],
+  status: '',
+  loadingHasError: false,
+  errorMessage: '',
+};
+
 const ingredientsSlice = createSlice({
   name: '@@ingredients',
-  initialState: null,
+  initialState: initialState,
   reducers: {},
   extraReducers: builder => {
     builder
