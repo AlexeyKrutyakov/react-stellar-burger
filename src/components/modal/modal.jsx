@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
 // import components
 import ModalOverlay from "../modal-overlay/modal-overlay";
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 function Modal({ children,  onCloseModal}) {
@@ -13,13 +14,13 @@ function Modal({ children,  onCloseModal}) {
   const modalType = useSelector(state => state.modal.type);
   const modalRoot = document.getElementById('modal-root');
 
-  function handleCloseClick() {
+  function closeModal() {
     onCloseModal({ type: modalType });
   }
 
   function handleEscapeDown(e) {
     if (e.key === 'Escape') {
-      onCloseModal({ type: modalType });
+      closeModal();
     }
   }
 
@@ -34,10 +35,12 @@ function Modal({ children,  onCloseModal}) {
   return createPortal (
     (
       <div className={styles.modal__container}>
-        <ModalOverlay onOverlayClick={handleCloseClick} />
+        <ModalOverlay onOverlayClick={closeModal} />
         <div className={styles.modal}>
           {children}
-          <button className={styles.modal__close_button} onClick={handleCloseClick}></button>
+          <button className={styles.modal__close_button} onClick={closeModal}>
+            <CloseIcon type='primary' />
+          </button>
         </div>
       </div>
     ), modalRoot

@@ -24,10 +24,7 @@
 .modal__close_button {
   margin: 0;
   padding: 0;
-  background-image: url('../../images/close_modal.png');
   background-color: transparent;
-  background-repeat: no-repeat;
-  background-size: cover;
   border: none;
   cursor: pointer;
   width: 24px;

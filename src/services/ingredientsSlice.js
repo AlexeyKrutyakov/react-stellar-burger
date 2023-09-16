@@ -5,10 +5,7 @@ import { requestIngredients } from "../utils/api";
 
 export const loadIngredients = createAsyncThunk(
   '@@ingredients/fetchIngredients',
-  async () => {
-    const requestResult = await requestIngredients();
-    return requestResult;
-  }
+  requestIngredients
 );
 
 const ingredientsSlice = createSlice({

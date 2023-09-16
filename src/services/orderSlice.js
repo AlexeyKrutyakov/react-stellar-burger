@@ -4,10 +4,7 @@ import { requestOrder } from "../utils/api";
 
 export const submitOrder = createAsyncThunk(
   '@@order/submitOrder',
-  async (ingredientsIdList) => {
-    const orderData = await requestOrder(ingredientsIdList);
-    return orderData;
-  }
+  requestOrder
 );
 
 const orderSlice = createSlice({
