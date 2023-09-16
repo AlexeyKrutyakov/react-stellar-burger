@@ -1,11 +1,13 @@
+// imports from modules
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+// import utils
 import { requestOrder } from "../utils/api";
 
 export const submitOrder = createAsyncThunk(
   '@@order/submitOrder',
   requestOrder
 );
+
 
 const orderSlice = createSlice({
   name: '@@order',

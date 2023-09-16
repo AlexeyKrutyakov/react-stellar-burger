@@ -10,7 +10,7 @@ import { orderReducer } from "./orderSlice";
 const preloadedState = {
   ingredients: {
     loaded: [],
-    isLoaded: false,
+    status: '',
     loadingHasError: false,
     errorMessage: '',
   },

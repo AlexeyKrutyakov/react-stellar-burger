@@ -15,19 +15,19 @@ const ingredientsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(loadIngredients.pending, state => {
-        state.isLoaded = 'false';
+        state.status = 'pending';
       })
       .addCase(loadIngredients.fulfilled, (state, action) => {
         return {
           ...state,
           loaded: action.payload.data,
-          isLoaded: true
+          status: 'loaded'
         }
       })
       .addCase(loadIngredients.rejected, (state, action) => {
         return {
           ...state,
-          isLoaded: false,
+          status: 'rejected',
           loadingHasError: true,
           errorMessage: action.error.message,
         }

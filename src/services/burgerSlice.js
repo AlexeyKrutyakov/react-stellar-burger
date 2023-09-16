@@ -47,6 +47,15 @@ const burgerSlice = createSlice({
           mains: newMains,
         }
       },
+    },
+    resetConstructorData: {
+      reducer: (state, _) => {
+        return {
+          ...state,
+          bun: {},
+          mains: [],
+        }
+      }
     }
   }
 });
@@ -56,6 +65,7 @@ export const {
   addMain,
   deleteMain,
   sortMains,
+  resetConstructorData,
 } = burgerSlice.actions;
 
 export const burgerReducer = burgerSlice.reducer;

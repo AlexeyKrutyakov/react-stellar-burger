@@ -23,7 +23,7 @@ function App() {
 
   const dispatch = useDispatch();
   
-  const ingredientsIsLoaded = useSelector(state => state.ingredients.isLoaded);
+  const ingredientsIsLoaded = useSelector(state => state.ingredients.status);
   const currentModal = useSelector(state => state.modal);
 
   const handleOpenModal = (type) => {
@@ -46,8 +46,8 @@ function App() {
       <div className={styles.app}>
         <AppHeader />
         <main className={`${styles.content}`}>
-          {ingredientsIsLoaded && <BurgerIngredients onModalOpen={handleOpenModal} />}
-          {ingredientsIsLoaded && <BurgerConstructor />}
+          {ingredientsIsLoaded === 'loaded' && <BurgerIngredients onModalOpen={handleOpenModal} />}
+          {ingredientsIsLoaded === 'loaded' && <BurgerConstructor />}
         </main>
         {currentModal.isActive &&
             <Modal onCloseModal={handleCloseModal}>
