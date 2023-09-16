@@ -54,12 +54,8 @@ const burgerSlice = createSlice({
       },
     },
     resetConstructorData: {
-      reducer: (state, _) => {
-        return {
-          ...state,
-          bun: {},
-          mains: [],
-        }
+      reducer: () => {
+        return initialState
       }
     }
   }

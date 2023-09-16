@@ -7,7 +7,7 @@ import ConstructorIngredient from '../constructorIngredient/constructor-ingredie
 import { Button, CurrencyIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
 import { submitOrder } from '../../services/orderSlice';
-import { addBun, addMain } from '../../services/burgerSlice';
+import { addBun, addMain, resetConstructorData } from '../../services/burgerSlice';
 import { openModal, showSpinner, closeModal } from '../../services/modalSlice';
 // import utils
 import { INGREDIENTS, MODAL } from '../../utils/constants';
@@ -17,6 +17,8 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
 
   const burgerConstructorData = useSelector(state => state.burger);
+  const orderData = useSelector(state => state.order);
+
   const bun = burgerConstructorData.bun;  
   const mains = burgerConstructorData.mains;
   
@@ -31,6 +33,7 @@ function BurgerConstructor() {
     if (ingredientsIdList.length >= 1) {
       dispatch(showSpinner());
       dispatch(submitOrder(ingredientsIdList));
+      if (orderData.status === 'loaded') dispatch(resetConstructorData());
       dispatch(closeModal({ type: MODAL.type.loadingSpinner}));
       dispatch(openModal({ type: MODAL.type.order }));
     }
