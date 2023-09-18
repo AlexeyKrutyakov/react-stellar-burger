@@ -1,0 +1,16 @@
+.drop_container {
+  border: 1px solid red;
+  border-radius: 50px;
+}
+
+.ingredient {
+  width: 568px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+.drag_icon:hover {
+  cursor: move;
+}

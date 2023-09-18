@@ -1,6 +1,7 @@
 import styles from './nav-panel.module.css';
-import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
-import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+// import components
+import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+
 
 function NavPanel () {
   return (
