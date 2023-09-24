@@ -27,7 +27,7 @@ function NavPanel () {
         </div>
       <ul className={styles.list}>
         <li className={`${styles.list__element} mt-4 mr-5 mb-4 ml-5`}>
-          <a className={styles.link} href="/personal">
+          <a className={styles.link} href="/login">
             <ProfileIcon type='secondary' />
             <p className="text text_type_main-default text_color_inactive">Личный кабинет</p>
           </a>

@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
 //import pages
 import MainPage from "../../pages/main-page";
-import LoginPage from "../../pages/login-page";
+import LoginPage from "../../pages/login/login-page";
+import ProfilePage from "../../pages/profile-page";
 import RegisterPage from "../../pages/register-page";
 // import components
 import Modal from "../modal/modal";
@@ -20,6 +21,9 @@ import { showSpinner, closeModal } from "../../services/modalSlice";
 import { loadIngredients } from "../../services/ingredientsSlice";
 // import utils
 import { MODAL } from "../../utils/constants";
+import ForgotPasswordPage from "../../pages/forgot-password/forgot-password-page";
+import ResetPasswordPage from "../../pages/reset-password-page";
+import IngredientPage from "../../pages/ingredient/ingredient-page";
 
 
 function App() {
@@ -47,7 +51,11 @@ function App() {
             <Routes>
               <Route path='/' element={<MainPage />} />
               <Route path='/login' element={<LoginPage />} />
+              <Route path='/profile' element={<ProfilePage />} />
               <Route path='/register' element={<RegisterPage />} />
+              <Route path='/reset-password' element={<ResetPasswordPage />} />
+              <Route path='/forgot-password' element={<ForgotPasswordPage />} />
+              <Route path='/ingredients/:id' element={<IngredientPage />} />
             </Routes>
           </Router>
           {currentModal.isActive &&
