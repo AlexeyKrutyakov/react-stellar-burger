@@ -5,9 +5,12 @@ import { DndProvider } from "react-dnd";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
+//import pages
+import MainPage from "../../pages/main-page";
+import LoginPage from "../../pages/login-page";
+import RegisterPage from "../../pages/register-page";
 // import components
 import Modal from "../modal/modal";
-import MainPage from "../../pages/main-page";
 import AppHeader from "../app-header/app-header";
 import OrderDetails from "../order-details/order-details";
 import LoadingSpinner from "../loading-spinner/loading-spinner";
@@ -37,13 +40,16 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={HTML5Backend}>
         <div className={styles.app}>
           <AppHeader />
-          <Routes>
-            <Route path='/' element={<MainPage />} />
-          </Routes>
+          <Router>
+            <Routes>
+              <Route path='/' element={<MainPage />} />
+              <Route path='/login' element={<LoginPage />} />
+              <Route path='/register' element={<RegisterPage />} />
+            </Routes>
+          </Router>
           {currentModal.isActive &&
               <Modal onCloseModal={handleCloseModal}>
                 {currentModal.type === MODAL.type.order && <OrderDetails />}
@@ -53,7 +59,6 @@ function App() {
           {currentModal.type === MODAL.type.loadingSpinner && currentModal.isActive && <LoadingSpinner />}
         </div>
       </DndProvider>
-    </Router>
   );
 }
 
