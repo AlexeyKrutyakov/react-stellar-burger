@@ -1,0 +1,6 @@
+.content {
+  background-color: #131316;
+  display: flex;
+  gap: 40px;
+  align-self: center;
+}
