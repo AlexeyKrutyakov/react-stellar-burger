@@ -3,9 +3,9 @@ import { DndProvider } from "react-dnd";
 import { useDispatch, useSelector } from 'react-redux';
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import { openModal } from "../services/modalSlice";
-import BurgerIngredients from '../components/burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../components/burger-constructor/burger-constructor';
+import { openModal } from "../../services/modalSlice";
+import BurgerIngredients from '../../components/burger-ingredients/burger-ingredients';
+import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
 
 export default function MainPage() {
 

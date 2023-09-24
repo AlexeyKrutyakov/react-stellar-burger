@@ -7,18 +7,20 @@ import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer
 export default function LoginPage() {
   return(
     <div className={styles.content}>
-      <h1 className='text text_type_main-medium'>Вход</h1>
-      <EmailInput size='default' value='' extraClass='mt-6' />
-      <PasswordInput size='default' value='' extraClass='mt-6' />
-      <Button htmlType='button' type='primary' size='medium' extraClass='mt-6'>Войти</Button>
+      <form action="login">
+        <h1 className='text text_type_main-medium'>Вход</h1>
+        <EmailInput size='default' value='' extraClass='mt-6' />
+        <PasswordInput size='default' value='' extraClass='mt-6' />
+        <Button htmlType='button' type='primary' size='medium' extraClass='mt-6'>Войти</Button>
+      </form>
       <p className="text text_type_main-default text_color_inactive mt-20">
-        Вы — новый пользователь?&nbsp;
+        Вы&nbsp;&mdash; новый пользователь?&nbsp;
         <Link to='/register' style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Зарегистрироваться</span>
         </Link>
       </p>
       <p className="text text_type_main-default text_color_inactive mt-4">
-        Забыли пароль?&nbsp;
+        Забыли&nbsp;пароль?&nbsp;
         <Link to='/forgot-password' style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Восстановить&nbsp;пароль</span>
         </Link>

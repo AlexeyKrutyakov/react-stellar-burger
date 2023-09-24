@@ -1,0 +1,33 @@
+.content {
+  display: flex;
+  flex-direction: row;
+  width: 1242px;
+  padding-top: 120px;
+  justify-content: start;
+  align-self: center;
+  gap: 60px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+}
+
+.menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu_item {
+  display: flex;
+  width: 320px;
+  height: 64px;
+  align-items: center;
+}
+
+.link {
+  text-decoration: none;
+  color: #f2f2f3;
+}

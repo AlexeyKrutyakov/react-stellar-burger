@@ -6,10 +6,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
 //import pages
-import MainPage from "../../pages/main-page";
+import MainPage from "../../pages/main/main-page";
 import LoginPage from "../../pages/login/login-page";
-import ProfilePage from "../../pages/profile-page";
-import RegisterPage from "../../pages/register-page";
+import ProfilePage from "../../pages/profile/profile-page";
+import RegisterPage from "../../pages/register/register-page";
 // import components
 import Modal from "../modal/modal";
 import AppHeader from "../app-header/app-header";
@@ -22,7 +22,7 @@ import { loadIngredients } from "../../services/ingredientsSlice";
 // import utils
 import { MODAL } from "../../utils/constants";
 import ForgotPasswordPage from "../../pages/forgot-password/forgot-password-page";
-import ResetPasswordPage from "../../pages/reset-password-page";
+import ResetPasswordPage from "../../pages/reset-password/reset-password-page";
 import IngredientPage from "../../pages/ingredient/ingredient-page";
 
 
