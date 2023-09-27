@@ -28,7 +28,7 @@ const ingredientsSlice = createSlice({
         return {
           ...state,
           loaded: action.payload.data,
-          status: 'loaded'
+          status: 'loaded',
         }
       })
       .addCase(loadIngredients.rejected, (state, action) => {
