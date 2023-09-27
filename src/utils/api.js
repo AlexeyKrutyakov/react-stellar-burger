@@ -37,7 +37,7 @@ export function requestOrder(idList) {
   });
 };
 
-export function requestPasswordForgot(email) {
+export function requestForgotPassword({ email }) {
   return requestApi('password-reset', {
     method: 'POST',
     body: JSON.stringify({
@@ -47,12 +47,14 @@ export function requestPasswordForgot(email) {
   });
 };
 
-export function resetPasswordReset(password, token) {
+export function requestResetPassword({ password, code }) {
+  console.log('password in api', password);
+  console.log('token in api', code);
   return requestApi('password-reset/reset', {
     method: 'POST',
     body: JSON.stringify({
       'password': password,
-      'token': token,
+      'token': code,
     }),
     headers: config.headers,
   });

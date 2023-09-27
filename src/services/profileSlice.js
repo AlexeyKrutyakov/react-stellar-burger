@@ -1,15 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { requestPasswordForgot } from "../utils/api";
+import { requestForgotPassword, requestResetPassword } from "../utils/api";
 
-export const requestResetToken = createAsyncThunk(
-  '@@profile/fetcResetPassword',
-  requestPasswordForgot
+export const getResetToken = createAsyncThunk(
+  '@@profile/fetcResetToken',
+  requestForgotPassword
+);
+export const resetPassword = createAsyncThunk(
+  '@@profile/fetchResetPassword',
+  requestResetPassword
 );
 
 const initialState = {
-  login: '',
-  email: '',
   token: '',
   status: '',
   requestHasError: false,
@@ -22,18 +24,33 @@ const profileSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(requestResetToken.pending, state => {
+      .addCase(getResetToken.pending, state => {
         state.status = 'pending';
       })
-      .addCase(requestResetToken.fulfilled, (state, action) => {
+      .addCase(getResetToken.fulfilled, (state, action) => {
         state.status = action.payload.message;
       })
-      .addCase(requestResetToken.rejected, (state, action) => {
+      .addCase(getResetToken.rejected, (state, action) => {
         return {
           ...state,
           status: 'rejected',
           requestHasError: true,
           errorMessage: action.payload.error.message,
+        }
+      })
+      .addCase(resetPassword.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(resetPassword.fulfilled, (state, action) => {
+        state.status = action.payload.message;
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        console.log(action.payload);
+        return {
+          ...state,
+          status: 'rejected',
+          requestHasError: true,
+          // errorMessage: action.payload,
         }
       });
   }
