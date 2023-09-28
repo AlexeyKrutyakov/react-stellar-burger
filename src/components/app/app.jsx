@@ -32,14 +32,14 @@ function App() {
   
   const currentModal = useSelector(state => state.modal);
 
-  const handleCloseModal = (payload) => {
-   dispatch(closeModal(payload));
+  const handleCloseModal = () => {
+   dispatch(closeModal());
   }
 
   useEffect(() => {
     dispatch(showSpinner());
     dispatch(loadIngredients());
-    dispatch(closeModal({ type: MODAL.type.loadingSpinner}));
+    dispatch(closeModal());
     // eslint-disable-next-line
   }, []);
 

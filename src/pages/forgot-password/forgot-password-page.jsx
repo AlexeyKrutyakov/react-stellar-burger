@@ -6,7 +6,6 @@ import { getResetToken } from '../../services/profileSlice';
 import { showSpinner, closeModal } from '../../services/modalSlice';
 
 import { useDispatch } from 'react-redux';
-import { MODAL } from '../../utils/constants';
 
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -22,7 +21,7 @@ export default function ForgotPasswordPage() {
     dispatch(showSpinner());
     dispatch(getResetToken({ email }));
     setEmail('');
-    dispatch(closeModal({ type: MODAL.type.loadingSpinner}));
+    dispatch(closeModal());
   }
   
   return(

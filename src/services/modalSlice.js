@@ -52,20 +52,8 @@ const modalSlice = createSlice({
         
       }
     },
-    closeModal: (state, action) => {
-      if (action.payload.type === MODAL.type.ingredientsDetails) {
-        return {
-          ...state,
-          type: '',
-          isActive: false,
-          currentIngredient: {}
-        }
-      }
-      return {
-        ...state,
-        type: '',
-        isActive: false,
-      }
+    closeModal: () => {
+      return initialState;
     },
   }
 });

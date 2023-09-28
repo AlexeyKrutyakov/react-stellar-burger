@@ -8,7 +8,6 @@ import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer
 import { useDispatch } from 'react-redux';
 import { login } from '../../services/profileSlice';
 import { closeModal, showSpinner } from '../../services/modalSlice';
-import { MODAL } from '../../utils/constants';
 
 export default function LoginPage() {
   const [email, setEmail] = React.useState('');
@@ -23,7 +22,7 @@ export default function LoginPage() {
     dispatch(login({ email, password }));
     setEmail('');
     setPassword('');
-    dispatch(closeModal({ type: MODAL.type.loadingSpinner }));
+    dispatch(closeModal());
   }
 
   return(

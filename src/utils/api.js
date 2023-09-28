@@ -5,13 +5,6 @@ const config = {
   },
 };
 
-// function requestApi(endPoint, options) {
-  //   if (options.method === 'GET'
-  //   || options.method ==='POST') {
-    //     return request(endPoint, options);
-    //   } else return new Error(`Error: unknown request method '${options.method}'`);
-    // };
-
 function requestApi(endPoint, options) {
   const method = options.method;
   const headers = config.headers;

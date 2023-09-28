@@ -1,5 +1,4 @@
 import styles from './reset-password.module.css';
-import { MODAL } from '../../utils/constants';
 
 import { Link } from 'react-router-dom';
 
@@ -23,7 +22,7 @@ export default function ResetPasswordPage() {
     dispatch(resetPassword({ password, code }));
     setPassword('');
     setCode('');
-    dispatch(closeModal({ type: MODAL.type.loadingSpinner }))
+    dispatch(closeModal());
   }
 
   return(
