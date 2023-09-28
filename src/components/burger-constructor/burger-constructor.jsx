@@ -17,7 +17,6 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
 
   const burgerConstructorData = useSelector(state => state.burger);
-  const orderData = useSelector(state => state.order);
 
   const bun = burgerConstructorData.bun;  
   const mains = burgerConstructorData.mains;
@@ -34,9 +33,8 @@ function BurgerConstructor() {
     if (ingredientsIdList.length >= 1) {
       dispatch(showSpinner());
       dispatch(submitOrder(ingredientsIdList));
-      if (orderData.status === 'loaded') dispatch(resetConstructorData());
-      dispatch(closeModal({ type: MODAL.type.loadingSpinner}));
-      dispatch(openModal({ type: MODAL.type.order }));
+      dispatch(closeModal());
+      dispatch(openModal({ type: MODAL.type.order })) && dispatch(resetConstructorData());
     }
   }
 
