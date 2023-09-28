@@ -29,5 +29,8 @@
 
 .link {
   text-decoration: none;
+}
+
+.link_active {
   color: #f2f2f3;
 }

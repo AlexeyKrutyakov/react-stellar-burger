@@ -9,17 +9,17 @@ export default function ProfilePage() {
         <ul className={styles.menu}>
           <li className={styles.menu_item}>
             <Link to='/profile' className={styles.link} >
-              <p className='text text_type_main-medium'>Профиль</p>
+              <p className={`${styles.link_active} text text_type_main-medium`}>Профиль</p>
             </Link>
           </li>
           <li className={styles.menu_item}>
-            <p className='text text_type_main-medium text_color_inactive'>История&nbsp;заказов</p>
+            <p className={`text text_type_main-medium text_color_inactive`}>История&nbsp;заказов</p>
           </li>
           <li className={styles.menu_item}>
-            <p className='text text_type_main-medium text_color_inactive'>Выход</p>
+            <p className={`text text_type_main-medium text_color_inactive`}>Выход</p>
           </li>
         </ul>
-        <span className='text text_type_main-default text_color_inactive mt-20' style={{ opacity: 0.4}}>
+        <span className={`text text_type_main-default text_color_inactive mt-20`} style={{ opacity: 0.4}}>
           В этом разделе вы можете<br/>изменить свои персональные данные
         </span>
       </div>

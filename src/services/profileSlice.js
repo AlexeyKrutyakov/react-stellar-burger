@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { requestForgotPassword, requestResetPassword } from "../utils/api";
+import { requestForgotPassword, requestLogin, requestResetPassword } from "../utils/api";
 
 export const getResetToken = createAsyncThunk(
   '@@profile/fetcResetToken',
@@ -11,8 +11,23 @@ export const resetPassword = createAsyncThunk(
   requestResetPassword
 );
 
+// export const register = createAsyncThunk(
+//   '@@profile/fetchRegister',
+//   requestRegister
+// );
+
+export const login = createAsyncThunk(
+  '@@profile/fetchLogin',
+  requestLogin
+);
+
 const initialState = {
-  token: '',
+  accessToken: '',
+  refreshToken: '',
+  user: {
+    email: '',
+    name: '',
+  },
   status: '',
   requestHasError: false,
   errorMessage: '',
@@ -36,22 +51,54 @@ const profileSlice = createSlice({
           status: 'rejected',
           requestHasError: true,
           errorMessage: action.payload.error.message,
-        }
+        };
       })
       .addCase(resetPassword.pending, state => {
         state.status = 'pending';
       })
       .addCase(resetPassword.fulfilled, (state, action) => {
-        state.status = action.payload.message;
+        return {
+          ...state,
+          status: action.payload.message,
+          requestHasError: false,
+          errorMessage: '',
+        };
       })
       .addCase(resetPassword.rejected, (state, action) => {
-        console.log(action.payload);
+        console.log('slice state', state);
+        console.log('slice action', action);
         return {
           ...state,
           status: 'rejected',
           requestHasError: true,
-          // errorMessage: action.payload,
-        }
+          errorMessage: action.error.message,
+        };
+      })
+      .addCase(login.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        return {
+          ...state,
+          accessToken: action.payload.accessToken,
+          refreshToken: action.payload.refreshToken,
+          user: {
+            email: action.payload.user.email,
+            name: action.payload.user.name,
+          },
+          status: 'logged in successful',
+          requestHasError: false,
+          errorMessage: '',
+
+        };
+      })
+      .addCase(login.rejected, (state, action) => {
+        return {
+          ...state,
+          status: 'rejected',
+          requestHasError: true,
+          errorMessage: action.error.message,
+        };
       });
   }
 });

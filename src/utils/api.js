@@ -5,11 +5,34 @@ const config = {
   },
 };
 
+// function requestApi(endPoint, options) {
+  //   if (options.method === 'GET'
+  //   || options.method ==='POST') {
+    //     return request(endPoint, options);
+    //   } else return new Error(`Error: unknown request method '${options.method}'`);
+    // };
+
 function requestApi(endPoint, options) {
-  if (options.method === 'GET'
-  || options.method ==='POST') {
-    return request(endPoint, options);
-  } else return new Error(`Error: unknown request method '${options.method}'`);
+  const method = options.method;
+  const headers = config.headers;
+
+  switch (method) {
+    case 'GET':
+      return request(endPoint, {
+        method,
+        headers,
+      });
+    case 'POST':
+      return request(endPoint, {
+        method,
+        headers,
+        body: JSON.stringify({
+          ...options.data,
+        }),
+      })
+    default:
+      return new Error(`Error: unknown request method '${options.method}'`);
+  };
 };
       
 function request(endPoint, options) {
@@ -23,39 +46,55 @@ function checkResult(res) {
 export function requestIngredients() {
   return requestApi('ingredients', {
     method: 'GET',
-    headers: config.headers,
   });
 };
 
-export function requestOrder(idList) {
+export function requestOrder(ingredients) {
   return requestApi('orders', {
     method: 'POST',
-    body: JSON.stringify({
-      'ingredients': idList
-    }),
-    headers: config.headers,
+    data: {
+      ingredients,
+    },
   });
 };
 
 export function requestForgotPassword({ email }) {
   return requestApi('password-reset', {
     method: 'POST',
-    body: JSON.stringify({
-      'email': email,
-    }),
-    headers: config.headers,
+    data: {
+      email,
+    },
   });
 };
 
 export function requestResetPassword({ password, code }) {
-  console.log('password in api', password);
-  console.log('token in api', code);
   return requestApi('password-reset/reset', {
     method: 'POST',
-    body: JSON.stringify({
-      'password': password,
-      'token': code,
-    }),
-    headers: config.headers,
+    data: {
+      password,
+      code,
+    },
   });
 };
+
+
+export function requestRegister({ email, password, name }) {
+  return requestApi('auth/register', {
+    method: 'POST',
+    data: {
+      email,
+      password,
+      name,
+    },
+  })
+}
+
+export function requestLogin({ email, password }) {
+  return requestApi('auth/login', {
+    method: 'POST',
+    data: {
+      email,
+      password,
+    },
+  });
+}
