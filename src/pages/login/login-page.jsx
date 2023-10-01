@@ -1,13 +1,12 @@
 import styles from './login-page.module.css';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
 
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from 'react-redux';
 import { login } from '../../services/profileSlice';
-import { closeModal, showSpinner } from '../../services/modalSlice';
+
 
 export default function LoginPage() {
   const [email, setEmail] = React.useState('');
@@ -15,23 +14,24 @@ export default function LoginPage() {
 
   const dispatch = useDispatch();
 
-  function handleButtonClick(event) {
-    event.preventDefault();
-
-    dispatch(showSpinner());
+  function handleLoginClick() {
     dispatch(login({ email, password }));
     setEmail('');
     setPassword('');
-    dispatch(closeModal());
   }
 
+  useEffect(() => {
+    document.title = 'Stellar Burgers: Login';
+  // eslint-disable-next-line
+  },[]);
+  
   return(
     <div className={styles.content}>
       <form action="login">
         <h1 className='text text_type_main-medium'>Вход</h1>
-        <EmailInput size='default' value={email} onChange={e => setEmail(e.target.value)} extraClass='mt-6' />
-        <PasswordInput size='default' value={password} onChange={e => setPassword(e.target.value)} extraClass='mt-6' />
-        <Button htmlType='button' type='primary' size='medium' extraClass='mt-6' onClick={handleButtonClick}>Войти</Button>
+        <EmailInput size='default' defaultValue={'sk1alexey@yandex.ru'} onChange={e => setEmail(e.target.value)} extraClass='mt-6' />
+        <PasswordInput size='default' defaultValue={'aKrutyakov@$05'} onChange={e => setPassword(e.target.value)} extraClass='mt-6' />
+        <Button htmlType='button' type='primary' size='medium' extraClass='mt-6' onClick={handleLoginClick}>Войти</Button>
       </form>
       <p className="text text_type_main-default text_color_inactive mt-20">
         Вы&nbsp;&mdash; новый пользователь?&nbsp;

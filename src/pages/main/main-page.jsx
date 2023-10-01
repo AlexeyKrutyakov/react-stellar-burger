@@ -6,6 +6,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { openModal } from "../../services/modalSlice";
 import BurgerIngredients from '../../components/burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
+import { useEffect } from 'react';
 
 export default function MainPage() {
 
@@ -15,6 +16,10 @@ export default function MainPage() {
   const handleOpenModal = (type) => {
     dispatch(openModal(type));
   }
+
+  useEffect(() => {
+    document.title = 'Stellar Burgers: Main';
+  });
   
   return(
     <DndProvider backend={HTML5Backend}>

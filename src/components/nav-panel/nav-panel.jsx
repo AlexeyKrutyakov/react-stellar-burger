@@ -8,7 +8,7 @@ function NavPanel () {
     <nav className={`${styles.panel} mt-4 mb-4`}>
       <ul className={styles.list}>
         <li className={`${styles.list__element} mt-4 mr-5 mb-4 ml-5`}>
-          <a className={styles.link} href="/constructor">
+          <a className={styles.link} href="/">
             <BurgerIcon type='primary' />
             <p className="text text_type_main-default">Конструктор</p>
           </a>
@@ -21,13 +21,11 @@ function NavPanel () {
         </li>
       </ul>
         <div className={styles.wrapper_logo}>
-          <a href='/'>
-           <Logo />
-          </a>
+          <Logo />
         </div>
       <ul className={styles.list}>
         <li className={`${styles.list__element} mt-4 mr-5 mb-4 ml-5`}>
-          <a className={styles.link} href="/login">
+          <a className={styles.link} href="/profile">
             <ProfileIcon type='secondary' />
             <p className="text text_type_main-default text_color_inactive">Личный кабинет</p>
           </a>

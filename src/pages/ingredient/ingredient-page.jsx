@@ -1,9 +1,15 @@
+import { useEffect } from 'react';
 import styles from './ingredient-page.module.css';
 
 import { useSelector } from "react-redux";
 
 export default function IngredientPage() {
   const ingredient = useSelector(state => state.modal.currentIngredient);
+
+  useEffect(() => {
+    document.title = 'Stellar Burgers: Ingredient';
+  });
+
   return (
     <div className={styles.content}>
       <h1 className={`${styles.title} text text_type_main-large`}>

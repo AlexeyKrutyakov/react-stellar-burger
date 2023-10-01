@@ -1,10 +1,8 @@
 import styles from "./app.module.css";
 // imports from modules
 import { useEffect } from "react";
-import { DndProvider } from "react-dnd";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { HTML5Backend } from "react-dnd-html5-backend";
 //import pages
 import MainPage from "../../pages/main/main-page";
 import LoginPage from "../../pages/login/login-page";
@@ -17,13 +15,16 @@ import OrderDetails from "../order-details/order-details";
 import LoadingSpinner from "../loading-spinner/loading-spinner";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 // import services
-import { showSpinner, closeModal } from "../../services/modalSlice";
+import { closeModal } from "../../services/modalSlice";
 import { loadIngredients } from "../../services/ingredientsSlice";
 // import utils
 import { MODAL } from "../../utils/constants";
 import ForgotPasswordPage from "../../pages/forgot-password/forgot-password-page";
 import ResetPasswordPage from "../../pages/reset-password/reset-password-page";
 import IngredientPage from "../../pages/ingredient/ingredient-page";
+import NotFound404 from "../../pages/not-found/not-found";
+import { OnlyAuth, OnlyUnauth } from "../protected-route/protected-route-element";
+import { checkUserAuth } from "../../services/profileSlice";
 
 
 function App() {
@@ -37,36 +38,38 @@ function App() {
   }
 
   useEffect(() => {
-    dispatch(showSpinner());
     dispatch(loadIngredients());
-    dispatch(closeModal());
-    // eslint-disable-next-line
+  // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    dispatch(checkUserAuth());
+  // eslint-disable-next-line
   }, []);
 
   return (
-    <DndProvider backend={HTML5Backend}>
-        <div className={styles.app}>
-          <AppHeader />
-          <Router>
-            <Routes>
-              <Route path='/' element={<MainPage />} />
-              <Route path='/login' element={<LoginPage />} />
-              <Route path='/profile' element={<ProfilePage />} />
-              <Route path='/register' element={<RegisterPage />} />
-              <Route path='/reset-password' element={<ResetPasswordPage />} />
-              <Route path='/forgot-password' element={<ForgotPasswordPage />} />
-              <Route path='/ingredients/:id' element={<IngredientPage />} />
-            </Routes>
-          </Router>
-          {currentModal.isActive &&
-              <Modal onCloseModal={handleCloseModal}>
-                {currentModal.type === MODAL.type.order && <OrderDetails />}
-                {currentModal.type === MODAL.type.ingredientsDetails && <IngredientDetails />}
-              </Modal>
-            }
-          {currentModal.type === MODAL.type.loadingSpinner && currentModal.isActive && <LoadingSpinner />}
-        </div>
-      </DndProvider>
+    <div className={styles.app}>
+      <AppHeader />
+      <Router>
+        <Routes>
+          <Route path='/login' element={<OnlyUnauth component={<LoginPage />} />} />
+          <Route path='/' element={<OnlyAuth component={<MainPage />} />} />
+          <Route path='/profile' element={<OnlyAuth component={<ProfilePage />} />} />
+          <Route path='/register' element={<OnlyAuth component={<RegisterPage />} />} />
+          <Route path='/reset-password' element={<OnlyAuth component={<ResetPasswordPage />} />} />
+          <Route path='/forgot-password' element={<OnlyAuth component={<ForgotPasswordPage />} />} />
+          <Route path='/ingredients/:id' element={<OnlyAuth component={<IngredientPage />} />} />
+          <Route path='*' element={<NotFound404 />} />
+        </Routes>
+      </Router>
+      {currentModal.isActive &&
+          <Modal onCloseModal={handleCloseModal}>
+            {currentModal.type === MODAL.type.order && <OrderDetails />}
+            {currentModal.type === MODAL.type.ingredientsDetails && <IngredientDetails />}
+          </Modal>
+        }
+      {currentModal.type === MODAL.type.loadingSpinner && currentModal.isActive && <LoadingSpinner />}
+    </div>
   );
 }
 

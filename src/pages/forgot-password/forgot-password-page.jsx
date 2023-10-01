@@ -1,5 +1,5 @@
 import styles from './forgot-password.module.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import { getResetToken } from '../../services/profileSlice';
@@ -23,9 +23,14 @@ export default function ForgotPasswordPage() {
     setEmail('');
     dispatch(closeModal());
   }
+
+  useEffect(() => {
+    document.title = 'Stellar Burgers: Forgot password';
+  });
   
   return(
     <div className={styles.content}>
+      <title>Stellar Burgers: Forgot password</title>
       <form action="login">
         <h1 className='text text_type_main-medium'>Восстановление&nbsp;пароля</h1>
         <EmailInput size='default' placeholder='Укажите&nbsp;e-mail' onChange={e => setEmail(e.target.value)} value={email} extraClass='mt-6' />

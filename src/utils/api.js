@@ -5,7 +5,7 @@ const config = {
   },
 };
 
-function requestApi(endPoint, options) {
+function requestApi(endPoint, options, token='') {
   const method = options.method;
   const headers = config.headers;
 
@@ -13,12 +13,18 @@ function requestApi(endPoint, options) {
     case 'GET':
       return request(endPoint, {
         method,
-        headers,
+        headers: {
+          ...headers,
+          Authorization: token,
+        },
       });
     case 'POST':
       return request(endPoint, {
         method,
-        headers,
+        headers: {
+          ...headers,
+          Authorization: token,
+        },
         body: JSON.stringify({
           ...options.data,
         }),
@@ -33,61 +39,96 @@ function request(endPoint, options) {
 };
 
 function checkResult(res) {
+
   return res.ok ? res.json() : Promise.reject('requestApi error');
 };
 
 export function requestIngredients() {
-  return requestApi('ingredients', {
-    method: 'GET',
-  });
+  return requestApi(
+    'ingredients',
+    {
+      method: 'GET',
+    },
+  );
 };
 
 export function requestOrder(ingredients) {
-  return requestApi('orders', {
-    method: 'POST',
-    data: {
-      ingredients,
+  return requestApi(
+    'orders',
+    {
+      method: 'POST',
+      data: { ingredients },
     },
-  });
+  );
 };
 
-export function requestForgotPassword({ email }) {
-  return requestApi('password-reset', {
-    method: 'POST',
-    data: {
-      email,
+export function requestResetToken({ email }) {
+  return requestApi(
+    'password-reset',
+    {
+      method: 'POST',
+      data: { email },
     },
-  });
+  );
 };
 
 export function requestResetPassword({ password, code }) {
-  return requestApi('password-reset/reset', {
-    method: 'POST',
-    data: {
-      password,
-      code,
+  return requestApi(
+    'password-reset/reset',
+    {
+      method: 'POST',
+      data: { password, code },
     },
-  });
+  );
 };
 
 
-export function requestRegister({ email, password, name }) {
-  return requestApi('auth/register', {
-    method: 'POST',
-    data: {
-      email,
-      password,
-      name,
+export function requestRegistration({ email, password, name }) {
+  return requestApi(
+    'auth/register',
+    {
+      method: 'POST',
+      data: { email, password, name },
     },
-  })
-}
+  );
+};
 
 export function requestLogin({ email, password }) {
-  return requestApi('auth/login', {
-    method: 'POST',
-    data: {
-      email,
-      password,
+  return requestApi(
+    'auth/login',
+    {
+      method: 'POST',
+      data: { email, password },
     },
-  });
-}
+  );
+};
+
+export function requestLogout(token) {
+  return requestApi(
+    'auth/logout',
+    {
+      method: 'POST',
+      data: { token },
+    },
+  );
+};
+
+export function requestNewTokens(token) {
+  return requestApi(
+    'auth/token',
+    {
+      method: 'POST',
+      data: { token },
+    },
+  );
+};
+
+export function requestGetUserInfo(token) {
+  return requestApi(
+    'auth/user',
+    {
+      method: 'GET',
+    },
+    token,
+  );
+};

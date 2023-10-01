@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 import { Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { resetPassword } from '../../services/profileSlice';
 import { closeModal, showSpinner } from '../../services/modalSlice';
@@ -24,6 +24,10 @@ export default function ResetPasswordPage() {
     setCode('');
     dispatch(closeModal());
   }
+
+  useEffect(() => {
+    document.title = 'Stellar Burgers: Reset password';
+  });
 
   return(
     <div className={styles.content}>

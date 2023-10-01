@@ -13,3 +13,12 @@ export const INGREDIENTS = {
     sauce: 'sauce',
   }
 }
+
+export const COOKIES = {
+  tokens: {
+    names: {
+      access: 'accessToken',
+      refresh: 'refreshToken',
+    }
+  }
+}

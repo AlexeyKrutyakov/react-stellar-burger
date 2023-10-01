@@ -34,3 +34,7 @@
 .link_active {
   color: #f2f2f3;
 }
+
+.link_inactive {
+  cursor: pointer;
+}

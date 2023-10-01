@@ -3,12 +3,16 @@ import styles from './register-page.module.css';
 import { Link } from 'react-router-dom';
 
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function RegisterPage() {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  useEffect(() => {
+    document.title = 'Stellar Burgers: Register';
+  });
 
   return(
     <div className={styles.content}>
