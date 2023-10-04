@@ -6,8 +6,6 @@ function ProtectedRouteElement({ component, onlyUnauth = false }) {
   const user = useSelector(state => state.profile.user);
   const location = useLocation();
 
-  console.log(isAuthChecked);
-
   if (!isAuthChecked) {
     return null;
   }

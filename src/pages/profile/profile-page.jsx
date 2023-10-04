@@ -2,16 +2,13 @@ import styles from './profile-page.module.css';
 import { Link } from 'react-router-dom';
 import { Input, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from 'react-redux';
-// import { getNewTokens, getUserInfo } from '../../services/profileSlice';
-import { getCookie } from '../../utils/cookies';
-import { COOKIES } from '../../utils/constants';
 import { logout } from '../../services/profileSlice';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function ProfilePage() {
-  const refreshTokenName = COOKIES.tokens.names.refresh;
-  const refreshToken = getCookie(refreshTokenName);
+  const refreshToken = localStorage.getItem('refreshToken');
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,18 +18,6 @@ export default function ProfilePage() {
     dispatch(logout(refreshToken));
     navigate('/login');
   };
-
-  function userInfoClickHandler() {
-    // const accessToken = getCookie(accessTokenName);
-    console.log(refreshToken);
-
-  //   if (!accessToken) {
-  //     console.log('getting new tokens');
-  //     dispatch(getNewTokens(refreshToken));
-  //   }
-  //   console.log('getting user info');
-  //   dispatch(getUserInfo(addScheme('Bearer',accessToken)));
-  }
 
   useEffect(() => {
     document.title = 'Stellar Burgers: Profile';
@@ -65,7 +50,6 @@ export default function ProfilePage() {
         <EmailInput placeholder='Логин' value='mail@stellar.burgers' isIcon={true} extraClass='mt-6'/>
         <PasswordInput value='hfjl&90*ljh' icon='EditIcon' extraClass='mt-6'/>
       </form>
-      <button onClick={userInfoClickHandler}>UserInfo</button>
     </div>
   );
 }

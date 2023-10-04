@@ -1,4 +1,4 @@
-import styles from './main-page.module.css';
+import styles from './home-page.module.css';
 import { DndProvider } from "react-dnd";
 import { useDispatch, useSelector } from 'react-redux';
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -8,7 +8,7 @@ import BurgerIngredients from '../../components/burger-ingredients/burger-ingred
 import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
 import { useEffect } from 'react';
 
-export default function MainPage() {
+export default function HomePage() {
 
   const dispatch = useDispatch();
   const ingredientsLoadingStatus = useSelector(state => state.ingredients.status);
@@ -18,7 +18,7 @@ export default function MainPage() {
   }
 
   useEffect(() => {
-    document.title = 'Stellar Burgers: Main';
+    document.title = 'Stellar Burgers: Home';
   });
   
   return(

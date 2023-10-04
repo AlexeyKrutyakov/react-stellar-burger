@@ -1,15 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { requestResetToken, requestGetUserInfo, requestLogin, requestResetPassword, requestNewTokens, requestLogout } from "../utils/api";
-import { deleteCookie, getCookie, setCookie } from "../utils/cookies";
-import { COOKIES } from "../utils/constants";
-import addScheme from "../utils/add-scheme";
-import removeScheme from "../utils/remove-scheme";
+import {
+  requestResetToken,
+  requestGetUserInfo,
+  requestLogin,
+  requestResetPassword,
+  requestNewTokens,
+  requestLogout,
+  requestRegistration
+} from "../utils/api";
 
-const accessTokenName = COOKIES.tokens.names.access;
-const refreshTokenName = COOKIES.tokens.names.refresh;
-
-const accessToken = addScheme('Bearer', getCookie(accessTokenName));
+const accessToken = localStorage.getItem('accessToken');
 
 export const getUser = () => {
   return (dispatch) => {
@@ -50,10 +51,10 @@ export const getNewTokens = createAsyncThunk(
   requestNewTokens
 );
 
-// export const register = createAsyncThunk(
-//   '@@profile/fetchRegister',
-//   requestRegister
-// );
+export const register = createAsyncThunk(
+  '@@profile/fetchRegister',
+  requestRegistration
+);
 
 export const login = createAsyncThunk(
   '@@profile/fetchLogin',
@@ -63,11 +64,6 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk(
   '@@profile/fetchLogout',
   requestLogout
-);
-
-export const getUserInfo = createAsyncThunk(
-  '@@profile/fetchUserInfo',
-  requestGetUserInfo
 );
 
 const initialState = {
@@ -99,6 +95,27 @@ const profileSlice = createSlice({
   },
   extraReducers: builder => {
     builder
+      .addCase(register.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        const accessToken = action.payload.accessToken;
+        const refreshToken = action.payload.refreshToken;
+
+        localStorage.setItem('accessToken', `${accessToken}`)
+        localStorage.setItem('refreshToken', refreshToken)
+
+        return {
+          ...state,
+          user: {
+            email: action.payload.user.email,
+            name: action.payload.user.name,
+          },
+        };
+      })
+      .addCase(register.rejected, (state, action) => {
+
+      })
       .addCase(getResetToken.pending, state => {
         state.status = 'pending';
       })
@@ -136,21 +153,14 @@ const profileSlice = createSlice({
         state.status = 'pending';
       })
       .addCase(login.fulfilled, (state, action) => {
-        const accessToken = removeScheme('Bearer', action.payload.accessToken);
-        const refreshToken = action.payload.refreshToken;
-        const userEmail = action.payload.user.email;
-        const userName = action.payload.user.name;
-
-        setCookie(accessTokenName, accessToken);
-        setCookie(refreshTokenName, refreshToken);
+        localStorage.setItem('accessToken', action.payload.accessToken);
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
 
         return {
           ...state,
-          accessToken: accessToken,
-          refreshToken: refreshToken,
           user: {
-            email: userEmail,
-            name: userName,
+            email: action.payload.user.email,
+            name: action.payload.user.name,
           },
           status: 'logged in successful',
           requestHasError: false,
@@ -170,8 +180,9 @@ const profileSlice = createSlice({
         state.status = 'pending';
       })
       .addCase(logout.fulfilled, (state, action) => {
-        deleteCookie(accessTokenName);
-        deleteCookie(refreshTokenName);
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+
         return {
           ...state,
           user: null,
@@ -186,39 +197,16 @@ const profileSlice = createSlice({
           errorMessage: action.error.message,
         }
       })
-      .addCase(getUserInfo.pending, state => {
-        state.status = 'pending';
-      })
-      .addCase(getUserInfo.fulfilled, (state, action) => {
-        return {
-          ...state,
-          user: {
-              email: action.payload.user.email,
-              name: action.payload.user.name,
-            },
-            status: 'user info successful loaded',
-            requestHasError: false,
-            errorMessage: '',
-          }
-        })
-        .addCase(getUserInfo.rejected, (state, action) => {
-        return {
-          ...state,
-          status: 'rejected',
-          requestHasError: true,
-          errorMessage: action.error.message,
-        }
-      })
       .addCase(getNewTokens.pending, state => {
         state.status = 'pending';
       })
       .addCase(getNewTokens.fulfilled, (state, action) => {
-        const newAccessToken = removeScheme('Bearer', action.payload.accessToken);
+        const newAccessToken = action.payload.accessToken;
         const newRefreshToken = action.payload.refreshToken;
 
-        setCookie(accessTokenName, newAccessToken, { expires: (60 * 20) });
-        setCookie(refreshTokenName, newRefreshToken);
-        
+        localStorage.setItem('accessToken', newAccessToken);
+        localStorage.setItem('refreshToken', newRefreshToken);
+                
         return {
           ...state,
           accessToken: newAccessToken,

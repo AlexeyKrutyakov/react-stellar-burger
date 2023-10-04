@@ -1,10 +1,10 @@
 import styles from "./app.module.css";
 // imports from modules
 import { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 //import pages
-import MainPage from "../../pages/main/main-page";
+import HomePage from "../../pages/home/home-page";
 import LoginPage from "../../pages/login/login-page";
 import ProfilePage from "../../pages/profile/profile-page";
 import RegisterPage from "../../pages/register/register-page";
@@ -50,18 +50,16 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Router>
         <Routes>
           <Route path='/login' element={<OnlyUnauth component={<LoginPage />} />} />
-          <Route path='/' element={<OnlyAuth component={<MainPage />} />} />
+          <Route path='/' element={<OnlyAuth component={<HomePage />} />} />
           <Route path='/profile' element={<OnlyAuth component={<ProfilePage />} />} />
-          <Route path='/register' element={<OnlyAuth component={<RegisterPage />} />} />
+          <Route path='/register' element={<OnlyUnauth component={<RegisterPage />} />} />
           <Route path='/reset-password' element={<OnlyAuth component={<ResetPasswordPage />} />} />
           <Route path='/forgot-password' element={<OnlyAuth component={<ForgotPasswordPage />} />} />
           <Route path='/ingredients/:id' element={<OnlyAuth component={<IngredientPage />} />} />
           <Route path='*' element={<NotFound404 />} />
         </Routes>
-      </Router>
       {currentModal.isActive &&
           <Modal onCloseModal={handleCloseModal}>
             {currentModal.type === MODAL.type.order && <OrderDetails />}
