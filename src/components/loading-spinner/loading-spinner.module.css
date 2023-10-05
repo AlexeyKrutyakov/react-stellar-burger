@@ -2,6 +2,7 @@
   0% { opacity: 1 }
   100% { opacity: 0 }
 }
+
 .ldio div {
   left: 94px;
   top: 48px;
@@ -87,6 +88,7 @@
 }
 
 .loadingio_spinner {
+  z-index: 10;
   width: 200px;
   height: 200px;
   display: inline-block;

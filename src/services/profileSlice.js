@@ -11,6 +11,15 @@ import {
 } from "../utils/api";
 import { TOKENS } from "../utils/constants";
 
+
+const initialState = {
+  isAuthChecked: false,
+  user: null,
+  status: '',
+  requestHasError: false,
+  errorMessage: '',
+};
+
 const rejectedStatus = {
   status: 'rejected',
   requestHasError: true,
@@ -40,18 +49,23 @@ export const checkUserAuth = () => {
   };
 };
 
+export const refreshTokens = () => {
+  return (dispatch) => {
+    dispatch(requestNewTokens(localStorage.getItem(TOKENS.names.refresh)))
+      .then(res => dispatch(setNewTokens(res)))
+      .catch((err) => {
+        dispatch(setError(err));
+      })
+  }
+}
+
 export const getResetToken = createAsyncThunk(
-  '@@profile/fetcResetToken',
+  '@@profile/fetchResetToken',
   requestResetToken
 );
 export const resetPassword = createAsyncThunk(
   '@@profile/fetchResetPassword',
   requestResetPassword
-);
-
-export const getNewTokens = createAsyncThunk(
-  '@@profile/fetchNewAccessToken',
-  requestNewTokens
 );
 
 export const register = createAsyncThunk(
@@ -68,14 +82,6 @@ export const logout = createAsyncThunk(
   '@@profile/fetchLogout',
   requestLogout
 );
-
-const initialState = {
-  isAuthChecked: false,
-  user: null,
-  status: '',
-  requestHasError: false,
-  errorMessage: '',
-};
 
 const profileSlice = createSlice({
   name: '@@profile',
@@ -95,6 +101,10 @@ const profileSlice = createSlice({
         errorMessage: action.payload,
       }
     },
+    setNewTokens: (action) => {
+      localStorage.setItem(TOKENS.names.access, action.accessToken);
+      localStorage.setItem(TOKENS.names.refresh, action.refreshToken);
+    }
   },
   extraReducers: builder => {
     builder
@@ -194,31 +204,11 @@ const profileSlice = createSlice({
           errorMessage: action.error.message,
         }
       })
-      .addCase(getNewTokens.pending, state => {
-        state.status = 'pending';
-      })
-      .addCase(getNewTokens.fulfilled, (state, action) => {
-        const newAccessToken = action.payload.accessToken;
-        const newRefreshToken = action.payload.refreshToken;
-        localStorage.setItem(TOKENS.names.access, newAccessToken);
-        localStorage.setItem(TOKENS.names.refresh, newRefreshToken);
-        return {
-          ...state,
-          accessToken: newAccessToken,
-          refreshToken: newRefreshToken,
-        }
-      })
-      .addCase(getNewTokens.rejected, (state, action) => {
-        return {
-          ...state,
-          ...rejectedStatus,
-          errorMessage: action.error.message,
-        }
-      })
   }
 });
 
 export const {
+  setNewTokens,
   setUser,
   setAuthChecked,
   setError,

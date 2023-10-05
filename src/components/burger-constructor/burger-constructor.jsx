@@ -8,16 +8,17 @@ import { Button, CurrencyIcon, ConstructorElement } from '@ya.praktikum/react-de
 // import services
 import { submitOrder } from '../../services/orderSlice';
 import { addBun, addMain, resetConstructorData } from '../../services/burgerSlice';
-import { openModal, showSpinner, closeModal } from '../../services/modalSlice';
+import { openModal} from '../../services/modalSlice';
 // import utils
 import { INGREDIENTS, MODAL } from '../../utils/constants';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const burgerConstructorData = useSelector(state => state.burger);
 
@@ -34,10 +35,9 @@ function BurgerConstructor() {
   const handleSubmitOrder = () => {
     if (burgerConstructorData.bun === null) return;
     if (ingredientsIdList.length >= 1) {
-      dispatch(showSpinner());
       dispatch(submitOrder(ingredientsIdList));
-      dispatch(closeModal());
       dispatch(openModal({ type: MODAL.type.order })) && dispatch(resetConstructorData());
+      navigate('/order-details', { state: { background: location } });
     }
   }
 
@@ -97,14 +97,9 @@ function BurgerConstructor() {
           {totalPrice}
           <span className='ml-2'><CurrencyIcon type='primary' /></span>
         </h2>
-        <Link
-          to='/order-details'
-          state={{ background: location }}
-        >
-          <Button htmlType="button" type="primary" size="large" onClick={handleSubmitOrder}>
-            Оформить заказ
-          </Button>
-        </Link>
+        <Button htmlType="button" type="primary" size="large" onClick={handleSubmitOrder}>
+          Оформить заказ
+        </Button>
       </form>
     </section>
   );

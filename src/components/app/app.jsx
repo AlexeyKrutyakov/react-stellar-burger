@@ -36,6 +36,7 @@ function App() {
   const background = location.state && location.state.background;
   
   const currentModal = useSelector(state => state.modal);
+  const spinnerIsActive = useSelector(state => state.modal.isSpinnerActive);
 
   const ingredientsIsLoaded = useSelector(state => state.ingredients.loaded);
 
@@ -61,15 +62,15 @@ function App() {
         <Routes location={background || location}>
           <Route path='/' element={<OnlyAuth component={<HomePage />} />} />
           <Route path='/profile' element={<OnlyAuth component={<ProfilePage />} />} />
-          <Route path='/reset-password' element={<OnlyAuth component={<ResetPasswordPage />} />} />
           <Route path='/login' element={<OnlyUnauth component={<LoginPage />} />} />
           <Route path='/register' element={<OnlyUnauth component={<RegisterPage />} />} />
+          <Route path='/reset-password' element={<OnlyUnauth component={<ResetPasswordPage />} />} />
           <Route path='/forgot-password' element={<OnlyUnauth component={<ForgotPasswordPage />} />} />
           <Route path='/ingredients/:ingredientId' element={<OnlyAuth component={<IngredientPage />} />} />
           <Route path='*' element={<NotFound404 />} />
         </Routes>
       )}
-      {background && (
+      {background && currentModal.isActive && (
         <Routes>
           <Route
             path='/ingredients/:ingredientId'
@@ -81,7 +82,7 @@ function App() {
             />
           <Route
             path='/order-details'
-            element={
+            element={ !spinnerIsActive && currentModal.isActive &&
               <Modal onCloseModal={handleCloseModal}>
                 {currentModal.type === MODAL.type.order && <OrderDetails />}
               </Modal>
@@ -90,7 +91,7 @@ function App() {
           </Route>
         </Routes>
       )}
-      {currentModal.type === MODAL.type.loadingSpinner && currentModal.isActive && <LoadingSpinner />}
+      { spinnerIsActive && <LoadingSpinner />}
     </div>
   );
 }

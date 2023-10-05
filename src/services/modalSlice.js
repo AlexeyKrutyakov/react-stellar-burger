@@ -6,7 +6,8 @@ const initialState = {
   type: '',
   background: '/',
   isActive: false,
-    currentIngredient: null,
+  isSpinnerActive: false,
+  currentIngredient: null,
 };
 
 const modalSlice = createSlice({
@@ -32,13 +33,11 @@ const modalSlice = createSlice({
           break;
       }
     },
-    showSpinner: (state, _) => {
-      return {
-        ...state,
-        type: MODAL.type.loadingSpinner,
-        isActive: true,
-        
-      }
+    showSpinner: state => {
+      state.isSpinnerActive = true;
+    },
+    closeSpinner: state => {
+      state.isSpinnerActive = false;
     },
     closeModal: () => {
       return initialState;
@@ -50,6 +49,7 @@ export const {
   openModal,
   closeModal,
   showSpinner,
+  closeSpinner,
 } = modalSlice.actions;
 
 export const modalReducer = modalSlice.reducer;
