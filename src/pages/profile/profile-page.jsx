@@ -1,18 +1,43 @@
 import styles from './profile-page.module.css';
 import { Link } from 'react-router-dom';
-import { Input, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../services/profileSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function ProfilePage() {
+  const user = useSelector(state => state.profile.user);
+  const defaultName = user.name;
+  const defaultEmail = user.email;
+  const defaultPassword = '12345678';
+
+  const [name, setName] = useState(defaultName);
+  const [email, setEmail] = useState(defaultEmail);
+  const [password, setPassword] = useState(defaultPassword);
+  const [formIsChanged, setFormIsChanged] = useState(false);
+
+
   const refreshToken = localStorage.getItem('refreshToken');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function inputHandler() {};
+  function inputNameHandler(event) {
+    setFormIsChanged(true);
+    setName(event.target.value);
+  };
+  
+  const inputEmailHandler = (event) => {
+    setFormIsChanged(true);
+    setEmail(event.target.value);
+  };
+  
+  function inputPasswordHandler(event) {
+    setPassword(event.target.value);
+    setFormIsChanged(true);
+  };
 
   function logoutHandler() {
     dispatch(logout(refreshToken));
@@ -36,19 +61,52 @@ export default function ProfilePage() {
             <p className={`text text_type_main-medium text_color_inactive`}>История&nbsp;заказов</p>
           </li>
           <li className={styles.menu_item}>
-            {/* <Link to='/login'> */}
-              <p className={`${styles.link_inactive} text text_type_main-medium text_color_inactive`} onClick={logoutHandler}>Выход</p>
-            {/* </Link> */}
+            <p className={`${styles.link_inactive} text text_type_main-medium text_color_inactive`} onClick={logoutHandler}>Выход</p>
           </li>
         </ul>
         <span className={`text text_type_main-default text_color_inactive mt-20`} style={{ opacity: 0.4}}>
           В этом разделе вы можете<br/>изменить свои персональные данные
         </span>
       </div>
-      <form action="profile">
-        <Input type='text' placeholder='Имя' value='Марк' icon='EditIcon' color='#8585AD' onChange={inputHandler} />
-        <EmailInput placeholder='Логин' value='mail@stellar.burgers' isIcon={true} extraClass='mt-6'/>
-        <PasswordInput value='hfjl&90*ljh' icon='EditIcon' extraClass='mt-6'/>
+      <form className={styles.form} action="profile">
+        <Input
+          type='text'
+          placeholder='Имя'
+          value={name}
+          icon='EditIcon'
+          onChange={inputNameHandler}
+        />
+        <EmailInput
+          placeholder='Логин'
+          value={email}
+          isIcon={true}extraClass='mt-6'
+          onChange={inputEmailHandler}
+        />
+        <PasswordInput
+          value={password}
+          icon='EditIcon'
+          extraClass='mt-6'
+          onChange={inputPasswordHandler}
+        />
+        <div className={styles.buttons}>
+          { formIsChanged &&
+            <Button
+              htmlType='button'
+              extraClass='mt-6'
+              type='secondary'
+            >
+              Отмена
+            </Button>
+          }
+          { formIsChanged &&
+            <Button
+              htmlType='button'
+              extraClass='mt-6'
+            >
+              Сохранить
+            </Button>
+          }
+        </div>
       </form>
     </div>
   );
