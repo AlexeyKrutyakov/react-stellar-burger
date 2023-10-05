@@ -16,7 +16,6 @@ import LoadingSpinner from "../loading-spinner/loading-spinner";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 // import services
 import { closeModal } from "../../services/modalSlice";
-import { loadIngredients } from "../../services/ingredientsSlice";
 // import utils
 import { MODAL } from "../../utils/constants";
 import ForgotPasswordPage from "../../pages/forgot-password/forgot-password-page";
@@ -25,6 +24,7 @@ import IngredientPage from "../../pages/ingredient/ingredient-page";
 import NotFound404 from "../../pages/not-found/not-found";
 import { OnlyAuth, OnlyUnauth } from "../protected-route/protected-route-element";
 import { checkUserAuth } from "../../services/profileSlice";
+import { loadIngredients } from "../../services/ingredientsSlice";
 
 
 function App() {

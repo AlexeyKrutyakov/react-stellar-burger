@@ -1,32 +1,35 @@
+import { BURGER_API_URL, TOKENS } from "./constants";
+
 const config = {
-  baseUrl: 'https://norma.nomoreparties.space/api/',
+  baseUrl: BURGER_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 };
 
-function requestApi(endPoint, options, token='') {
+function requestApi(endPoint, options) {
   const method = options.method;
-  const headers = config.headers;
+  let headers = config.headers;
+
+  if (options.headers) {
+    headers = {
+      ...config.headers,
+      ...options.headers
+    };
+  }
 
   switch (method) {
     case 'GET':
       return request(endPoint, {
         method,
-        headers: {
-          ...headers,
-          Authorization: token,
-        },
+        headers
       });
     case 'POST':
       return request(endPoint, {
         method,
-        headers: {
-          ...headers,
-          Authorization: token,
-        },
+        headers,
         body: JSON.stringify({
-          ...options.data,
+          ...options.body,
         }),
       })
     default:
@@ -40,7 +43,33 @@ function request(endPoint, options) {
 
 function checkResult(res) {
 
-  return res.ok ? res.json() : Promise.reject('requestApi error');
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+};
+
+export function requestGetUserInfo() {
+  console.log('*** requestGetUserInfo ***')
+  return requestApi(
+    'auth/user',
+    {
+      method: 'GET',
+      headers: {
+        authorization: localStorage.getItem(TOKENS.names.access),
+      },
+    },
+  );
+};
+
+export async function requestUserInfoWithRefreshTokens() {
+  try {
+    return await requestGetUserInfo();
+  } catch (error) {
+    if (error.message === 'jwt expired') {
+      const refreshedTokens = await requestNewTokens();
+      localStorage.setItem(TOKENS.names.access, refreshedTokens.accessToken);
+      localStorage.setItem(TOKENS.names.refresh, refreshedTokens.refreshToken);
+    }
+    return await requestGetUserInfo();
+  };
 };
 
 export function requestIngredients() {
@@ -57,7 +86,7 @@ export function requestOrder(ingredients) {
     'orders',
     {
       method: 'POST',
-      data: { ingredients },
+      body: { ingredients },
     },
   );
 };
@@ -67,7 +96,7 @@ export function requestResetToken({ email }) {
     'password-reset',
     {
       method: 'POST',
-      data: { email },
+      body: { email },
     },
   );
 };
@@ -77,7 +106,7 @@ export function requestResetPassword({ password, code }) {
     'password-reset/reset',
     {
       method: 'POST',
-      data: { password, code },
+      body: { password, code },
     },
   );
 };
@@ -88,7 +117,7 @@ export function requestRegistration({ email, password, name }) {
     'auth/register',
     {
       method: 'POST',
-      data: { email, password, name },
+      body: { email, password, name },
     },
   );
 };
@@ -98,37 +127,31 @@ export function requestLogin({ email, password }) {
     'auth/login',
     {
       method: 'POST',
-      data: { email, password },
+      body: { email, password },
     },
   );
 };
 
-export function requestLogout(token) {
+export function requestLogout() {
   return requestApi(
     'auth/logout',
     {
       method: 'POST',
-      data: { token },
+      body: {
+        token: localStorage.getItem(TOKENS.names.refresh),
+      },
     },
   );
 };
 
-export function requestNewTokens(token) {
+export function requestNewTokens() {
   return requestApi(
     'auth/token',
     {
       method: 'POST',
-      data: { token },
+      body: {
+        token: localStorage.getItem(TOKENS.names.refresh),
+      },
     },
-  );
-};
-
-export function requestGetUserInfo(token) {
-  return requestApi(
-    'auth/user',
-    {
-      method: 'GET',
-    },
-    token,
   );
 };

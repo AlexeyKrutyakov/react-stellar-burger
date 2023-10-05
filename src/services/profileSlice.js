@@ -2,19 +2,23 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import {
   requestResetToken,
-  requestGetUserInfo,
   requestLogin,
   requestResetPassword,
   requestNewTokens,
   requestLogout,
-  requestRegistration
+  requestRegistration,
+  requestUserInfoWithRefreshTokens
 } from "../utils/api";
+import { TOKENS } from "../utils/constants";
 
-const accessToken = localStorage.getItem('accessToken');
+const rejectedStatus = {
+  status: 'rejected',
+  requestHasError: true,
+}
 
 export const getUser = () => {
   return (dispatch) => {
-    return requestGetUserInfo(accessToken)
+    return requestUserInfoWithRefreshTokens()
       .then(res => {
         dispatch(setUser(res.user));
       });
@@ -22,12 +26,11 @@ export const getUser = () => {
 };
 
 export const checkUserAuth = () => {
-
   return (dispatch) => {
-    if (accessToken) {
+    if (localStorage.getItem(TOKENS.names.access)) {
       dispatch(getUser())
-        .catch(() => {
-          dispatch(setError('error of user authentication'));
+        .catch((err) => {
+          dispatch(setError(err));
           dispatch(setUser(null));
         })
         .finally(() => dispatch(setAuthChecked(true)));
@@ -99,22 +102,23 @@ const profileSlice = createSlice({
         state.status = 'pending';
       })
       .addCase(register.fulfilled, (state, action) => {
-        const accessToken = action.payload.accessToken;
-        const refreshToken = action.payload.refreshToken;
-
-        localStorage.setItem('accessToken', `${accessToken}`)
-        localStorage.setItem('refreshToken', refreshToken)
-
+        localStorage.setItem(TOKENS.names.access, action.payload.accessToken);
+        localStorage.setItem(TOKENS.names.refresh, action.payload.refreshToken);
         return {
           ...state,
           user: {
+            status: action.payload.message,
             email: action.payload.user.email,
             name: action.payload.user.name,
           },
         };
       })
       .addCase(register.rejected, (state, action) => {
-
+        return {
+          ...state,
+          ...rejectedStatus,
+          errorMessage: action.error.message,
+        };
       })
       .addCase(getResetToken.pending, state => {
         state.status = 'pending';
@@ -125,9 +129,8 @@ const profileSlice = createSlice({
       .addCase(getResetToken.rejected, (state, action) => {
         return {
           ...state,
-          status: 'rejected',
-          requestHasError: true,
-          errorMessage: action.payload.error.message,
+          ...rejectedStatus,
+          errorMessage: action.error.message,
         };
       })
       .addCase(resetPassword.pending, state => {
@@ -144,8 +147,7 @@ const profileSlice = createSlice({
       .addCase(resetPassword.rejected, (state, action) => {
         return {
           ...state,
-          status: 'rejected',
-          requestHasError: true,
+          ...rejectedStatus,
           errorMessage: action.error.message,
         };
       })
@@ -155,7 +157,6 @@ const profileSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         localStorage.setItem('accessToken', action.payload.accessToken);
         localStorage.setItem('refreshToken', action.payload.refreshToken);
-
         return {
           ...state,
           user: {
@@ -165,14 +166,12 @@ const profileSlice = createSlice({
           status: 'logged in successful',
           requestHasError: false,
           errorMessage: '',
-
         };
       })
       .addCase(login.rejected, (state, action) => {
         return {
           ...state,
-          status: 'rejected',
-          requestHasError: true,
+          ...rejectedStatus,
           errorMessage: action.error.message,
         };
       })
@@ -182,7 +181,6 @@ const profileSlice = createSlice({
       .addCase(logout.fulfilled, (state, action) => {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-
         return {
           ...state,
           user: null,
@@ -192,8 +190,7 @@ const profileSlice = createSlice({
       .addCase(logout.rejected, (state, action) => {
         return {
           ...state,
-          status: 'rejected',
-          requestHasError: true,
+          ...rejectedStatus,
           errorMessage: action.error.message,
         }
       })
@@ -203,10 +200,8 @@ const profileSlice = createSlice({
       .addCase(getNewTokens.fulfilled, (state, action) => {
         const newAccessToken = action.payload.accessToken;
         const newRefreshToken = action.payload.refreshToken;
-
-        localStorage.setItem('accessToken', newAccessToken);
-        localStorage.setItem('refreshToken', newRefreshToken);
-                
+        localStorage.setItem(TOKENS.names.access, newAccessToken);
+        localStorage.setItem(TOKENS.names.refresh, newRefreshToken);
         return {
           ...state,
           accessToken: newAccessToken,
@@ -216,8 +211,7 @@ const profileSlice = createSlice({
       .addCase(getNewTokens.rejected, (state, action) => {
         return {
           ...state,
-          status: 'rejected',
-          requestHasError: true,
+          ...rejectedStatus,
           errorMessage: action.error.message,
         }
       })

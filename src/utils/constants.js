@@ -1,3 +1,5 @@
+export const BURGER_API_URL = 'https://norma.nomoreparties.space/api/';
+
 export const MODAL = {
   type: {
     order: 'order',
@@ -14,11 +16,9 @@ export const INGREDIENTS = {
   }
 }
 
-export const COOKIES = {
-  tokens: {
-    names: {
-      access: 'accessToken',
-      refresh: 'refreshToken',
-    }
+export const TOKENS = {
+  names: {
+    access: 'accessToken',
+    refresh: 'refreshToken',
   }
 }
