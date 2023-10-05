@@ -11,10 +11,13 @@ import { addBun, addMain, resetConstructorData } from '../../services/burgerSlic
 import { openModal, showSpinner, closeModal } from '../../services/modalSlice';
 // import utils
 import { INGREDIENTS, MODAL } from '../../utils/constants';
+import { Link, useLocation } from 'react-router-dom';
 
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
+
+  const location = useLocation();
 
   const burgerConstructorData = useSelector(state => state.burger);
 
@@ -94,9 +97,14 @@ function BurgerConstructor() {
           {totalPrice}
           <span className='ml-2'><CurrencyIcon type='primary' /></span>
         </h2>
-        <Button htmlType="button" type="primary" size="large" onClick={handleSubmitOrder}>
-          Оформить заказ
-        </Button>
+        <Link
+          to='/order-details'
+          state={{ background: location }}
+        >
+          <Button htmlType="button" type="primary" size="large" onClick={handleSubmitOrder}>
+            Оформить заказ
+          </Button>
+        </Link>
       </form>
     </section>
   );

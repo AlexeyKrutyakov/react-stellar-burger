@@ -1,7 +1,7 @@
 import styles from "./app.module.css";
 // imports from modules
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 //import pages
 import HomePage from "../../pages/home/home-page";
@@ -20,21 +20,28 @@ import { closeModal } from "../../services/modalSlice";
 import { MODAL } from "../../utils/constants";
 import ForgotPasswordPage from "../../pages/forgot-password/forgot-password-page";
 import ResetPasswordPage from "../../pages/reset-password/reset-password-page";
-import IngredientPage from "../../pages/ingredient/ingredient-page";
 import NotFound404 from "../../pages/not-found/not-found";
 import { OnlyAuth, OnlyUnauth } from "../protected-route/protected-route-element";
 import { checkUserAuth } from "../../services/profileSlice";
 import { loadIngredients } from "../../services/ingredientsSlice";
+import IngredientPage from "../../pages/ingredient/ingredient-page";
 
 
 function App() {
 
   const dispatch = useDispatch();
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const background = location.state && location.state.background;
   
   const currentModal = useSelector(state => state.modal);
 
+  const ingredientsIsLoaded = useSelector(state => state.ingredients.loaded);
+
   const handleCloseModal = () => {
-   dispatch(closeModal());
+    navigate(-1);
+    dispatch(closeModal());
   }
 
   useEffect(() => {
@@ -50,22 +57,39 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-        <Routes>
-          <Route path='/login' element={<OnlyUnauth component={<LoginPage />} />} />
+      {ingredientsIsLoaded && (
+        <Routes location={background || location}>
           <Route path='/' element={<OnlyAuth component={<HomePage />} />} />
           <Route path='/profile' element={<OnlyAuth component={<ProfilePage />} />} />
-          <Route path='/register' element={<OnlyUnauth component={<RegisterPage />} />} />
           <Route path='/reset-password' element={<OnlyAuth component={<ResetPasswordPage />} />} />
-          <Route path='/forgot-password' element={<OnlyAuth component={<ForgotPasswordPage />} />} />
-          <Route path='/ingredients/:id' element={<OnlyAuth component={<IngredientPage />} />} />
+          <Route path='/login' element={<OnlyUnauth component={<LoginPage />} />} />
+          <Route path='/register' element={<OnlyUnauth component={<RegisterPage />} />} />
+          <Route path='/forgot-password' element={<OnlyUnauth component={<ForgotPasswordPage />} />} />
+          <Route path='/ingredients/:ingredientId' element={<OnlyAuth component={<IngredientPage />} />} />
           <Route path='*' element={<NotFound404 />} />
         </Routes>
-      {currentModal.isActive &&
-          <Modal onCloseModal={handleCloseModal}>
-            {currentModal.type === MODAL.type.order && <OrderDetails />}
-            {currentModal.type === MODAL.type.ingredientsDetails && <IngredientDetails />}
-          </Modal>
-        }
+      )}
+      {background && (
+        <Routes>
+          <Route
+            path='/ingredients/:ingredientId'
+            element={
+              <Modal onCloseModal={handleCloseModal}>
+                {currentModal.type === MODAL.type.ingredientsDetails && <IngredientDetails />}
+              </Modal>
+            }
+            />
+          <Route
+            path='/order-details'
+            element={
+              <Modal onCloseModal={handleCloseModal}>
+                {currentModal.type === MODAL.type.order && <OrderDetails />}
+              </Modal>
+            }
+          >
+          </Route>
+        </Routes>
+      )}
       {currentModal.type === MODAL.type.loadingSpinner && currentModal.isActive && <LoadingSpinner />}
     </div>
   );

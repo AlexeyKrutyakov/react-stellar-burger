@@ -47,7 +47,6 @@ function checkResult(res) {
 };
 
 export function requestGetUserInfo() {
-  console.log('*** requestGetUserInfo ***')
   return requestApi(
     'auth/user',
     {

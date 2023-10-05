@@ -1,14 +1,20 @@
 import { useEffect } from 'react';
 import styles from './ingredient-page.module.css';
 
+import getIngredient from '../../utils/getIngredient';
+
 import { useSelector } from "react-redux";
+import { useParams } from 'react-router';
 
 export default function IngredientPage() {
-  const ingredient = useSelector(state => state.modal.currentIngredient);
+  const { ingredientId } = useParams();
+  const ingredients = useSelector(state => state.ingredients.loaded);
 
   useEffect(() => {
-    document.title = 'Stellar Burgers: Ingredient';
+    document.title = 'Stellar Burgers: Ingredient Details';
   });
+
+  const ingredient = getIngredient(ingredients, ingredientId);
 
   return (
     <div className={styles.content}>

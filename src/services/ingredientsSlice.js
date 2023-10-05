@@ -9,7 +9,7 @@ export const loadIngredients = createAsyncThunk(
 );
 
 const initialState = {
-  loaded: [],
+  loaded: null,
   status: '',
   loadingHasError: false,
   errorMessage: '',
