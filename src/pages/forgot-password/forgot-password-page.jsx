@@ -3,25 +3,24 @@ import React, { useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import { getResetToken } from '../../services/profileSlice';
-import { showSpinner, closeModal } from '../../services/modalSlice';
 
 import { useDispatch } from 'react-redux';
 
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function ForgotPasswordPage() {
+  const navigate = useNavigate();
   
   const [email, setEmail] = React.useState('');
   const dispatch = useDispatch();
 
   function handleRequestMail(event) {
     event.preventDefault();
-
-    dispatch(showSpinner());
     dispatch(getResetToken({ email }));
     setEmail('');
-    dispatch(closeModal());
+    navigate('/reset-password');
   }
 
   useEffect(() => {

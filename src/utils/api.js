@@ -99,12 +99,12 @@ export function requestResetToken({ email }) {
   );
 };
 
-export function requestResetPassword({ password, code }) {
+export function requestResetPassword({ password, token }) {
   return requestApi(
     'password-reset/reset',
     {
       method: 'POST',
-      body: { password, code },
+      body: { password, token },
     },
   );
 };

@@ -7,22 +7,20 @@ import { Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burg
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { resetPassword } from '../../services/profileSlice';
-import { closeModal, showSpinner } from '../../services/modalSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function ResetPasswordPage() {
   const [password, setPassword] = React.useState('');
-  const [code, setCode] = React.useState('');
-
+  const [token, setToken] = React.useState('');
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   function handleButtonClick(event) {
     event.preventDefault();
-
-    dispatch(showSpinner());
-    dispatch(resetPassword({ password, code }));
+    dispatch(resetPassword({ password, token }));
     setPassword('');
-    setCode('');
-    dispatch(closeModal());
+    setToken('');
+    navigate('/');
   }
 
   useEffect(() => {
@@ -34,7 +32,7 @@ export default function ResetPasswordPage() {
       <form action="login">
         <h1 className='text text_type_main-medium'>Восстановление&nbsp;пароля</h1>
         <PasswordInput size='default' placeholder='Введите новый пароль' value={password} onChange={e => setPassword(e.target.value)} extraClass='mt-6' />
-        <Input sizes='default' placeholder='Введите код из письма' value={code} onChange={e => {setCode(e.target.value); console.log('token in state', code)}} extraClass='mt-6' />
+        <Input sizes='default' placeholder='Введите код из письма' value={token} onChange={e => {setToken(e.target.value); console.log('token in state', token)}} extraClass='mt-6' />
         <Button htmlType='button' type='primary' size='medium' onClick={handleButtonClick} extraClass='mt-6'>Сохранить</Button>
       </form>
       <p className="text text_type_main-default text_color_inactive mt-20">
