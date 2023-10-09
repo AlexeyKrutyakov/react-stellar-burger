@@ -31,7 +31,15 @@ function requestApi(endPoint, options) {
         body: JSON.stringify({
           ...options.body,
         }),
-      })
+      });
+      case 'PATCH':
+      return request(endPoint, {
+        method,
+        headers,
+        body: JSON.stringify({
+          ...options.body,
+        }),
+      });
     default:
       return new Error(`Error: unknown request method '${options.method}'`);
   };
@@ -56,6 +64,23 @@ export function requestGetUserInfo() {
     },
   );
 };
+
+export function requestEditUser({ name, email, password }) {
+  return requestApi(
+    'auth/user',
+    {
+      method: 'PATCH',
+      headers: {
+        authorization: localStorage.getItem(TOKENS.names.access),
+      },
+      body: {
+        name,
+        email,
+        password
+      }
+    },
+  );
+}
 
 export async function requestUserInfoWithRefreshTokens() {
   try {

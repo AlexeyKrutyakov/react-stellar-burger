@@ -7,7 +7,8 @@ import {
   requestNewTokens,
   requestLogout,
   requestRegistration,
-  requestUserInfoWithRefreshTokens
+  requestUserInfoWithRefreshTokens,
+  requestEditUser,
 } from "../utils/api";
 import { TOKENS } from "../utils/constants";
 
@@ -73,6 +74,11 @@ export const register = createAsyncThunk(
   requestRegistration
 );
 
+export const editUser = createAsyncThunk(
+  '@@profile/fetchEditUser',
+  requestEditUser
+);
+
 export const login = createAsyncThunk(
   '@@profile/fetchLogin',
   requestLogin
@@ -128,6 +134,25 @@ const profileSlice = createSlice({
           ...state,
           ...rejectedStatus,
           errorMessage: action.error.message,
+        };
+      })
+      .addCase(editUser.pending, state => {
+        state.status = 'pending';
+      })
+      .addCase(editUser.fulfilled, (state, action) => {
+        return {
+          ...state,
+          user: {
+            email: action.payload.user.email,
+            name: action.payload.user.name
+          },
+        };
+      })
+      .addCase(editUser.rejected, (state, action) => {
+        return {
+          ...state,
+          ...rejectedStatus,
+          errorMessage: action.error.message
         };
       })
       .addCase(getResetToken.pending, state => {

@@ -6,12 +6,13 @@ import { logout } from '../../services/profileSlice';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { editUser } from '../../services/profileSlice';
 
 export default function ProfilePage() {
   const user = useSelector(state => state.profile.user);
   const defaultName = user.name;
   const defaultEmail = user.email;
-  const defaultPassword = '12345678';
+  const defaultPassword = 'aKrutyakov@$05';
 
   const [name, setName] = useState(defaultName);
   const [email, setEmail] = useState(defaultEmail);
@@ -23,6 +24,18 @@ export default function ProfilePage() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  function clickCancelHandler() {
+    setName(defaultName);
+    setEmail(defaultEmail);
+    setPassword(defaultPassword);
+    setFormIsChanged(false);
+  }
+
+  function clickSaveHandler() {
+    setFormIsChanged(false);
+    dispatch(editUser({ name, email, password }));
+  }
 
   function inputNameHandler(event) {
     setFormIsChanged(true);
@@ -88,12 +101,12 @@ export default function ProfilePage() {
           extraClass='mt-6'
           onChange={inputPasswordHandler}
         />
-        <div className={styles.buttons}>
+        <div className={`${styles.buttons} mt-6`}>
           { formIsChanged &&
             <Button
               htmlType='button'
-              extraClass='mt-6'
               type='secondary'
+              onClick={clickCancelHandler}
             >
               Отмена
             </Button>
@@ -101,7 +114,7 @@ export default function ProfilePage() {
           { formIsChanged &&
             <Button
               htmlType='button'
-              extraClass='mt-6'
+              onClick={clickSaveHandler}
             >
               Сохранить
             </Button>
