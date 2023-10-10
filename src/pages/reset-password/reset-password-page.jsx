@@ -1,6 +1,7 @@
 import styles from './reset-password.module.css';
 
 import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 
 import { Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -26,6 +27,10 @@ export default function ResetPasswordPage() {
   useEffect(() => {
     document.title = 'Stellar Burgers: Reset password';
   });
+  
+  if (!localStorage.getItem('resetTokenSent')) {
+    return <Navigate to='/' state={{ from: '/' }} />
+  }
 
   return(
     <div className={styles.content}>

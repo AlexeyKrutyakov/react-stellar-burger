@@ -2,10 +2,7 @@ import styles from './forgot-password.module.css';
 import React, { useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
-import { getResetToken } from '../../services/profileSlice';
 import { requestResetToken } from '../../utils/api';
-
-import { useDispatch } from 'react-redux';
 
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from 'react-router-dom';
