@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import { getResetToken } from '../../services/profileSlice';
+import { requestResetToken } from '../../utils/api';
 
 import { useDispatch } from 'react-redux';
 
@@ -14,13 +15,15 @@ export default function ForgotPasswordPage() {
   const navigate = useNavigate();
   
   const [email, setEmail] = React.useState('');
-  const dispatch = useDispatch();
 
-  function handleRequestMail(event) {
+  function submitHandler(event) {
     event.preventDefault();
-    dispatch(getResetToken({ email }));
-    setEmail('');
-    navigate('/reset-password');
+    requestResetToken({ email })
+      .then(() => {
+        localStorage.setItem('resetTokenSent', true);
+        setEmail('');
+        navigate('/reset-password');
+      });
   }
 
   useEffect(() => {
@@ -30,10 +33,10 @@ export default function ForgotPasswordPage() {
   return(
     <div className={styles.content}>
       <title>Stellar Burgers: Forgot password</title>
-      <form action="login">
+      <form action="forgot-password">
         <h1 className='text text_type_main-medium'>Восстановление&nbsp;пароля</h1>
         <EmailInput size='default' placeholder='Укажите&nbsp;e-mail' onChange={e => setEmail(e.target.value)} value={email} extraClass='mt-6' />
-        <Button htmlType='button' type='primary' size='medium' extraClass='mt-6' onClick={handleRequestMail}>Восстановить</Button>
+        <Button htmlType='submit' type='primary' size='medium' extraClass='mt-6' onClick={submitHandler}>Восстановить</Button>
       </form>
       <p className="text text_type_main-default text_color_inactive mt-20">
         Вспомнили пароль?&nbsp;

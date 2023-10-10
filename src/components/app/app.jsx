@@ -37,7 +37,6 @@ function App() {
   
   const currentModal = useSelector(state => state.modal);
   const spinnerIsActive = useSelector(state => state.modal.isSpinnerActive);
-
   const ingredientsIsLoaded = useSelector(state => state.ingredients.loaded);
 
   const handleCloseModal = () => {
@@ -70,21 +69,21 @@ function App() {
           <Route path='*' element={<NotFound404 />} />
         </Routes>
       )}
-      {background && currentModal.isActive && (
+      {background && ingredientsIsLoaded && (
         <Routes>
           <Route
             path='/ingredients/:ingredientId'
             element={
               <Modal onCloseModal={handleCloseModal}>
-                {currentModal.type === MODAL.type.ingredientsDetails && <IngredientDetails />}
+                <IngredientDetails />
               </Modal>
             }
             />
           <Route
             path='/order-details'
-            element={ !spinnerIsActive && currentModal.isActive &&
+            element={ currentModal.isActive && currentModal.type === MODAL.type.order &&
               <Modal onCloseModal={handleCloseModal}>
-                {currentModal.type === MODAL.type.order && <OrderDetails />}
+                <OrderDetails />
               </Modal>
             }
           >

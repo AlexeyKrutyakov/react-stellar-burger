@@ -12,7 +12,7 @@ export default function ProfilePage() {
   const user = useSelector(state => state.profile.user);
   const defaultName = user.name;
   const defaultEmail = user.email;
-  const defaultPassword = 'aKrutyakov@$05';
+  const defaultPassword = '';
 
   const [name, setName] = useState(defaultName);
   const [email, setEmail] = useState(defaultEmail);
@@ -32,9 +32,12 @@ export default function ProfilePage() {
     setFormIsChanged(false);
   }
 
-  function clickSaveHandler() {
+  function submitHandler(event) {
+    event.preventDefault();
     setFormIsChanged(false);
     dispatch(editUser({ name, email, password }));
+    setPassword('');
+    event.target.blur();
   }
 
   function inputNameHandler(event) {
@@ -113,8 +116,8 @@ export default function ProfilePage() {
           }
           { formIsChanged &&
             <Button
-              htmlType='button'
-              onClick={clickSaveHandler}
+              htmlType='submit'
+              onClick={submitHandler}
             >
               Сохранить
             </Button>

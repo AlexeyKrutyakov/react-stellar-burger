@@ -26,6 +26,11 @@ const rejectedStatus = {
   requestHasError: true,
 }
 
+const noErrors = {
+  requestHasError: false,
+  errorMessage: ''
+}
+
 export const getUser = () => {
   return (dispatch) => {
     return requestUserInfoWithRefreshTokens()
@@ -122,8 +127,9 @@ const profileSlice = createSlice({
         localStorage.setItem(TOKENS.names.refresh, action.payload.refreshToken);
         return {
           ...state,
+          ...noErrors,
+          status: 'new user successfuly created',
           user: {
-            status: action.payload.message,
             email: action.payload.user.email,
             name: action.payload.user.name,
           },
@@ -142,6 +148,8 @@ const profileSlice = createSlice({
       .addCase(editUser.fulfilled, (state, action) => {
         return {
           ...state,
+          ...noErrors,
+          status: 'user successfuly edited',
           user: {
             email: action.payload.user.email,
             name: action.payload.user.name
@@ -159,7 +167,11 @@ const profileSlice = createSlice({
         state.status = 'pending';
       })
       .addCase(getResetToken.fulfilled, (state, action) => {
-        state.status = action.payload.message;
+        return {
+          ...state,
+          ...noErrors,
+          status: action.payload.message,
+        }
       })
       .addCase(getResetToken.rejected, (state, action) => {
         return {
@@ -174,9 +186,8 @@ const profileSlice = createSlice({
       .addCase(resetPassword.fulfilled, (state, action) => {
         return {
           ...state,
-          status: action.payload.message,
-          requestHasError: false,
-          errorMessage: '',
+          ...noErrors,
+          status: 'Password successfully changed',
         };
       })
       .addCase(resetPassword.rejected, (state, action) => {
@@ -194,13 +205,12 @@ const profileSlice = createSlice({
         localStorage.setItem('refreshToken', action.payload.refreshToken);
         return {
           ...state,
+          ...noErrors,
+          status: 'Successful login',
           user: {
             email: action.payload.user.email,
             name: action.payload.user.name,
           },
-          status: 'logged in successful',
-          requestHasError: false,
-          errorMessage: '',
         };
       })
       .addCase(login.rejected, (state, action) => {
@@ -217,8 +227,7 @@ const profileSlice = createSlice({
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         return {
-          ...state,
-          user: null,
+          ...initialState,
           status: action.payload.message,
         }
       })

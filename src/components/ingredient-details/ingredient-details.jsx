@@ -1,10 +1,20 @@
+import { useParams } from 'react-router';
 import styles from './ingredient-details.module.css';
 // imports from modules
 import { useSelector } from 'react-redux';
+import getIngredient from '../../utils/getIngredient';
 
 
 function IngredientDetails() {
-  const ingredient = useSelector(state => state.modal.currentIngredient);
+  // const ingredient = useSelector(state => state.modal.currentIngredient);
+  const { ingredientId } = useParams();
+  const ingredients = useSelector(state => state.ingredients.loaded);
+  const ingredient = getIngredient(ingredients, ingredientId);
+
+  console.log('ingredientId', ingredientId);
+  console.log('ingredients', ingredients);
+  console.log('ingredient', ingredient);
+
   return (
     <>
       <h1 className={`${styles.title} text text_type_main-large mt-8`}>

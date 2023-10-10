@@ -16,7 +16,8 @@ export default function RegisterPage() {
 
   const dispatch = useDispatch();
 
-  function clickHandler() {
+  function submitHandler(event) {
+    event.preventDefault();
     dispatch(register({ email, password, name }));
   }
 
@@ -26,17 +27,17 @@ export default function RegisterPage() {
 
   return(
     <div className={styles.content}>
-      <form action="login">
+      <form action="register">
         <h1 className='text text_type_main-medium'>Регистрация</h1>
         <Input type='text' value={name} placeholder='Имя' onChange={e => setName(e.target.value)} extraClass='mt-6'/>
         <EmailInput size='default' value={email} onChange={e => setEmail(e.target.value)} extraClass='mt-6' />
         <PasswordInput size='default' value={password} onChange={e => setPassword(e.target.value)} extraClass='mt-6' />
         <Button
-          htmlType='button'
+          htmlType='submit'
           type='primary'
           size='medium'
           extraClass='mt-6'
-          onClick={clickHandler}
+          onClick={submitHandler}
         >
           Зарегистрироваться
         </Button>

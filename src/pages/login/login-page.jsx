@@ -14,7 +14,8 @@ export default function LoginPage() {
 
   const dispatch = useDispatch();
 
-  function handleLoginClick() {
+  function handleLoginClick(event) {
+    event.preventDefault();
     dispatch(login({ email, password }));
     setEmail('');
     setPassword('');
@@ -29,9 +30,9 @@ export default function LoginPage() {
     <div className={styles.content}>
       <form action="login">
         <h1 className='text text_type_main-medium'>Вход</h1>
-        <EmailInput size='default' defaultValue={'sk1alexey@yandex.ru'} onChange={e => setEmail(e.target.value)} extraClass='mt-6' />
-        <PasswordInput size='default' defaultValue={'aKrutyakov@$05'} onChange={e => setPassword(e.target.value)} extraClass='mt-6' />
-        <Button htmlType='button' type='primary' size='medium' extraClass='mt-6' onClick={handleLoginClick}>Войти</Button>
+        <EmailInput size='default' value={email} onChange={e => setEmail(e.target.value)} extraClass='mt-6' />
+        <PasswordInput size='default' value={password} onChange={e => setPassword(e.target.value)} extraClass='mt-6' />
+        <Button htmlType='submit' type='primary' size='medium' extraClass='mt-6' onClick={handleLoginClick}>Войти</Button>
       </form>
       <p className="text text_type_main-default text_color_inactive mt-20">
         Вы&nbsp;&mdash; новый пользователь?&nbsp;
