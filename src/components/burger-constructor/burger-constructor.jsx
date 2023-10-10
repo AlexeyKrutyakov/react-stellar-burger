@@ -32,7 +32,8 @@ function BurgerConstructor() {
   const mainsIdList = mains.map((main) => main._id)
   const ingredientsIdList = bun ? [bunId, ...mainsIdList] : [...mainsIdList];
 
-  const handleSubmitOrder = () => {
+  const handleSubmitOrder = (event) => {
+    event.preventDefault();
     if (burgerConstructorData.bun === null) return;
     if (ingredientsIdList.length >= 1) {
       dispatch(submitOrder(ingredientsIdList));
@@ -97,7 +98,7 @@ function BurgerConstructor() {
           {totalPrice}
           <span className='ml-2'><CurrencyIcon type='primary' /></span>
         </h2>
-        <Button htmlType="button" type="primary" size="large" onClick={handleSubmitOrder}>
+        <Button htmlType="submit" type="primary" size="large" onClick={handleSubmitOrder}>
           Оформить заказ
         </Button>
       </form>

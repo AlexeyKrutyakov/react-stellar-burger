@@ -109,6 +109,9 @@ export function requestOrder(ingredients) {
     'orders',
     {
       method: 'POST',
+      headers: {
+        Authorization: localStorage.getItem(TOKENS.names.access)
+      },
       body: { ingredients },
     },
   );

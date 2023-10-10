@@ -8,14 +8,12 @@ import { Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burg
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { requestResetPassword } from '../../utils/api';
-import { useSelector } from 'react-redux';
 import { TOKENS } from '../../utils/constants';
 
 export default function ResetPasswordPage() {
   const [password, setPassword] = React.useState('');
   const [token, setToken] = React.useState('');
   const navigate = useNavigate();
-  const profile = useSelector(state => state.profile);
 
   function submitHandler(event) {
     event.preventDefault();
