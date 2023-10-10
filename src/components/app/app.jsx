@@ -90,7 +90,11 @@ function App() {
           </Route>
         </Routes>
       )}
-      { (currentOrder.status === 'loading' || !ingredients.loaded) && <LoadingSpinner />}
+      { (currentOrder.status === 'loading' || !ingredients.loaded) &&
+        <Modal onCloseModal={()=>{}} spinner={true}>
+          <LoadingSpinner />
+        </Modal>
+      }
     </div>
   );
 }
