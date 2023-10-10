@@ -9,7 +9,7 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
-function Modal({ children,  onCloseModal, spinner }) {
+function Modal({ children,  onCloseModal, forSpinner }) {
 
   const modalType = useSelector(state => state.modal.type);
   const modalRoot = document.getElementById('modal-root');
@@ -38,7 +38,7 @@ function Modal({ children,  onCloseModal, spinner }) {
         <ModalOverlay onOverlayClick={closeModal} />
         <div className={styles.modal}>
           {children}
-          {!spinner &&
+          {!forSpinner &&
             <button className={styles.modal__close_button} onClick={closeModal}>
               <CloseIcon type='primary' />
             </button>

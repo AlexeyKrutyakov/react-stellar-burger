@@ -91,7 +91,7 @@ function App() {
         </Routes>
       )}
       { (currentOrder.status === 'loading' || !ingredients.loaded) &&
-        <Modal onCloseModal={()=>{}} spinner={true}>
+        <Modal onCloseModal={()=>{}} forSpinner={true}>
           <LoadingSpinner />
         </Modal>
       }
