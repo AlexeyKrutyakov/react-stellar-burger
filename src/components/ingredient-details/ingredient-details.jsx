@@ -11,10 +11,6 @@ function IngredientDetails() {
   const ingredients = useSelector(state => state.ingredients.loaded);
   const ingredient = getIngredient(ingredients, ingredientId);
 
-  console.log('ingredientId', ingredientId);
-  console.log('ingredients', ingredients);
-  console.log('ingredient', ingredient);
-
   return (
     <>
       <h1 className={`${styles.title} text text_type_main-large mt-8`}>

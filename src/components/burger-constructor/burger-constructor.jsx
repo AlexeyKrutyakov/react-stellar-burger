@@ -8,7 +8,7 @@ import { Button, CurrencyIcon, ConstructorElement } from '@ya.praktikum/react-de
 // import services
 import { submitOrder } from '../../services/orderSlice';
 import { addBun, addMain, resetConstructorData } from '../../services/burgerSlice';
-import { openModal} from '../../services/modalSlice';
+import { openModal } from '../../services/modalSlice';
 // import utils
 import { INGREDIENTS, MODAL } from '../../utils/constants';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -16,7 +16,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
-
   const location = useLocation();
   const navigate = useNavigate();
 
