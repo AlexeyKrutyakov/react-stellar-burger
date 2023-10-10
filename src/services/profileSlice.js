@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import {
   requestLogin,
-  requestResetPassword,
   requestNewTokens,
   requestLogout,
   requestRegistration,
@@ -63,11 +62,6 @@ export const refreshTokens = () => {
       })
   }
 }
-
-export const resetPassword = createAsyncThunk(
-  '@@profile/fetchResetPassword',
-  requestResetPassword
-);
 
 export const register = createAsyncThunk(
   '@@profile/fetchRegister',
@@ -156,23 +150,6 @@ const profileSlice = createSlice({
           ...state,
           ...rejectedStatus,
           errorMessage: action.error.message
-        };
-      })
-      .addCase(resetPassword.pending, state => {
-        state.status = 'pending';
-      })
-      .addCase(resetPassword.fulfilled, (state, action) => {
-        return {
-          ...state,
-          ...noErrors,
-          status: 'Password successfully changed',
-        };
-      })
-      .addCase(resetPassword.rejected, (state, action) => {
-        return {
-          ...state,
-          ...rejectedStatus,
-          errorMessage: action.error.message,
         };
       })
       .addCase(login.pending, state => {

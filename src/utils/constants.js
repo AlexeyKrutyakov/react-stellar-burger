@@ -20,5 +20,6 @@ export const TOKENS = {
   names: {
     access: 'accessToken',
     refresh: 'refreshToken',
-  }
+  },
+  resetTokenSent: 'resetTokenSent'
 }

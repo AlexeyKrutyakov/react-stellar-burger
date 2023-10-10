@@ -6,6 +6,7 @@ import { requestResetToken } from '../../utils/api';
 
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from 'react-router-dom';
+import { TOKENS } from '../../utils/constants';
 
 
 export default function ForgotPasswordPage() {
@@ -17,7 +18,7 @@ export default function ForgotPasswordPage() {
     event.preventDefault();
     requestResetToken({ email })
       .then(() => {
-        localStorage.setItem('resetTokenSent', true);
+        localStorage.setItem(TOKENS.resetTokenSent, true);
         setEmail('');
         navigate('/reset-password');
       });
