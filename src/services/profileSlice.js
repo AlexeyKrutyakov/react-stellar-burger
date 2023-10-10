@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import {
-  requestResetToken,
   requestLogin,
   requestResetPassword,
   requestNewTokens,
@@ -65,10 +64,6 @@ export const refreshTokens = () => {
   }
 }
 
-export const getResetToken = createAsyncThunk(
-  '@@profile/fetchResetToken',
-  requestResetToken
-);
 export const resetPassword = createAsyncThunk(
   '@@profile/fetchResetPassword',
   requestResetPassword
@@ -163,23 +158,6 @@ const profileSlice = createSlice({
           errorMessage: action.error.message
         };
       })
-      .addCase(getResetToken.pending, state => {
-        state.status = 'pending';
-      })
-      .addCase(getResetToken.fulfilled, (state, action) => {
-        return {
-          ...state,
-          ...noErrors,
-          status: action.payload.message,
-        }
-      })
-      .addCase(getResetToken.rejected, (state, action) => {
-        return {
-          ...state,
-          ...rejectedStatus,
-          errorMessage: action.error.message,
-        };
-      })
       .addCase(resetPassword.pending, state => {
         state.status = 'pending';
       })
@@ -227,7 +205,9 @@ const profileSlice = createSlice({
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         return {
-          ...initialState,
+          ...state,
+          ...noErrors,
+          user: null,
           status: action.payload.message,
         }
       })
