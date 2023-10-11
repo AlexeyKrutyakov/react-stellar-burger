@@ -1,5 +1,4 @@
 .panel {
-  /* background-color: green; */
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -30,8 +29,21 @@
 }
 
 .link {
+  padding: 0;
+  margin: 0;
   display: flex;
   gap: 8px;
-  text-decoration: none;
+  color: #8585ad;
+  transition: color .6s;
+}
+
+.link_active {
+  display: flex;
+  gap: 8px;
   color: #F2F2F3;
+}
+
+.link:hover {
+  color: #F2F2F3;
+  transition: color .6s;
 }
