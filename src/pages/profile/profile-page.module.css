@@ -28,15 +28,19 @@
 }
 
 .link {
-  text-decoration: none;
+  color: #8585ad;
+  transition: color .6s;
 }
 
 .link_active {
-  color: #f2f2f3;
+  display: flex;
+  gap: 8px;
+  color: #F2F2F3;
 }
 
-.link_inactive {
-  cursor: pointer;
+.link:hover {
+  color: #F2F2F3;
+  transition: color .6s;
 }
 
 .buttons {

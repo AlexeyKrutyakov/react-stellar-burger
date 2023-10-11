@@ -29,8 +29,6 @@
 }
 
 .link {
-  padding: 0;
-  margin: 0;
   display: flex;
   gap: 8px;
   color: #8585ad;

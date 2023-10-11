@@ -25,6 +25,8 @@ import { OnlyAuth, OnlyUnauth } from "../protected-route/protected-route-element
 import { checkUserAuth } from "../../services/profileSlice";
 import { loadIngredients } from "../../services/ingredientsSlice";
 import IngredientPage from "../../pages/ingredient/ingredient-page";
+import OrdersHistoryPage from "../../pages/orders-history/orders-history-page";
+import ProfileSettingsPage from "../../pages/profile-settings/profile-settings-page";
 
 
 function App() {
@@ -60,7 +62,10 @@ function App() {
       {ingredients.loaded && (
         <Routes location={background || location}>
           <Route path='/' element={<OnlyAuth component={<HomePage />} />} />
-          <Route path='/profile' element={<OnlyAuth component={<ProfilePage />} />} />
+          <Route path='/profile' element={<OnlyAuth component={<ProfilePage />} />}>
+            <Route index element={<OnlyAuth component={<ProfileSettingsPage />} />} />
+            <Route path='orders-history' element={<OnlyAuth component={<OrdersHistoryPage />} />} />
+          </Route>
           <Route path='/login' element={<OnlyUnauth component={<LoginPage />} />} />
           <Route path='/register' element={<OnlyUnauth component={<RegisterPage />} />} />
           <Route path='/reset-password' element={<OnlyUnauth component={<ResetPasswordPage />} />} />
