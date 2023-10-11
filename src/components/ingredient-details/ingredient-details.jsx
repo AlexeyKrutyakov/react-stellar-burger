@@ -1,7 +1,8 @@
-import { useParams } from 'react-router';
 import styles from './ingredient-details.module.css';
 // imports from modules
+import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
+// import utils
 import getIngredient from '../../utils/getIngredient';
 
 

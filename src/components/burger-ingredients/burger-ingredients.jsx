@@ -3,8 +3,8 @@ import styles from './burger-ingredients.module.css';
 import PropTypes from 'prop-types';
 import { useState, useRef } from 'react';
 // import components
-import IngredientsGallery from '../ingredients-gallery/ingredients-gallery';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import IngredientsGallery from '../ingredients-gallery/ingredients-gallery';
 // import utils
 import scroll from '../../utils/scroll';
 

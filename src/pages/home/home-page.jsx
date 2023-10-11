@@ -1,12 +1,16 @@
 import styles from './home-page.module.css';
+// imports from modules
+import { useEffect } from 'react';
 import { DndProvider } from "react-dnd";
-import { useDispatch, useSelector } from 'react-redux';
 import { HTML5Backend } from "react-dnd-html5-backend";
-
-import { openModal } from "../../services/modalSlice";
+import { useDispatch, useSelector } from 'react-redux';
+// import components
 import BurgerIngredients from '../../components/burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
-import { useEffect } from 'react';
+// import pages
+// import services
+import { openModal } from "../../services/modalSlice";
+
 
 export default function HomePage() {
 

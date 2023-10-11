@@ -1,14 +1,15 @@
 import styles from './reset-password.module.css';
-
-import { Link } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
-
-
-import { Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
+// imports from modules
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { requestResetPassword } from '../../utils/api';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+// import components
+import { Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
+// import constants
 import { TOKENS } from '../../utils/constants';
+// import utils
+import { requestResetPassword } from '../../utils/api';
+
+
 
 export default function ResetPasswordPage() {
   const [password, setPassword] = React.useState('');

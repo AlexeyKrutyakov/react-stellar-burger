@@ -1,4 +1,6 @@
+// import from modules
 import { createSlice } from "@reduxjs/toolkit";
+
 
 const initialState = {
   type: '',

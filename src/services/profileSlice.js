@@ -1,5 +1,8 @@
+// import from modules
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+// import constants
+import { TOKENS } from "../utils/constants";
+// import utils
 import {
   requestLogin,
   requestNewTokens,
@@ -8,7 +11,6 @@ import {
   requestUserInfoWithRefreshTokens,
   requestEditUser,
 } from "../utils/api";
-import { TOKENS } from "../utils/constants";
 
 
 const initialState = {

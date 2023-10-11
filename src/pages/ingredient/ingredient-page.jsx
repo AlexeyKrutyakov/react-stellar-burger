@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
 import styles from './ingredient-page.module.css';
-
+// imports from modules
+import { useEffect } from 'react';
+import { useParams } from 'react-router';
+import { useSelector } from "react-redux";
+// import utils
 import getIngredient from '../../utils/getIngredient';
 
-import { useSelector } from "react-redux";
-import { useParams } from 'react-router';
 
 export default function IngredientPage() {
   const { ingredientId } = useParams();

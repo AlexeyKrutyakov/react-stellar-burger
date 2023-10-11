@@ -1,10 +1,11 @@
 import styles from './login-page.module.css';
-
-import React, { useEffect } from 'react';
+// imports from modules
 import { Link } from 'react-router-dom';
-
-import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+// import components
+import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+// import services
 import { login } from '../../services/profileSlice';
 
 

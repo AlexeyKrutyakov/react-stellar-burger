@@ -1,32 +1,32 @@
 import styles from "./app.module.css";
 // imports from modules
 import { useEffect } from "react";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-//import pages
-import HomePage from "../../pages/home/home-page";
-import LoginPage from "../../pages/login/login-page";
-import ProfilePage from "../../pages/profile/profile-page";
-import RegisterPage from "../../pages/register/register-page";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 // import components
 import Modal from "../modal/modal";
 import AppHeader from "../app-header/app-header";
 import OrderDetails from "../order-details/order-details";
 import LoadingSpinner from "../loading-spinner/loading-spinner";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-// import services
-import { closeModal } from "../../services/modalSlice";
-// import utils
-import { MODAL } from "../../utils/constants";
-import ForgotPasswordPage from "../../pages/forgot-password/forgot-password-page";
-import ResetPasswordPage from "../../pages/reset-password/reset-password-page";
-import NotFound404 from "../../pages/not-found/not-found";
 import { OnlyAuth, OnlyUnauth } from "../protected-route/protected-route-element";
-import { checkUserAuth } from "../../services/profileSlice";
-import { loadIngredients } from "../../services/ingredientsSlice";
+// import pages
+import HomePage from "../../pages/home/home-page";
+import LoginPage from "../../pages/login/login-page";
+import NotFound404 from "../../pages/not-found/not-found";
+import ProfilePage from "../../pages/profile/profile-page";
+import RegisterPage from "../../pages/register/register-page";
 import IngredientPage from "../../pages/ingredient/ingredient-page";
 import OrdersHistoryPage from "../../pages/orders-history/orders-history-page";
+import ResetPasswordPage from "../../pages/reset-password/reset-password-page";
+import ForgotPasswordPage from "../../pages/forgot-password/forgot-password-page";
 import ProfileSettingsPage from "../../pages/profile-settings/profile-settings-page";
+// import services
+import { closeModal } from "../../services/modalSlice";
+import { checkUserAuth } from "../../services/profileSlice";
+import { loadIngredients } from "../../services/ingredientsSlice";
+// import constants
+import { MODAL } from "../../utils/constants";
 
 
 function App() {

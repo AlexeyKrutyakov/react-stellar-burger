@@ -1,7 +1,10 @@
 import styles from './not-found.module.css';
+// imports from modules
 import { useEffect } from "react";
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router';
+// import components
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+
 
 export default function NotFound404() {
 

@@ -1,9 +1,8 @@
 // imports from modules
 import { configureStore } from "@reduxjs/toolkit";
-
 // import logger from 'redux-logger';
 
-// import reducers
+// import services
 import { modalReducer } from "./modalSlice";
 import { orderReducer } from "./orderSlice";
 import { burgerReducer } from "./burgerSlice";

@@ -1,4 +1,6 @@
+// import from modules
 import { createSlice, nanoid } from "@reduxjs/toolkit";
+
 
 const initialState = {
   bun: null,

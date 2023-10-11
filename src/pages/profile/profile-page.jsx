@@ -1,9 +1,11 @@
 import styles from './profile-page.module.css';
-import { NavLink, Outlet } from 'react-router-dom';
+// imports from modules
 import { useDispatch } from 'react-redux';
-import { logout } from '../../services/profileSlice';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink, Outlet } from 'react-router-dom';
+// import services
+import { logout } from '../../services/profileSlice';
+
 
 export default function ProfilePage() {
   const refreshToken = localStorage.getItem('refreshToken');

@@ -1,9 +1,12 @@
 import styles from './profile-settings-page.module.css';
-import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
+// imports from modules
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+// import components
+import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+// import services
 import { editUser } from '../../services/profileSlice';
+
 
 export default function ProfileSettingsPage() {
   const user = useSelector(state => state.profile.user);

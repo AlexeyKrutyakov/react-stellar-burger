@@ -1,11 +1,11 @@
 import styles from './register-page.module.css';
-
+// imports from modules
 import { Link } from 'react-router-dom';
-
-import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useEffect } from 'react';
-
 import { useDispatch } from 'react-redux';
+// import components
+import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+// import services
 import { register } from '../../services/profileSlice';
 
 

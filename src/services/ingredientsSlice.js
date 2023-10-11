@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // import utils
 import { requestIngredients } from "../utils/api";
 
+
 export const loadIngredients = createAsyncThunk(
   '@@ingredients/fetchIngredients',
   requestIngredients

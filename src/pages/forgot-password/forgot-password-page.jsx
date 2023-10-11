@@ -1,12 +1,13 @@
 import styles from './forgot-password.module.css';
+// imports from modules
 import React, { useEffect } from 'react';
-
-import { Link } from 'react-router-dom';
-import { requestResetToken } from '../../utils/api';
-
+import { Link, useNavigate } from 'react-router-dom';
+// import components
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useNavigate } from 'react-router-dom';
+// import constants
 import { TOKENS } from '../../utils/constants';
+// import utils
+import { requestResetToken } from '../../utils/api';
 
 
 export default function ForgotPasswordPage() {

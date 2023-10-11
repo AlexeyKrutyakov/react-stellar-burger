@@ -3,13 +3,14 @@ import styles from './ingredients-card.module.css';
 import PropTypes from 'prop-types';
 import { useDrag } from 'react-dnd';
 import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 // import components
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-// import utils
+// imort constants
 import { INGREDIENTS } from '../../utils/constants';
+// import utils
 import { ingredientPropType } from '../../utils/prop-types';
 import countIngredients from '../../utils/count-ingredients';
-import { Link, useLocation } from 'react-router-dom';
 
 
 function IngredientsCard({ ingredient, onModalOpen }) {

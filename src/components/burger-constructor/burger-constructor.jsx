@@ -2,16 +2,16 @@ import styles from './burger-constructor.module.css';
 // imports from modules
 import { useDrop } from 'react-dnd';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 // import components
 import ConstructorIngredient from '../constructorIngredient/constructor-ingredient';
 import { Button, CurrencyIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
+import { openModal } from '../../services/modalSlice';
 import { submitOrder } from '../../services/orderSlice';
 import { addBun, addMain, resetConstructorData } from '../../services/burgerSlice';
-import { openModal } from '../../services/modalSlice';
 // import utils
 import { INGREDIENTS, MODAL } from '../../utils/constants';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 
 function BurgerConstructor() {
