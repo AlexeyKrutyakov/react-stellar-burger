@@ -62,7 +62,7 @@ function App() {
       <AppHeader />
       {ingredients.loaded && (
         <Routes location={background || location}>
-          <Route path="/" element={<OnlyAuth component={<HomePage />} />} />
+          <Route path="/" element={<HomePage />} />
           <Route
             path="/profile"
             element={<OnlyAuth component={<ProfilePage />} />}
