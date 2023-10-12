@@ -22,7 +22,7 @@ export default function HomePage() {
 
   useEffect(() => {
     document.title = 'Stellar Burgers: Home';
-  });
+  }, []);
 
   return (
     <DndProvider backend={HTML5Backend}>

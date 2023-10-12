@@ -14,7 +14,7 @@ export default function IngredientPage() {
 
   useEffect(() => {
     document.title = 'Stellar Burgers: Ingredient Details';
-  });
+  }, []);
 
   const ingredient = getIngredient(ingredients, ingredientId);
 

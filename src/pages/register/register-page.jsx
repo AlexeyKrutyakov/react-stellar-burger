@@ -29,7 +29,7 @@ export default function RegisterPage() {
 
   useEffect(() => {
     document.title = 'Stellar Burgers: Register';
-  });
+  }, []);
 
   return (
     <div className={styles.content}>

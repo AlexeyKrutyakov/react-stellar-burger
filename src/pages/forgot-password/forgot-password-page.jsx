@@ -28,7 +28,7 @@ export default function ForgotPasswordPage() {
 
   useEffect(() => {
     document.title = 'Stellar Burgers: Forgot password';
-  });
+  }, []);
 
   return (
     <div className={styles.content}>

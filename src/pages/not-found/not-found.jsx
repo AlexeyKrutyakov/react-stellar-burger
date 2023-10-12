@@ -10,7 +10,7 @@ import { PATHS, STYLES } from '../../utils/constants';
 export default function NotFound404() {
   useEffect(() => {
     document.title = 'Stellar Burgers: Not found 404';
-  });
+  }, []);
 
   const navigate = useNavigate();
 

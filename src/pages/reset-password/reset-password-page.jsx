@@ -34,7 +34,7 @@ export default function ResetPasswordPage() {
 
   useEffect(() => {
     document.title = 'Stellar Burgers: Reset password';
-  });
+  }, []);
 
   if (!localStorage.getItem(TOKENS.resetTokenSent)) {
     return <Navigate to={PATHS.home} state={{ from: PATHS.home }} />;

@@ -29,7 +29,6 @@ export default function LoginPage() {
 
   useEffect(() => {
     document.title = 'Stellar Burgers: Login';
-    // eslint-disable-next-line
   }, []);
 
   return (
