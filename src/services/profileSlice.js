@@ -9,7 +9,7 @@ import {
   requestLogout,
   requestRegistration,
   requestUserInfoWithRefreshTokens,
-  requestEditUser,
+  requestEditUserWithRefreshTokens,
 } from '../utils/api';
 
 const initialState = {
@@ -33,6 +33,14 @@ const noErrors = {
 export const getUser = () => {
   return (dispatch) => {
     return requestUserInfoWithRefreshTokens().then((res) => {
+      dispatch(setUser(res.user));
+    });
+  };
+};
+
+export const editUser = (user) => {
+  return (dispatch) => {
+    return requestEditUserWithRefreshTokens(user).then((res) => {
       dispatch(setUser(res.user));
     });
   };
@@ -68,10 +76,10 @@ export const register = createAsyncThunk(
   requestRegistration
 );
 
-export const editUser = createAsyncThunk(
-  '@@profile/fetchEditUser',
-  requestEditUser
-);
+// export const editUser = createAsyncThunk(
+//   '@@profile/fetchEditUser',
+//   requestEditUserWithRefreshTokens
+// );
 
 export const login = createAsyncThunk('@@profile/fetchLogin', requestLogin);
 
@@ -125,27 +133,27 @@ const profileSlice = createSlice({
           errorMessage: action.error.message,
         };
       })
-      .addCase(editUser.pending, (state) => {
-        state.status = 'pending';
-      })
-      .addCase(editUser.fulfilled, (state, action) => {
-        return {
-          ...state,
-          ...noErrors,
-          status: 'user successfuly edited',
-          user: {
-            email: action.payload.user.email,
-            name: action.payload.user.name,
-          },
-        };
-      })
-      .addCase(editUser.rejected, (state, action) => {
-        return {
-          ...state,
-          ...rejectedStatus,
-          errorMessage: action.error.message,
-        };
-      })
+      // .addCase(editUser.pending, (state) => {
+      //   state.status = 'pending';
+      // })
+      // .addCase(editUser.fulfilled, (state, action) => {
+      //   return {
+      //     ...state,
+      //     ...noErrors,
+      //     status: 'user successfuly edited',
+      //     user: {
+      //       email: action.payload.user.email,
+      //       name: action.payload.user.name,
+      //     },
+      //   };
+      // })
+      // .addCase(editUser.rejected, (state, action) => {
+      //   return {
+      //     ...state,
+      //     ...rejectedStatus,
+      //     errorMessage: action.error.message,
+      //   };
+      // })
       .addCase(login.pending, (state) => {
         state.status = 'pending';
       })
