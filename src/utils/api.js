@@ -1,6 +1,5 @@
 // import constants
-import { BURGER_API_URL, TOKENS } from "./constants";
-
+import { BURGER_API_URL, TOKENS } from './constants';
 
 const config = {
   baseUrl: BURGER_API_URL,
@@ -16,7 +15,7 @@ function requestApi(endPoint, options) {
   if (options.headers) {
     headers = {
       ...config.headers,
-      ...options.headers
+      ...options.headers,
     };
   }
 
@@ -24,7 +23,7 @@ function requestApi(endPoint, options) {
     case 'GET':
       return request(endPoint, {
         method,
-        headers
+        headers,
       });
     case 'POST':
       return request(endPoint, {
@@ -34,7 +33,7 @@ function requestApi(endPoint, options) {
           ...options.body,
         }),
       });
-      case 'PATCH':
+    case 'PATCH':
       return request(endPoint, {
         method,
         headers,
@@ -44,44 +43,38 @@ function requestApi(endPoint, options) {
       });
     default:
       return new Error(`Error: unknown request method '${options.method}'`);
-  };
-};
-      
+  }
+}
+
 function request(endPoint, options) {
   return fetch(`${config.baseUrl}${endPoint}`, options).then(checkResult);
-};
+}
 
 function checkResult(res) {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
-};
+}
 
 export function requestGetUserInfo() {
-  return requestApi(
-    'auth/user',
-    {
-      method: 'GET',
-      headers: {
-        authorization: localStorage.getItem(TOKENS.names.access),
-      },
+  return requestApi('auth/user', {
+    method: 'GET',
+    headers: {
+      authorization: localStorage.getItem(TOKENS.names.access),
     },
-  );
-};
+  });
+}
 
 export function requestEditUser({ name, email, password }) {
-  return requestApi(
-    'auth/user',
-    {
-      method: 'PATCH',
-      headers: {
-        authorization: localStorage.getItem(TOKENS.names.access),
-      },
-      body: {
-        name,
-        email,
-        password
-      }
+  return requestApi('auth/user', {
+    method: 'PATCH',
+    headers: {
+      authorization: localStorage.getItem(TOKENS.names.access),
     },
-  );
+    body: {
+      name,
+      email,
+      password,
+    },
+  });
 }
 
 export async function requestUserInfoWithRefreshTokens() {
@@ -94,92 +87,67 @@ export async function requestUserInfoWithRefreshTokens() {
       localStorage.setItem(TOKENS.names.refresh, refreshedTokens.refreshToken);
     }
     return await requestGetUserInfo();
-  };
-};
+  }
+}
 
 export function requestIngredients() {
-  return requestApi(
-    'ingredients',
-    {
-      method: 'GET',
-    },
-  );
-};
+  return requestApi('ingredients', {
+    method: 'GET',
+  });
+}
 
 export function requestOrder(ingredients) {
-  return requestApi(
-    'orders',
-    {
-      method: 'POST',
-      headers: {
-        Authorization: localStorage.getItem(TOKENS.names.access)
-      },
-      body: { ingredients },
+  return requestApi('orders', {
+    method: 'POST',
+    headers: {
+      Authorization: localStorage.getItem(TOKENS.names.access),
     },
-  );
-};
+    body: { ingredients },
+  });
+}
 
 export function requestResetToken({ email }) {
-  return requestApi(
-    'password-reset',
-    {
-      method: 'POST',
-      body: { email },
-    },
-  );
-};
+  return requestApi('password-reset', {
+    method: 'POST',
+    body: { email },
+  });
+}
 
 export function requestResetPassword({ password, token }) {
-  return requestApi(
-    'password-reset/reset',
-    {
-      method: 'POST',
-      body: { password, token },
-    },
-  );
-};
-
+  return requestApi('password-reset/reset', {
+    method: 'POST',
+    body: { password, token },
+  });
+}
 
 export function requestRegistration({ email, password, name }) {
-  return requestApi(
-    'auth/register',
-    {
-      method: 'POST',
-      body: { email, password, name },
-    },
-  );
-};
+  return requestApi('auth/register', {
+    method: 'POST',
+    body: { email, password, name },
+  });
+}
 
 export function requestLogin({ email, password }) {
-  return requestApi(
-    'auth/login',
-    {
-      method: 'POST',
-      body: { email, password },
-    },
-  );
-};
+  return requestApi('auth/login', {
+    method: 'POST',
+    body: { email, password },
+  });
+}
 
 export function requestLogout() {
-  return requestApi(
-    'auth/logout',
-    {
-      method: 'POST',
-      body: {
-        token: localStorage.getItem(TOKENS.names.refresh),
-      },
+  return requestApi('auth/logout', {
+    method: 'POST',
+    body: {
+      token: localStorage.getItem(TOKENS.names.refresh),
     },
-  );
-};
+  });
+}
 
 export function requestNewTokens() {
-  return requestApi(
-    'auth/token',
-    {
-      method: 'POST',
-      body: {
-        token: localStorage.getItem(TOKENS.names.refresh),
-      },
+  return requestApi('auth/token', {
+    method: 'POST',
+    body: {
+      token: localStorage.getItem(TOKENS.names.refresh),
     },
-  );
-};
+  });
+}

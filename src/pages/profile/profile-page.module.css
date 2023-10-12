@@ -29,18 +29,18 @@
 
 .link {
   color: #8585ad;
-  transition: color .6s;
+  transition: color 0.6s;
 }
 
 .link_active {
   display: flex;
   gap: 8px;
-  color: #F2F2F3;
+  color: #f2f2f3;
 }
 
 .link:hover {
-  color: #F2F2F3;
-  transition: color .6s;
+  color: #f2f2f3;
+  transition: color 0.6s;
 }
 
 .buttons {

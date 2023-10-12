@@ -1,6 +1,5 @@
 // import from modules
-import { createSlice, nanoid } from "@reduxjs/toolkit";
-
+import { createSlice, nanoid } from '@reduxjs/toolkit';
 
 const initialState = {
   bun: null,
@@ -15,31 +14,31 @@ const burgerSlice = createSlice({
       reducer: (state, action) => {
         return {
           ...state,
-          bun: action.payload
-        }
-      }
+          bun: action.payload,
+        };
+      },
     },
     addMain: {
       reducer: (state, action) => {
         return {
           ...state,
           mains: [...state.mains, action.payload],
-        }
+        };
       },
       prepare: (main) => {
         const constructorId = nanoid();
-        return { payload: { ...main, constructorId }}
+        return { payload: { ...main, constructorId } };
       },
     },
     deleteMain: {
       reducer: (state, action) => {
         const newMains = [...state.mains];
         newMains.splice(action.payload.index, 1);
-        
+
         return {
           ...state,
           mains: newMains,
-        }
+        };
       },
     },
     sortMains: {
@@ -52,23 +51,18 @@ const burgerSlice = createSlice({
         return {
           ...state,
           mains: newMains,
-        }
+        };
       },
     },
     resetConstructorData: {
       reducer: () => {
-        return initialState
-      }
-    }
-  }
+        return initialState;
+      },
+    },
+  },
 });
 
-export const {
-  addBun,
-  addMain,
-  deleteMain,
-  sortMains,
-  resetConstructorData,
-} = burgerSlice.actions;
+export const { addBun, addMain, deleteMain, sortMains, resetConstructorData } =
+  burgerSlice.actions;
 
 export const burgerReducer = burgerSlice.reducer;

@@ -1,6 +1,5 @@
 // import from modules
-import { createSlice } from "@reduxjs/toolkit";
-
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   type: '',
@@ -17,17 +16,14 @@ const modalSlice = createSlice({
         ...state,
         type: action.payload.type,
         isActive: true,
-      }
+      };
     },
     closeModal: () => {
       return initialState;
     },
-  }
+  },
 });
 
-export const {
-  openModal,
-  closeModal,
-} = modalSlice.actions;
+export const { openModal, closeModal } = modalSlice.actions;
 
 export const modalReducer = modalSlice.reducer;

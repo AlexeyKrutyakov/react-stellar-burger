@@ -8,9 +8,7 @@ import IngredientsGallery from '../ingredients-gallery/ingredients-gallery';
 // import utils
 import scroll from '../../utils/scroll';
 
-
 function BurgerIngredients({ onModalOpen }) {
-
   const [current, setCurrent] = useState('buns');
 
   const ingredients = useRef(null);
@@ -19,7 +17,7 @@ function BurgerIngredients({ onModalOpen }) {
   const mainsGallery = useRef(null);
   const delta = 150;
 
-  function getTopBorder (element) {
+  function getTopBorder(element) {
     return element.current.getBoundingClientRect().top;
   }
 
@@ -27,73 +25,86 @@ function BurgerIngredients({ onModalOpen }) {
     setCurrent(value);
     scroll(value);
   }
-  
+
   // TODO: try to use @researchgate/react-intersection-observer
   function handleIngredientsScroll() {
     const ingredientsBorder = getTopBorder(ingredients);
     const topBunsBorder = getTopBorder(bunsGallery);
     const topSaucesBorder = getTopBorder(saucesGallery);
     const topMainsBorder = getTopBorder(mainsGallery);
-    
+
     function approximation(border) {
       return border - ingredientsBorder;
     }
 
     if (
       approximation(topBunsBorder) <= delta &&
-      approximation(topBunsBorder) > -delta) {
+      approximation(topBunsBorder) > -delta
+    ) {
       setCurrent('buns');
     } else if (
       approximation(topSaucesBorder) <= delta &&
-      approximation(topSaucesBorder) > -delta) {
+      approximation(topSaucesBorder) > -delta
+    ) {
       setCurrent('sauces');
     } else if (
       approximation(topMainsBorder) <= delta &&
-      approximation(topMainsBorder) > -delta) {
+      approximation(topMainsBorder) > -delta
+    ) {
       setCurrent('mains');
     }
   }
 
-  return(
+  return (
     <section className={`${styles.burger__tools}`}>
-      <h1 className='text text_type_main-large mt-10'>Соберите бургер</h1>
+      <h1 className="text text_type_main-large mt-10">Соберите бургер</h1>
       <nav className={`${styles.tabs} mt-5`} style={{ display: 'flex' }}>
-        <Tab
-          value='buns'
-          active={current === 'buns'}
-          onClick={setCategory}
-        >
+        <Tab value="buns" active={current === 'buns'} onClick={setCategory}>
           Булки
         </Tab>
-        <Tab
-          value='sauces'
-          active={current === 'sauces'}
-          onClick={setCategory}
-        >
+        <Tab value="sauces" active={current === 'sauces'} onClick={setCategory}>
           Соусы
         </Tab>
-        <Tab
-          value='mains'
-          active={current === 'mains'}
-          onClick={setCategory}
-        >
+        <Tab value="mains" active={current === 'mains'} onClick={setCategory}>
           Начинки
         </Tab>
       </nav>
-      <div className={`${styles.ingredients} custom-scroll`} onScroll={handleIngredientsScroll} ref={ingredients}>
-        <h3 className="text text_type_main-medium mt-10" id='buns' ref={bunsGallery} >Булки</h3>
-        <IngredientsGallery type='bun' onModalOpen={onModalOpen} />
-        <h3 className="text text_type_main-medium mt-10" id='sauces' ref={saucesGallery}>Соусы</h3>
-        <IngredientsGallery type='sauce' onModalOpen={onModalOpen} />
-        <h3 className="text text_type_main-medium mt-10" id='mains' ref={mainsGallery}>Начинки</h3>
-        <IngredientsGallery type='main' onModalOpen={onModalOpen} />
+      <div
+        className={`${styles.ingredients} custom-scroll`}
+        onScroll={handleIngredientsScroll}
+        ref={ingredients}
+      >
+        <h3
+          className="text text_type_main-medium mt-10"
+          id="buns"
+          ref={bunsGallery}
+        >
+          Булки
+        </h3>
+        <IngredientsGallery type="bun" onModalOpen={onModalOpen} />
+        <h3
+          className="text text_type_main-medium mt-10"
+          id="sauces"
+          ref={saucesGallery}
+        >
+          Соусы
+        </h3>
+        <IngredientsGallery type="sauce" onModalOpen={onModalOpen} />
+        <h3
+          className="text text_type_main-medium mt-10"
+          id="mains"
+          ref={mainsGallery}
+        >
+          Начинки
+        </h3>
+        <IngredientsGallery type="main" onModalOpen={onModalOpen} />
       </div>
     </section>
   );
 }
 
 BurgerIngredients.propTypes = {
-  onModalOpen: PropTypes.func.isRequired
-}
+  onModalOpen: PropTypes.func.isRequired,
+};
 
 export default BurgerIngredients;

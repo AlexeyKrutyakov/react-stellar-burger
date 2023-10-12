@@ -8,11 +8,10 @@ import {
   Button,
   EmailInput,
   Input,
-  PasswordInput
-} from "@ya.praktikum/react-developer-burger-ui-components";
+  PasswordInput,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
 import { register } from '../../services/profileSlice';
-
 
 export default function RegisterPage() {
   const [name, setName] = React.useState('');
@@ -30,34 +29,34 @@ export default function RegisterPage() {
     document.title = 'Stellar Burgers: Register';
   });
 
-  return(
+  return (
     <div className={styles.content}>
       <form action="register">
-        <h1 className='text text_type_main-medium'>Регистрация</h1>
+        <h1 className="text text_type_main-medium">Регистрация</h1>
         <Input
-          type='text'
+          type="text"
           value={name}
-          placeholder='Имя'
-          onChange={e => setName(e.target.value)}
-          extraClass='mt-6'
+          placeholder="Имя"
+          onChange={(e) => setName(e.target.value)}
+          extraClass="mt-6"
         />
         <EmailInput
-          size='default'
+          size="default"
           value={email}
-          onChange={e => setEmail(e.target.value)}
-          extraClass='mt-6'
+          onChange={(e) => setEmail(e.target.value)}
+          extraClass="mt-6"
         />
         <PasswordInput
-        size='default'
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        extraClass='mt-6'
+          size="default"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          extraClass="mt-6"
         />
         <Button
-          htmlType='submit'
-          type='primary'
-          size='medium'
-          extraClass='mt-6'
+          htmlType="submit"
+          type="primary"
+          size="medium"
+          extraClass="mt-6"
           onClick={submitHandler}
         >
           Зарегистрироваться
@@ -65,7 +64,7 @@ export default function RegisterPage() {
       </form>
       <p className="text text_type_main-default text_color_inactive mt-20">
         Уже зарегистрированы?&nbsp;
-        <Link to='/login' style={{ textDecoration: 'none' }}>
+        <Link to="/login" style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Войти</span>
         </Link>
       </p>

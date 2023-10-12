@@ -7,14 +7,13 @@ import {
   Input,
   EmailInput,
   PasswordInput,
-  Button
+  Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
 import { editUser } from '../../services/profileSlice';
 
-
 export default function ProfileSettingsPage() {
-  const user = useSelector(state => state.profile.user);
+  const user = useSelector((state) => state.profile.user);
   const defaultName = user.name;
   const defaultEmail = user.email;
   const defaultPassword = '';
@@ -44,60 +43,51 @@ export default function ProfileSettingsPage() {
   function inputNameHandler(event) {
     setFormIsChanged(true);
     setName(event.target.value);
-  };
-  
+  }
+
   const inputEmailHandler = (event) => {
     setFormIsChanged(true);
     setEmail(event.target.value);
   };
-  
+
   function inputPasswordHandler(event) {
     setPassword(event.target.value);
     setFormIsChanged(true);
-  };
+  }
 
-  return(
-    <form
-      className={styles.form}
-      action="profile"
-      onSubmit={submitHandler}
-    >
+  return (
+    <form className={styles.form} action="profile" onSubmit={submitHandler}>
       <Input
-        type='text'
-        placeholder='Имя'
+        type="text"
+        placeholder="Имя"
         value={name}
-        icon='EditIcon'
+        icon="EditIcon"
         onChange={inputNameHandler}
       />
       <EmailInput
-        placeholder='Логин'
+        placeholder="Логин"
         value={email}
-        isIcon={true}extraClass='mt-6'
+        isIcon={true}
+        extraClass="mt-6"
         onChange={inputEmailHandler}
       />
       <PasswordInput
         value={password}
-        icon='EditIcon'
-        extraClass='mt-6'
+        icon="EditIcon"
+        extraClass="mt-6"
         onChange={inputPasswordHandler}
       />
       <div className={`${styles.buttons} mt-6`}>
-        { formIsChanged &&
+        {formIsChanged && (
           <Button
-            htmlType='button'
-            type='secondary'
+            htmlType="button"
+            type="secondary"
             onClick={clickCancelHandler}
           >
             Отмена
           </Button>
-        }
-        { formIsChanged &&
-          <Button
-            htmlType='submit'
-          >
-            Сохранить
-          </Button>
-        }
+        )}
+        {formIsChanged && <Button htmlType="submit">Сохранить</Button>}
       </div>
     </form>
   );

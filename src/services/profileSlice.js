@@ -1,7 +1,7 @@
 // import from modules
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import constants
-import { TOKENS } from "../utils/constants";
+import { TOKENS } from '../utils/constants';
 // import utils
 import {
   requestLogin,
@@ -10,8 +10,7 @@ import {
   requestRegistration,
   requestUserInfoWithRefreshTokens,
   requestEditUser,
-} from "../utils/api";
-
+} from '../utils/api';
 
 const initialState = {
   isAuthChecked: false,
@@ -24,19 +23,18 @@ const initialState = {
 const rejectedStatus = {
   status: 'rejected',
   requestHasError: true,
-}
+};
 
 const noErrors = {
   requestHasError: false,
-  errorMessage: ''
-}
+  errorMessage: '',
+};
 
 export const getUser = () => {
   return (dispatch) => {
-    return requestUserInfoWithRefreshTokens()
-      .then(res => {
-        dispatch(setUser(res.user));
-      });
+    return requestUserInfoWithRefreshTokens().then((res) => {
+      dispatch(setUser(res.user));
+    });
   };
 };
 
@@ -58,12 +56,12 @@ export const checkUserAuth = () => {
 export const refreshTokens = () => {
   return (dispatch) => {
     dispatch(requestNewTokens(localStorage.getItem(TOKENS.names.refresh)))
-      .then(res => dispatch(setNewTokens(res)))
+      .then((res) => dispatch(setNewTokens(res)))
       .catch((err) => {
         dispatch(setError(err));
-      })
-  }
-}
+      });
+  };
+};
 
 export const register = createAsyncThunk(
   '@@profile/fetchRegister',
@@ -75,15 +73,9 @@ export const editUser = createAsyncThunk(
   requestEditUser
 );
 
-export const login = createAsyncThunk(
-  '@@profile/fetchLogin',
-  requestLogin
-);
+export const login = createAsyncThunk('@@profile/fetchLogin', requestLogin);
 
-export const logout = createAsyncThunk(
-  '@@profile/fetchLogout',
-  requestLogout
-);
+export const logout = createAsyncThunk('@@profile/fetchLogout', requestLogout);
 
 const profileSlice = createSlice({
   name: '@@profile',
@@ -101,16 +93,16 @@ const profileSlice = createSlice({
         status: 'error catched',
         requestHasError: true,
         errorMessage: action.payload,
-      }
+      };
     },
     setNewTokens: (action) => {
       localStorage.setItem(TOKENS.names.access, action.accessToken);
       localStorage.setItem(TOKENS.names.refresh, action.refreshToken);
-    }
+    },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
-      .addCase(register.pending, state => {
+      .addCase(register.pending, (state) => {
         state.status = 'pending';
       })
       .addCase(register.fulfilled, (state, action) => {
@@ -133,7 +125,7 @@ const profileSlice = createSlice({
           errorMessage: action.error.message,
         };
       })
-      .addCase(editUser.pending, state => {
+      .addCase(editUser.pending, (state) => {
         state.status = 'pending';
       })
       .addCase(editUser.fulfilled, (state, action) => {
@@ -143,7 +135,7 @@ const profileSlice = createSlice({
           status: 'user successfuly edited',
           user: {
             email: action.payload.user.email,
-            name: action.payload.user.name
+            name: action.payload.user.name,
           },
         };
       })
@@ -151,10 +143,10 @@ const profileSlice = createSlice({
         return {
           ...state,
           ...rejectedStatus,
-          errorMessage: action.error.message
+          errorMessage: action.error.message,
         };
       })
-      .addCase(login.pending, state => {
+      .addCase(login.pending, (state) => {
         state.status = 'pending';
       })
       .addCase(login.fulfilled, (state, action) => {
@@ -188,23 +180,19 @@ const profileSlice = createSlice({
           ...noErrors,
           user: null,
           status: action.payload.message,
-        }
+        };
       })
       .addCase(logout.rejected, (state, action) => {
         return {
           ...state,
           ...rejectedStatus,
           errorMessage: action.error.message,
-        }
-      })
-  }
+        };
+      });
+  },
 });
 
-export const {
-  setNewTokens,
-  setUser,
-  setAuthChecked,
-  setError,
-} = profileSlice.actions;
+export const { setNewTokens, setUser, setAuthChecked, setError } =
+  profileSlice.actions;
 
 export const profileReducer = profileSlice.reducer;

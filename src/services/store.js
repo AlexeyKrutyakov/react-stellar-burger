@@ -1,14 +1,13 @@
 // imports from modules
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 // import logger from 'redux-logger';
 
 // import services
-import { modalReducer } from "./modalSlice";
-import { orderReducer } from "./orderSlice";
-import { burgerReducer } from "./burgerSlice";
-import { profileReducer } from "./profileSlice";
-import { ingredientsReducer } from "./ingredientsSlice";
-
+import { modalReducer } from './modalSlice';
+import { orderReducer } from './orderSlice';
+import { burgerReducer } from './burgerSlice';
+import { profileReducer } from './profileSlice';
+import { ingredientsReducer } from './ingredientsSlice';
 
 export const store = configureStore({
   reducer: {

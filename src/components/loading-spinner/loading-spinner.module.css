@@ -1,6 +1,10 @@
 @keyframes ldio {
-  0% { opacity: 1 }
-  100% { opacity: 0 }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .ldio div {
@@ -108,4 +112,6 @@
   transform-origin: 0 0;
 }
 
-.ldio div { box-sizing: content-box; }
+.ldio div {
+  box-sizing: content-box;
+}

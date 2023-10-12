@@ -2,7 +2,6 @@ import styles from './app-header.module.css';
 // import components
 import NavPanel from '../nav-panel/nav-panel.jsx';
 
-
 function AppHeader() {
   return (
     <header className={`${styles.header} mt-10 mr-10 ml-10`}>

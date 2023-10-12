@@ -7,11 +7,10 @@ import { useDispatch } from 'react-redux';
 import {
   Button,
   EmailInput,
-  PasswordInput
-} from "@ya.praktikum/react-developer-burger-ui-components";
+  PasswordInput,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
 import { login } from '../../services/profileSlice';
-
 
 export default function LoginPage() {
   const [email, setEmail] = React.useState('');
@@ -28,40 +27,43 @@ export default function LoginPage() {
 
   useEffect(() => {
     document.title = 'Stellar Burgers: Login';
-  // eslint-disable-next-line
-  },[]);
-  
-  return(
+    // eslint-disable-next-line
+  }, []);
+
+  return (
     <div className={styles.content}>
       <form action="login" onSubmit={submitHandler}>
-        <h1 className='text text_type_main-medium'>Вход</h1>
+        <h1 className="text text_type_main-medium">Вход</h1>
         <EmailInput
-          size='default'
+          size="default"
           value={email}
-          onChange={e => setEmail(e.target.value)}
-          extraClass='mt-6' />
+          onChange={(e) => setEmail(e.target.value)}
+          extraClass="mt-6"
+        />
         <PasswordInput
-          size='default'
+          size="default"
           value={password}
-          onChange={e => setPassword(e.target.value)}
-          extraClass='mt-6' />
+          onChange={(e) => setPassword(e.target.value)}
+          extraClass="mt-6"
+        />
         <Button
-          htmlType='submit'
-          type='primary'
-          size='medium'
-          extraClass='mt-6'>
+          htmlType="submit"
+          type="primary"
+          size="medium"
+          extraClass="mt-6"
+        >
           Войти
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive mt-20">
         Вы&nbsp;&mdash; новый пользователь?&nbsp;
-        <Link to='/register' style={{ textDecoration: 'none' }}>
+        <Link to="/register" style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Зарегистрироваться</span>
         </Link>
       </p>
       <p className="text text_type_main-default text_color_inactive mt-4">
         Забыли&nbsp;пароль?&nbsp;
-        <Link to='/forgot-password' style={{ textDecoration: 'none' }}>
+        <Link to="/forgot-password" style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Восстановить&nbsp;пароль</span>
         </Link>
       </p>
