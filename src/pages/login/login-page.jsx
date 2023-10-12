@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 // import components
-import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Button,
+  EmailInput,
+  PasswordInput
+} from "@ya.praktikum/react-developer-burger-ui-components";
 // import services
 import { login } from '../../services/profileSlice';
 
@@ -15,7 +19,7 @@ export default function LoginPage() {
 
   const dispatch = useDispatch();
 
-  function handleLoginClick(event) {
+  function submitHandler(event) {
     event.preventDefault();
     dispatch(login({ email, password }));
     setEmail('');
@@ -29,11 +33,25 @@ export default function LoginPage() {
   
   return(
     <div className={styles.content}>
-      <form action="login">
+      <form action="login" onSubmit={submitHandler}>
         <h1 className='text text_type_main-medium'>Вход</h1>
-        <EmailInput size='default' value={email} onChange={e => setEmail(e.target.value)} extraClass='mt-6' />
-        <PasswordInput size='default' value={password} onChange={e => setPassword(e.target.value)} extraClass='mt-6' />
-        <Button htmlType='submit' type='primary' size='medium' extraClass='mt-6' onClick={handleLoginClick}>Войти</Button>
+        <EmailInput
+          size='default'
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          extraClass='mt-6' />
+        <PasswordInput
+          size='default'
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          extraClass='mt-6' />
+        <Button
+          htmlType='submit'
+          type='primary'
+          size='medium'
+          extraClass='mt-6'>
+          Войти
+        </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive mt-20">
         Вы&nbsp;&mdash; новый пользователь?&nbsp;

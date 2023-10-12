@@ -4,7 +4,12 @@ import { Link } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 // import components
-import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Button,
+  EmailInput,
+  Input,
+  PasswordInput
+} from "@ya.praktikum/react-developer-burger-ui-components";
 // import services
 import { register } from '../../services/profileSlice';
 
@@ -29,9 +34,25 @@ export default function RegisterPage() {
     <div className={styles.content}>
       <form action="register">
         <h1 className='text text_type_main-medium'>Регистрация</h1>
-        <Input type='text' value={name} placeholder='Имя' onChange={e => setName(e.target.value)} extraClass='mt-6'/>
-        <EmailInput size='default' value={email} onChange={e => setEmail(e.target.value)} extraClass='mt-6' />
-        <PasswordInput size='default' value={password} onChange={e => setPassword(e.target.value)} extraClass='mt-6' />
+        <Input
+          type='text'
+          value={name}
+          placeholder='Имя'
+          onChange={e => setName(e.target.value)}
+          extraClass='mt-6'
+        />
+        <EmailInput
+          size='default'
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          extraClass='mt-6'
+        />
+        <PasswordInput
+        size='default'
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+        extraClass='mt-6'
+        />
         <Button
           htmlType='submit'
           type='primary'

@@ -3,7 +3,11 @@ import styles from './reset-password.module.css';
 import React, { useEffect } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 // import components
-import { Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Button,
+  PasswordInput,
+  Input
+} from "@ya.praktikum/react-developer-burger-ui-components";
 // import constants
 import { TOKENS } from '../../utils/constants';
 // import utils
@@ -40,11 +44,32 @@ export default function ResetPasswordPage() {
 
   return(
     <div className={styles.content}>
-      <form action="login">
-        <h1 className='text text_type_main-medium'>Восстановление&nbsp;пароля</h1>
-        <PasswordInput size='default' placeholder='Введите новый пароль' value={password} onChange={e => setPassword(e.target.value)} extraClass='mt-6' />
-        <Input sizes='default' placeholder='Введите код из письма' value={token} onChange={e => setToken(e.target.value)} extraClass='mt-6' />
-        <Button htmlType='submit' type='primary' size='medium' onClick={submitHandler} extraClass='mt-6'>Сохранить</Button>
+      <form action="login" onSubmit={submitHandler}>
+        <h1 className='text text_type_main-medium'>
+          Восстановление&nbsp;пароля
+        </h1>
+        <PasswordInput
+          size='default'
+          placeholder='Введите новый пароль'
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          extraClass='mt-6'
+        />
+        <Input
+          sizes='default'
+          placeholder='Введите код из письма'
+          value={token}
+          onChange={e => setToken(e.target.value)}
+          extraClass='mt-6'
+        />
+        <Button
+          htmlType='submit'
+          type='primary'
+          size='medium'
+          extraClass='mt-6'
+        >
+          Сохранить
+        </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive mt-20">
         Вспомнили пароль?&nbsp;

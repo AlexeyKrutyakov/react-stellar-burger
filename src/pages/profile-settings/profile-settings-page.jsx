@@ -3,7 +3,12 @@ import styles from './profile-settings-page.module.css';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import components
-import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import {
+  Input,
+  EmailInput,
+  PasswordInput,
+  Button
+} from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
 import { editUser } from '../../services/profileSlice';
 
@@ -52,7 +57,11 @@ export default function ProfileSettingsPage() {
   };
 
   return(
-    <form className={styles.form} action="profile">
+    <form
+      className={styles.form}
+      action="profile"
+      onSubmit={submitHandler}
+    >
       <Input
         type='text'
         placeholder='Имя'
@@ -85,7 +94,6 @@ export default function ProfileSettingsPage() {
         { formIsChanged &&
           <Button
             htmlType='submit'
-            onClick={submitHandler}
           >
             Сохранить
           </Button>
