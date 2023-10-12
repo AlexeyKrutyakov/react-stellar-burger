@@ -29,7 +29,7 @@ import { closeModal } from '../../services/modalSlice';
 import { checkUserAuth } from '../../services/profileSlice';
 import { loadIngredients } from '../../services/ingredientsSlice';
 // import constants
-import { MODAL } from '../../utils/constants';
+import { MODAL, TOKENS } from '../../utils/constants';
 
 function App() {
   const dispatch = useDispatch();
@@ -84,10 +84,12 @@ function App() {
             path="/register"
             element={<OnlyUnauth component={<RegisterPage />} />}
           />
-          <Route
-            path="/reset-password"
-            element={<OnlyUnauth component={<ResetPasswordPage />} />}
-          />
+          {localStorage.getItem(TOKENS.resetTokenSent) && (
+            <Route
+              path="/reset-password"
+              element={<OnlyUnauth component={<ResetPasswordPage />} />}
+            />
+          )}
           <Route
             path="/forgot-password"
             element={<OnlyUnauth component={<ForgotPasswordPage />} />}
