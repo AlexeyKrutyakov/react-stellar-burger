@@ -8,7 +8,7 @@ import {
   EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import constants
-import { TOKENS } from '../../utils/constants';
+import { PATHS, TOKENS } from '../../utils/constants';
 // import utils
 import { requestResetToken } from '../../utils/api';
 
@@ -22,7 +22,7 @@ export default function ForgotPasswordPage() {
     requestResetToken({ email }).then(() => {
       localStorage.setItem(TOKENS.resetTokenSent, true);
       setEmail('');
-      navigate('/reset-password');
+      navigate(PATHS.resetPassword);
     });
   }
 
@@ -55,7 +55,7 @@ export default function ForgotPasswordPage() {
       </form>
       <p className="text text_type_main-default text_color_inactive mt-20">
         Вспомнили пароль?&nbsp;
-        <Link to="/login" style={{ textDecoration: 'none' }}>
+        <Link to={PATHS.login} style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Войти</span>
         </Link>
       </p>

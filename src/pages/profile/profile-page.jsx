@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { useNavigate, NavLink, Outlet } from 'react-router-dom';
 // import services
 import { logout } from '../../services/profileSlice';
+// import constants
+import { PATHS } from '../../utils/constants';
 
 export default function ProfilePage() {
   const refreshToken = localStorage.getItem('refreshToken');
@@ -14,7 +16,7 @@ export default function ProfilePage() {
 
   function logoutHandler() {
     dispatch(logout(refreshToken));
-    navigate('/login');
+    navigate(PATHS.login);
   }
 
   useEffect(() => {
@@ -26,7 +28,11 @@ export default function ProfilePage() {
       <div className={styles.sidebar}>
         <ul className={styles.menu}>
           <li className={styles.menu_item}>
-            <NavLink to="/profile" end style={{ textDecoration: 'none' }}>
+            <NavLink
+              to={PATHS.profile.index}
+              end
+              style={{ textDecoration: 'none' }}
+            >
               {({ isActive }) => (
                 <div className={isActive ? styles.link_active : styles.link}>
                   <p className="text text_type_main-medium">Профиль</p>
@@ -35,7 +41,10 @@ export default function ProfilePage() {
             </NavLink>
           </li>
           <li className={styles.menu_item}>
-            <NavLink to="orders-history" style={{ textDecoration: 'none' }}>
+            <NavLink
+              to={PATHS.profile.ordersHistory}
+              style={{ textDecoration: 'none' }}
+            >
               {({ isActive }) => (
                 <div className={isActive ? styles.link_active : styles.link}>
                   <p className="text text_type_main-medium">
@@ -46,7 +55,7 @@ export default function ProfilePage() {
             </NavLink>
           </li>
           <li className={styles.menu_item}>
-            <NavLink to="/" style={{ textDecoration: 'none' }}>
+            <NavLink to={PATHS.home} style={{ textDecoration: 'none' }}>
               {({ isActive }) => (
                 <div className={isActive ? styles.link_active : styles.link}>
                   <p

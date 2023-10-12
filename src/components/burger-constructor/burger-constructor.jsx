@@ -18,8 +18,9 @@ import {
   addMain,
   resetConstructorData,
 } from '../../services/burgerSlice';
+// import constants
+import { COLORS, INGREDIENTS, MODAL, PATHS } from '../../utils/constants';
 // import utils
-import { INGREDIENTS, MODAL } from '../../utils/constants';
 import { getBurger } from '../../utils/store-selectors';
 
 function BurgerConstructor() {
@@ -48,7 +49,7 @@ function BurgerConstructor() {
       dispatch(submitOrder(ingredientsIdList));
       dispatch(openModal({ type: MODAL.type.order })) &&
         dispatch(resetConstructorData());
-      navigate('/order-details', { state: { background: location } });
+      navigate(PATHS.orderDetails, { state: { background: location } });
     }
   };
 
@@ -75,8 +76,10 @@ function BurgerConstructor() {
     },
   }));
 
-  const borderColor = canDrop ? '#4C4CFF' : 'transparent';
-  const backgroundColor = isOver ? 'rgba(153, 0, 153, 0.1)' : 'transparent';
+  const borderColor = canDrop ? `${COLORS.mainBlue}` : `${COLORS.transparent}`;
+  const backgroundColor = isOver
+    ? COLORS.transparents.mainViolet
+    : COLORS.transparent;
 
   return (
     <section

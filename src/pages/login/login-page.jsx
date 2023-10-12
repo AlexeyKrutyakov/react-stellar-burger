@@ -11,6 +11,8 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
 import { login } from '../../services/profileSlice';
+// import constants
+import { PATHS } from '../../utils/constants';
 
 export default function LoginPage() {
   const [email, setEmail] = React.useState('');
@@ -57,13 +59,13 @@ export default function LoginPage() {
       </form>
       <p className="text text_type_main-default text_color_inactive mt-20">
         Вы&nbsp;&mdash; новый пользователь?&nbsp;
-        <Link to="/register" style={{ textDecoration: 'none' }}>
+        <Link to={PATHS.register} style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Зарегистрироваться</span>
         </Link>
       </p>
       <p className="text text_type_main-default text_color_inactive mt-4">
         Забыли&nbsp;пароль?&nbsp;
-        <Link to="/forgot-password" style={{ textDecoration: 'none' }}>
+        <Link to={PATHS.forgotPassword} style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Восстановить&nbsp;пароль</span>
         </Link>
       </p>

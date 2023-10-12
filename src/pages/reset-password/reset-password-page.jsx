@@ -9,7 +9,7 @@ import {
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import constants
-import { TOKENS } from '../../utils/constants';
+import { TOKENS, PATHS } from '../../utils/constants';
 // import utils
 import { requestResetPassword } from '../../utils/api';
 
@@ -24,7 +24,7 @@ export default function ResetPasswordPage() {
       .then((res) => {
         setPassword('');
         setToken('');
-        navigate('/');
+        navigate(PATHS.home);
         localStorage.removeItem(TOKENS.resetTokenSent);
       })
       .catch((err) => {
@@ -37,7 +37,7 @@ export default function ResetPasswordPage() {
   });
 
   if (!localStorage.getItem(TOKENS.resetTokenSent)) {
-    return <Navigate to="/" state={{ from: '/' }} />;
+    return <Navigate to={PATHS.home} state={{ from: PATHS.home }} />;
   }
 
   return (
@@ -71,7 +71,7 @@ export default function ResetPasswordPage() {
       </form>
       <p className="text text_type_main-default text_color_inactive mt-20">
         Вспомнили пароль?&nbsp;
-        <Link to="/login" style={{ textDecoration: 'none' }}>
+        <Link to={PATHS.login} style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Войти</span>
         </Link>
       </p>

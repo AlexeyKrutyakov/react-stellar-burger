@@ -7,6 +7,8 @@ import {
   ListIcon,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+// import constants
+import { PATHS } from '../../utils/constants';
 
 function NavPanel() {
   return (
@@ -23,7 +25,7 @@ function NavPanel() {
           </NavLink>
         </li>
         <li className={`${styles.list__element} mt-4 mr-5 mb-4 ml-5`}>
-          <NavLink to={'/orders'} style={{ textDecoration: 'none' }}>
+          <NavLink to={PATHS.orders} style={{ textDecoration: 'none' }}>
             {({ isActive }) => (
               <div className={isActive ? styles.link_active : styles.link}>
                 <ListIcon type={isActive ? 'primary' : 'secondary'} />
@@ -38,7 +40,7 @@ function NavPanel() {
       </div>
       <ul className={styles.list}>
         <li className={`${styles.list__element} mt-4 mr-5 mb-4 ml-5`}>
-          <NavLink to={'/profile'} style={{ textDecoration: 'none' }}>
+          <NavLink to={PATHS.profile.index} style={{ textDecoration: 'none' }}>
             {({ isActive }) => (
               <div className={isActive ? styles.link_active : styles.link}>
                 <ProfileIcon type={isActive ? 'primary' : 'secondary'} />

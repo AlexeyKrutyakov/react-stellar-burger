@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router';
 // import utils
 import { getProfile } from '../../utils/store-selectors';
+// import constants
+import { PATHS } from '../../utils/constants';
 
 function ProtectedRouteElement({ component, onlyUnauth = false }) {
   const isAuthChecked = useSelector(getProfile).isAuthChecked;
@@ -19,7 +21,7 @@ function ProtectedRouteElement({ component, onlyUnauth = false }) {
   }
 
   if (!onlyUnauth && !user) {
-    return <Navigate to="/login" state={{ from: location }} />;
+    return <Navigate to={PATHS.login} state={{ from: location }} />;
   }
 
   return component;

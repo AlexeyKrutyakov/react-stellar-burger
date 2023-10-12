@@ -10,6 +10,8 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
 import { deleteMain, sortMains } from '../../services/burgerSlice';
+// import constants
+import { COLORS } from '../../utils/constants';
 
 export default function ConstructorIngredient({ main, index }) {
   const dispatch = useDispatch();
@@ -60,7 +62,7 @@ export default function ConstructorIngredient({ main, index }) {
   });
 
   const opacity = isDragging ? 0 : 1;
-  const borderColor = isOver ? '#4C4CFF' : 'transparent';
+  const borderColor = isOver ? COLORS.mainBlue : COLORS.transparent;
 
   drag(drop(ref));
 

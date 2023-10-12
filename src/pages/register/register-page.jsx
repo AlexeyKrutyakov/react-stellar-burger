@@ -12,6 +12,8 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
 import { register } from '../../services/profileSlice';
+// imports constants
+import { PATHS } from '../../utils/constants';
 
 export default function RegisterPage() {
   const [name, setName] = React.useState('');
@@ -31,7 +33,7 @@ export default function RegisterPage() {
 
   return (
     <div className={styles.content}>
-      <form action="register">
+      <form action="register" onSubmit={submitHandler}>
         <h1 className="text text_type_main-medium">Регистрация</h1>
         <Input
           type="text"
@@ -57,14 +59,13 @@ export default function RegisterPage() {
           type="primary"
           size="medium"
           extraClass="mt-6"
-          onClick={submitHandler}
         >
           Зарегистрироваться
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive mt-20">
         Уже зарегистрированы?&nbsp;
-        <Link to="/login" style={{ textDecoration: 'none' }}>
+        <Link to={PATHS.login} style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Войти</span>
         </Link>
       </p>

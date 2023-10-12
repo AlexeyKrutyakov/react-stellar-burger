@@ -29,7 +29,7 @@ import { closeModal } from '../../services/modalSlice';
 import { checkUserAuth } from '../../services/profileSlice';
 import { loadIngredients } from '../../services/ingredientsSlice';
 // import constants
-import { MODAL, TOKENS } from '../../utils/constants';
+import { MODAL, TOKENS, PATHS } from '../../utils/constants';
 // import utils
 import {
   getModal,
@@ -68,9 +68,9 @@ function App() {
       <AppHeader />
       {ingredients.loaded && (
         <Routes location={background || location}>
-          <Route path="/" element={<HomePage />} />
+          <Route path={PATHS.home} element={<HomePage />} />
           <Route
-            path="/profile"
+            path={PATHS.profile.index}
             element={<OnlyAuth component={<ProfilePage />} />}
           >
             <Route
@@ -78,30 +78,30 @@ function App() {
               element={<OnlyAuth component={<ProfileSettingsPage />} />}
             />
             <Route
-              path="orders-history"
+              path={PATHS.profile.ordersHistory}
               element={<OnlyAuth component={<OrdersHistoryPage />} />}
             />
           </Route>
           <Route
-            path="/login"
+            path={PATHS.login}
             element={<OnlyUnauth component={<LoginPage />} />}
           />
           <Route
-            path="/register"
+            path={PATHS.register}
             element={<OnlyUnauth component={<RegisterPage />} />}
           />
           {localStorage.getItem(TOKENS.resetTokenSent) && (
             <Route
-              path="/reset-password"
+              path={PATHS.resetPassword}
               element={<OnlyUnauth component={<ResetPasswordPage />} />}
             />
           )}
           <Route
-            path="/forgot-password"
+            path={PATHS.forgotPassword}
             element={<OnlyUnauth component={<ForgotPasswordPage />} />}
           />
           <Route
-            path="/ingredients/:ingredientId"
+            path={PATHS.ingredient}
             element={<OnlyAuth component={<IngredientPage />} />}
           />
           <Route path="*" element={<NotFound404 />} />
@@ -110,7 +110,7 @@ function App() {
       {background && ingredients.loaded && (
         <Routes>
           <Route
-            path="/ingredients/:ingredientId"
+            path={PATHS.ingredient}
             element={
               <Modal onCloseModal={handleCloseModal}>
                 <IngredientDetails />
@@ -118,7 +118,7 @@ function App() {
             }
           />
           <Route
-            path="/order-details"
+            path={PATHS.orderDetails}
             element={
               currentModal.isActive &&
               currentModal.type === MODAL.type.order &&

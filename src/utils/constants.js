@@ -23,3 +23,26 @@ export const TOKENS = {
   },
   resetTokenSent: 'resetTokenSent',
 };
+
+export const PATHS = {
+  home: '/',
+  profile: {
+    index: 'profile',
+    ordersHistory: 'orders-history',
+  },
+  login: '/login',
+  register: '/register',
+  resetPassword: '/reset-password',
+  forgotPassword: '/forgot-password',
+  ingredient: '/ingredients/:ingredientId',
+  orders: '/orders',
+  orderDetails: 'order-details',
+};
+
+export const COLORS = {
+  mainBlue: 'rgba(76, 76, 255)',
+  transparent: 'transparent',
+  transparents: {
+    mainViolet: 'rgba(153, 0, 153, 0.1)',
+  },
+};
