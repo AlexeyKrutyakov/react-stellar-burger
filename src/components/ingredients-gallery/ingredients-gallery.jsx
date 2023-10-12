@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 // import components
 import IngredientsCard from '../ingredients-card/ingredients-card';
+// import utils
+import { getIngredients } from '../../utils/store-selectors';
 
 function IngredientsGallery({ type, onModalOpen }) {
-  const ingredients = useSelector((state) => state.ingredients.loaded);
+  const ingredients = useSelector(getIngredients).loaded;
   const filteredIngredients = ingredients.filter(
     (ingredient) => ingredient.type === type
   );

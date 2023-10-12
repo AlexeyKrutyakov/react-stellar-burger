@@ -5,10 +5,11 @@ import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
 // import utils
 import getIngredient from '../../utils/getIngredient';
+import { getIngredients } from '../../utils/store-selectors';
 
 export default function IngredientPage() {
   const { ingredientId } = useParams();
-  const ingredients = useSelector((state) => state.ingredients.loaded);
+  const ingredients = useSelector(getIngredients).loaded;
 
   useEffect(() => {
     document.title = 'Stellar Burgers: Ingredient Details';

@@ -20,13 +20,14 @@ import {
 } from '../../services/burgerSlice';
 // import utils
 import { INGREDIENTS, MODAL } from '../../utils/constants';
+import { getBurger } from '../../utils/store-selectors';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const burgerConstructorData = useSelector((state) => state.burger);
+  const burgerConstructorData = useSelector(getBurger);
 
   const bun = burgerConstructorData.bun;
   const mains = burgerConstructorData.mains;

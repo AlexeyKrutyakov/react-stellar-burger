@@ -14,10 +14,11 @@ import { INGREDIENTS } from '../../utils/constants';
 // import utils
 import { ingredientPropType } from '../../utils/prop-types';
 import countIngredients from '../../utils/count-ingredients';
+import { getBurger } from '../../utils/store-selectors';
 
 function IngredientsCard({ ingredient, onModalOpen }) {
   const location = useLocation();
-  const burgerConstructorData = useSelector((state) => state.burger);
+  const burgerConstructorData = useSelector(getBurger);
 
   const bun = burgerConstructorData.bun;
   const mains = burgerConstructorData.mains;

@@ -1,10 +1,12 @@
 // import from modules
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router';
+// import utils
+import { getProfile } from '../../utils/store-selectors';
 
 function ProtectedRouteElement({ component, onlyUnauth = false }) {
-  const isAuthChecked = useSelector((state) => state.profile.isAuthChecked);
-  const user = useSelector((state) => state.profile.user);
+  const isAuthChecked = useSelector(getProfile).isAuthChecked;
+  const user = useSelector(getProfile).user;
   const location = useLocation();
 
   if (!isAuthChecked) {

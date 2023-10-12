@@ -30,6 +30,12 @@ import { checkUserAuth } from '../../services/profileSlice';
 import { loadIngredients } from '../../services/ingredientsSlice';
 // import constants
 import { MODAL, TOKENS } from '../../utils/constants';
+// import utils
+import {
+  getModal,
+  getIngredients,
+  getOrder,
+} from '../../utils/store-selectors';
 
 function App() {
   const dispatch = useDispatch();
@@ -38,9 +44,9 @@ function App() {
   const navigate = useNavigate();
   const background = location.state && location.state.background;
 
-  const currentModal = useSelector((state) => state.modal);
-  const ingredients = useSelector((state) => state.ingredients);
-  const currentOrder = useSelector((state) => state.order);
+  const currentModal = useSelector(getModal);
+  const ingredients = useSelector(getIngredients);
+  const currentOrder = useSelector(getOrder);
 
   const handleCloseModal = () => {
     navigate(-1);

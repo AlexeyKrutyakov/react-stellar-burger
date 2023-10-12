@@ -3,9 +3,11 @@ import styles from './order-details.module.css';
 import { useSelector } from 'react-redux';
 // import images
 import imageDone from '../../images/graphics.png';
+// import utils
+import { getOrder } from '../../utils/store-selectors';
 
 function OrderDetails() {
-  const orderNumber = useSelector((state) => state.order.number);
+  const orderNumber = useSelector(getOrder).number;
 
   return (
     <>

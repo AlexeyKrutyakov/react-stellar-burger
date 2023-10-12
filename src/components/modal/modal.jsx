@@ -7,9 +7,11 @@ import { useSelector } from 'react-redux';
 // import components
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+// import utils
+import { getModal } from '../../utils/store-selectors';
 
 function Modal({ children, onCloseModal, forSpinner }) {
-  const modalType = useSelector((state) => state.modal.type);
+  const modalType = useSelector(getModal);
   const modalRoot = document.getElementById('modal-root');
 
   function closeModal() {

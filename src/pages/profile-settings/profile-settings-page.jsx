@@ -11,9 +11,11 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
 import { editUser } from '../../services/profileSlice';
+// import utils
+import { getProfile } from '../../utils/store-selectors';
 
 export default function ProfileSettingsPage() {
-  const user = useSelector((state) => state.profile.user);
+  const user = useSelector(getProfile).user;
   const defaultName = user.name;
   const defaultEmail = user.email;
   const defaultPassword = '';

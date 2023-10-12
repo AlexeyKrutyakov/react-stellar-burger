@@ -7,15 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 // import components
 import BurgerIngredients from '../../components/burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
-// import pages
 // import services
 import { openModal } from '../../services/modalSlice';
+// import utils
+import { getIngredients } from '../../utils/store-selectors';
 
 export default function HomePage() {
   const dispatch = useDispatch();
-  const ingredientsLoadingStatus = useSelector(
-    (state) => state.ingredients.status
-  );
+  const ingredientsLoadingStatus = useSelector(getIngredients).status;
 
   const handleOpenModal = (type) => {
     dispatch(openModal(type));
