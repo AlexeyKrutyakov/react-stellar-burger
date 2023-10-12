@@ -8,7 +8,7 @@ import {
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import constants
-import { PATHS } from '../../utils/constants';
+import { PATHS, STYLES } from '../../utils/constants';
 
 function NavPanel() {
   return (
@@ -19,7 +19,7 @@ function NavPanel() {
             {({ isActive }) => (
               <div className={isActive ? styles.link_active : styles.link}>
                 <BurgerIcon type={isActive ? 'primary' : 'secondary'} />
-                <p className="text text_type_main-default">Конструктор</p>
+                <p className={`${STYLES.text.default}`}>Конструктор</p>
               </div>
             )}
           </NavLink>
@@ -29,7 +29,7 @@ function NavPanel() {
             {({ isActive }) => (
               <div className={isActive ? styles.link_active : styles.link}>
                 <ListIcon type={isActive ? 'primary' : 'secondary'} />
-                <p className="text text_type_main-default">Лента заказов</p>
+                <p className={`${STYLES.text.default}`}>Лента заказов</p>
               </div>
             )}
           </NavLink>
@@ -44,7 +44,7 @@ function NavPanel() {
             {({ isActive }) => (
               <div className={isActive ? styles.link_active : styles.link}>
                 <ProfileIcon type={isActive ? 'primary' : 'secondary'} />
-                <p className="text text_type_main-default">Личный кабинет</p>
+                <p className={`${STYLES.text.default}`}>Личный кабинет</p>
               </div>
             )}
           </NavLink>

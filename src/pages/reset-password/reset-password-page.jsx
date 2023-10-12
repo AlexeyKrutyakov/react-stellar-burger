@@ -9,7 +9,7 @@ import {
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import constants
-import { TOKENS, PATHS } from '../../utils/constants';
+import { TOKENS, PATHS, STYLES } from '../../utils/constants';
 // import utils
 import { requestResetPassword } from '../../utils/api';
 
@@ -43,9 +43,7 @@ export default function ResetPasswordPage() {
   return (
     <div className={styles.content}>
       <form action="login" onSubmit={submitHandler}>
-        <h1 className="text text_type_main-medium">
-          Восстановление&nbsp;пароля
-        </h1>
+        <h1 className={`${STYLES.text.medium}`}>Восстановление&nbsp;пароля</h1>
         <PasswordInput
           size="default"
           placeholder="Введите новый пароль"
@@ -69,7 +67,7 @@ export default function ResetPasswordPage() {
           Сохранить
         </Button>
       </form>
-      <p className="text text_type_main-default text_color_inactive mt-20">
+      <p className={`${STYLES.text.defaultInactive} mt-20`}>
         Вспомнили пароль?&nbsp;
         <Link to={PATHS.login} style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Войти</span>

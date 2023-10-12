@@ -19,7 +19,13 @@ import {
   resetConstructorData,
 } from '../../services/burgerSlice';
 // import constants
-import { COLORS, INGREDIENTS, MODAL, PATHS } from '../../utils/constants';
+import {
+  COLORS,
+  INGREDIENTS,
+  MODAL,
+  PATHS,
+  STYLES,
+} from '../../utils/constants';
 // import utils
 import { getBurger } from '../../utils/store-selectors';
 
@@ -120,7 +126,7 @@ function BurgerConstructor() {
         </article>
       )}
       <form className={styles.total_price}>
-        <h2 className="text text_type_digits-medium">
+        <h2 className={STYLES.digits.medium}>
           {totalPrice}
           <span className="ml-2">
             <CurrencyIcon type="primary" />

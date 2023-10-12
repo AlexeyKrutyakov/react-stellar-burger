@@ -8,7 +8,7 @@ import {
   EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import constants
-import { PATHS, TOKENS } from '../../utils/constants';
+import { PATHS, STYLES, TOKENS } from '../../utils/constants';
 // import utils
 import { requestResetToken } from '../../utils/api';
 
@@ -34,9 +34,7 @@ export default function ForgotPasswordPage() {
     <div className={styles.content}>
       <title>Stellar Burgers: Forgot password</title>
       <form action="forgot-password" onSubmit={submitHandler}>
-        <h1 className="text text_type_main-medium">
-          Восстановление&nbsp;пароля
-        </h1>
+        <h1 className={`${STYLES.text.medium}`}>Восстановление&nbsp;пароля</h1>
         <EmailInput
           size="default"
           placeholder="Укажите&nbsp;e-mail"
@@ -53,7 +51,7 @@ export default function ForgotPasswordPage() {
           Восстановить
         </Button>
       </form>
-      <p className="text text_type_main-default text_color_inactive mt-20">
+      <p className={`${STYLES.text.defaultInactive} mt-20`}>
         Вспомнили пароль?&nbsp;
         <Link to={PATHS.login} style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Войти</span>

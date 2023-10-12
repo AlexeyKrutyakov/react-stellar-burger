@@ -7,6 +7,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsGallery from '../ingredients-gallery/ingredients-gallery';
 // import utils
 import scroll from '../../utils/scroll';
+import { STYLES } from '../../utils/constants';
 
 function BurgerIngredients({ onModalOpen }) {
   const [current, setCurrent] = useState('buns');
@@ -57,7 +58,7 @@ function BurgerIngredients({ onModalOpen }) {
 
   return (
     <section className={`${styles.burger__tools}`}>
-      <h1 className="text text_type_main-large mt-10">Соберите бургер</h1>
+      <h1 className={`${STYLES.text.large} mt-10`}>Соберите бургер</h1>
       <nav className={`${styles.tabs} mt-5`} style={{ display: 'flex' }}>
         <Tab value="buns" active={current === 'buns'} onClick={setCategory}>
           Булки
@@ -75,7 +76,7 @@ function BurgerIngredients({ onModalOpen }) {
         ref={ingredients}
       >
         <h3
-          className="text text_type_main-medium mt-10"
+          className={`${STYLES.text.medium} mt-10`}
           id="buns"
           ref={bunsGallery}
         >
@@ -83,7 +84,7 @@ function BurgerIngredients({ onModalOpen }) {
         </h3>
         <IngredientsGallery type="bun" onModalOpen={onModalOpen} />
         <h3
-          className="text text_type_main-medium mt-10"
+          className={`${STYLES.text.medium} mt-10`}
           id="sauces"
           ref={saucesGallery}
         >
@@ -91,7 +92,7 @@ function BurgerIngredients({ onModalOpen }) {
         </h3>
         <IngredientsGallery type="sauce" onModalOpen={onModalOpen} />
         <h3
-          className="text text_type_main-medium mt-10"
+          className={`${STYLES.text.medium} mt-10`}
           id="mains"
           ref={mainsGallery}
         >

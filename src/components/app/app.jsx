@@ -74,7 +74,7 @@ function App() {
             element={<OnlyAuth component={<ProfilePage />} />}
           >
             <Route
-              index
+              path={''}
               element={<OnlyAuth component={<ProfileSettingsPage />} />}
             />
             <Route

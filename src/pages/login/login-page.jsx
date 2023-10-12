@@ -12,7 +12,7 @@ import {
 // import services
 import { login } from '../../services/profileSlice';
 // import constants
-import { PATHS } from '../../utils/constants';
+import { PATHS, STYLES } from '../../utils/constants';
 
 export default function LoginPage() {
   const [email, setEmail] = React.useState('');
@@ -35,7 +35,7 @@ export default function LoginPage() {
   return (
     <div className={styles.content}>
       <form action="login" onSubmit={submitHandler}>
-        <h1 className="text text_type_main-medium">Вход</h1>
+        <h1 className={`${STYLES.text.medium}`}>Вход</h1>
         <EmailInput
           size="default"
           value={email}
@@ -57,13 +57,13 @@ export default function LoginPage() {
           Войти
         </Button>
       </form>
-      <p className="text text_type_main-default text_color_inactive mt-20">
+      <p className={`${STYLES.text.defaultInactive} mt-20`}>
         Вы&nbsp;&mdash; новый пользователь?&nbsp;
         <Link to={PATHS.register} style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Зарегистрироваться</span>
         </Link>
       </p>
-      <p className="text text_type_main-default text_color_inactive mt-4">
+      <p className={`${STYLES.text.defaultInactive} mt-4`}>
         Забыли&nbsp;пароль?&nbsp;
         <Link to={PATHS.forgotPassword} style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Восстановить&nbsp;пароль</span>

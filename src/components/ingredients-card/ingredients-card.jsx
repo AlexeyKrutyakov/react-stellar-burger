@@ -10,7 +10,7 @@ import {
   Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // imort constants
-import { INGREDIENTS } from '../../utils/constants';
+import { INGREDIENTS, STYLES } from '../../utils/constants';
 // import utils
 import { ingredientPropType } from '../../utils/prop-types';
 import countIngredients from '../../utils/count-ingredients';
@@ -81,12 +81,12 @@ function IngredientsCard({ ingredient, onModalOpen }) {
           ref={drag}
         />
         <h4
-          className={`${styles.ingredients__price} mt-1 mb-1 text text_type_digits-default`}
+          className={`${styles.ingredients__price} ${STYLES.digits.default} mt-1 mb-1`}
         >
           <span>{ingredient.price}</span>
           <CurrencyIcon type="primary" />
         </h4>
-        <h5 className={`${styles.card__title} text text_type_main-default `}>
+        <h5 className={`${styles.card__title} ${STYLES.text.default}`}>
           {ingredient.name}
         </h5>
       </Link>

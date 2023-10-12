@@ -1,5 +1,6 @@
 // import from modules
 import { useEffect } from 'react';
+import { STYLES } from '../../utils/constants';
 
 export default function OrdersHistoryPage() {
   useEffect(() => {
@@ -7,7 +8,7 @@ export default function OrdersHistoryPage() {
   }, []);
 
   return (
-    <span className="text text_type_main-default text_color_inacive">
+    <span className={`${STYLES.text.defaultInactive}`}>
       Здесь будут Ваши заказы
     </span>
   );

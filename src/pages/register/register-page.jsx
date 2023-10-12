@@ -13,7 +13,7 @@ import {
 // import services
 import { register } from '../../services/profileSlice';
 // imports constants
-import { PATHS } from '../../utils/constants';
+import { PATHS, STYLES } from '../../utils/constants';
 
 export default function RegisterPage() {
   const [name, setName] = React.useState('');
@@ -34,7 +34,7 @@ export default function RegisterPage() {
   return (
     <div className={styles.content}>
       <form action="register" onSubmit={submitHandler}>
-        <h1 className="text text_type_main-medium">Регистрация</h1>
+        <h1 className={`${STYLES.text.medium}`}>Регистрация</h1>
         <Input
           type="text"
           value={name}
@@ -63,7 +63,7 @@ export default function RegisterPage() {
           Зарегистрироваться
         </Button>
       </form>
-      <p className="text text_type_main-default text_color_inactive mt-20">
+      <p className={`${STYLES.text.defaultInactive} mt-20`}>
         Уже зарегистрированы?&nbsp;
         <Link to={PATHS.login} style={{ textDecoration: 'none' }}>
           <span className={styles.link}>Войти</span>

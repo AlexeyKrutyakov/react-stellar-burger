@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 // import components
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 // import constants
-import { PATHS } from '../../utils/constants';
+import { PATHS, STYLES } from '../../utils/constants';
 
 export default function NotFound404() {
   useEffect(() => {
@@ -22,10 +22,10 @@ export default function NotFound404() {
     <section className={styles.container}>
       <div className={styles.wrapper}>
         <article className={styles.content}>
-          <h1 className={`${styles.request_code} text text_type_digits-large`}>
+          <h1 className={`${styles.request_code} ${STYLES.digits.large}`}>
             404
           </h1>
-          <p className={`${styles.request_text} text text_type_main-large`}>
+          <p className={`${styles.request_text} ${STYLES.text.large}`}>
             Страница&nbsp;не&nbsp;найдена
           </p>
         </article>
