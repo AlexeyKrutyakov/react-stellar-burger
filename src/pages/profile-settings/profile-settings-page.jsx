@@ -9,6 +9,8 @@ import {
   PasswordInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+// import hooks
+import useForm from '../../hooks/useForm';
 // import services
 import { editUser } from '../../services/profileSlice';
 // import utils
@@ -20,41 +22,33 @@ export default function ProfileSettingsPage() {
   const defaultEmail = user.email;
   const defaultPassword = '';
 
-  const [name, setName] = useState(defaultName);
-  const [email, setEmail] = useState(defaultEmail);
-  const [password, setPassword] = useState(defaultPassword);
   const [formIsChanged, setFormIsChanged] = useState(false);
+  const { values, handleChange, setValues } = useForm({
+    name: defaultName,
+    email: defaultEmail,
+    password: defaultPassword,
+  });
 
   const dispatch = useDispatch();
 
   function clickCancelHandler() {
-    setName(defaultName);
-    setEmail(defaultEmail);
-    setPassword(defaultPassword);
+    setValues({
+      ...values,
+      name: defaultName,
+      email: defaultEmail,
+      password: defaultPassword,
+    });
     setFormIsChanged(false);
   }
-
   function submitHandler(event) {
     event.preventDefault();
     setFormIsChanged(false);
-    dispatch(editUser({ name, email, password }));
-    setPassword('');
+    dispatch(editUser({ ...values }));
+    setValues({
+      ...values,
+      password: defaultPassword,
+    });
     event.target.blur();
-  }
-
-  function inputNameHandler(event) {
-    setFormIsChanged(true);
-    setName(event.target.value);
-  }
-
-  const inputEmailHandler = (event) => {
-    setFormIsChanged(true);
-    setEmail(event.target.value);
-  };
-
-  function inputPasswordHandler(event) {
-    setPassword(event.target.value);
-    setFormIsChanged(true);
   }
 
   return (
@@ -62,22 +56,28 @@ export default function ProfileSettingsPage() {
       <Input
         type="text"
         placeholder="Имя"
-        value={name}
+        value={values.name}
+        name="name"
         icon="EditIcon"
-        onChange={inputNameHandler}
+        onChange={(e) => {
+          handleChange(e);
+          setFormIsChanged(true);
+        }}
       />
       <EmailInput
         placeholder="Логин"
-        value={email}
+        value={values.email}
+        name="email"
         isIcon={true}
         extraClass="mt-6"
-        onChange={inputEmailHandler}
+        onChange={(e) => handleChange(e)}
       />
       <PasswordInput
-        value={password}
+        value={values.password}
+        name="password"
         icon="EditIcon"
         extraClass="mt-6"
-        onChange={inputPasswordHandler}
+        onChange={(e) => handleChange(e)}
       />
       <div className={`${styles.buttons} mt-6`}>
         {formIsChanged && (

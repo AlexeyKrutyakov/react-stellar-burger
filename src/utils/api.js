@@ -91,7 +91,6 @@ export async function requestEditUser({ name, email, password }) {
 }
 
 export async function requestEditUserWithRefreshTokens(user) {
-  console.log('user', user);
   try {
     return await requestEditUser(user);
   } catch (error) {

@@ -8,22 +8,30 @@ import {
   PasswordInput,
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+// import hooks
+import useForm from '../../hooks/useForm';
 // import constants
 import { TOKENS, PATHS, STYLES } from '../../utils/constants';
 // import utils
 import { requestResetPassword } from '../../utils/api';
 
 export default function ResetPasswordPage() {
-  const [password, setPassword] = React.useState('');
-  const [token, setToken] = React.useState('');
+  const defaultPassword = '';
+  const defaultToken = '';
   const navigate = useNavigate();
+  const { values, handleChange, setValues } = useForm({
+    password: defaultPassword,
+    token: defaultToken,
+  });
 
   function submitHandler(event) {
     event.preventDefault();
-    requestResetPassword({ password, token })
+    requestResetPassword({ ...values })
       .then((res) => {
-        setPassword('');
-        setToken('');
+        setValues({
+          password: defaultPassword,
+          token: defaultToken,
+        });
         navigate(PATHS.home);
         localStorage.removeItem(TOKENS.resetTokenSent);
       })
@@ -47,15 +55,17 @@ export default function ResetPasswordPage() {
         <PasswordInput
           size="default"
           placeholder="Введите новый пароль"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={values.password}
+          name="password"
+          onChange={(e) => handleChange(e)}
           extraClass="mt-6"
         />
         <Input
           sizes="default"
           placeholder="Введите код из письма"
-          value={token}
-          onChange={(e) => setToken(e.target.value)}
+          value={values.token}
+          name="token"
+          onChange={(e) => handleChange(e)}
           extraClass="mt-6"
         />
         <Button

@@ -7,21 +7,30 @@ import {
   Button,
   EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+// import hooks
+import useForm from '../../hooks/useForm';
 // import constants
 import { PATHS, STYLES, TOKENS } from '../../utils/constants';
 // import utils
 import { requestResetToken } from '../../utils/api';
 
 export default function ForgotPasswordPage() {
+  const defaultEmail = '';
   const navigate = useNavigate();
+  const { values, handleChange, setValues } = useForm({
+    email: defaultEmail,
+  });
 
-  const [email, setEmail] = React.useState('');
+  // const [email, setEmail] = React.useState('');
 
   function submitHandler(event) {
     event.preventDefault();
-    requestResetToken({ email }).then(() => {
+    requestResetToken({ ...values }).then(() => {
       localStorage.setItem(TOKENS.resetTokenSent, true);
-      setEmail('');
+      setValues({
+        ...values,
+        email: defaultEmail,
+      });
       navigate(PATHS.resetPassword);
     });
   }
@@ -38,8 +47,10 @@ export default function ForgotPasswordPage() {
         <EmailInput
           size="default"
           placeholder="Укажите&nbsp;e-mail"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
+          // onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => handleChange(e)}
+          value={values.email}
+          name="email"
           extraClass="mt-6"
         />
         <Button

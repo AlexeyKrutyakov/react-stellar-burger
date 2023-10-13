@@ -9,22 +9,23 @@ import {
   EmailInput,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+// import hooks
+import useForm from '../../hooks/useForm';
 // import services
 import { login } from '../../services/profileSlice';
 // import constants
 import { PATHS, STYLES } from '../../utils/constants';
 
 export default function LoginPage() {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
+  const { values, handleChange } = useForm({
+    email: '',
+    password: '',
+  });
   const dispatch = useDispatch();
 
   function submitHandler(event) {
     event.preventDefault();
-    dispatch(login({ email, password }));
-    setEmail('');
-    setPassword('');
+    dispatch(login({ ...values }));
   }
 
   useEffect(() => {
@@ -37,14 +38,16 @@ export default function LoginPage() {
         <h1 className={`${STYLES.text.medium}`}>Вход</h1>
         <EmailInput
           size="default"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={values.email}
+          name="email"
+          onChange={(e) => handleChange(e)}
           extraClass="mt-6"
         />
         <PasswordInput
           size="default"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={values.password}
+          name="password"
+          onChange={(e) => handleChange(e)}
           extraClass="mt-6"
         />
         <Button
