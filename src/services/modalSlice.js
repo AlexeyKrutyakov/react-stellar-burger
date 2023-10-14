@@ -1,11 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
-
-import { MODAL } from "../utils/constants";
+// import from modules
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   type: '',
+  background: '/',
   isActive: false,
-  currentIngredient: {},
 };
 
 const modalSlice = createSlice({
@@ -13,54 +12,18 @@ const modalSlice = createSlice({
   initialState: initialState,
   reducers: {
     openModal: (state, action) => {
-      switch (action.payload.type) {
-        case MODAL.type.order:
-          return {
-            ...state,
-            type: action.payload.type,
-            isActive: true,
-          }
-        case MODAL.type.ingredientsDetails:
-          return {
-            ...state,
-            type: action.payload.type,
-            isActive: true,
-            currentIngredient: action.payload.item,
-          }
-        default:
-          break;
-      }
-    },
-    showSpinner: (state, _) => {
       return {
         ...state,
-        type: MODAL.type.loadingSpinner,
+        type: action.payload.type,
         isActive: true,
-        
-      }
+      };
     },
-    closeModal: (state, action) => {
-      if (action.payload.type === MODAL.type.ingredientsDetails) {
-        return {
-          ...state,
-          type: '',
-          isActive: false,
-          currentIngredient: {}
-        }
-      }
-      return {
-        ...state,
-        type: '',
-        isActive: false,
-      }
+    closeModal: () => {
+      return initialState;
     },
-  }
+  },
 });
 
-export const {
-  openModal,
-  closeModal,
-  showSpinner,
-} = modalSlice.actions;
+export const { openModal, closeModal } = modalSlice.actions;
 
 export const modalReducer = modalSlice.reducer;

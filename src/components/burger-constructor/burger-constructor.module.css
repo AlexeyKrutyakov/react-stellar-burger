@@ -1,4 +1,5 @@
-.burger_constructor, .ingredients_unlocked {
+.burger_constructor,
+.ingredients_unlocked {
   width: 600px;
   display: flex;
   flex-direction: column;

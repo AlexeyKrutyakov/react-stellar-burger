@@ -21,3 +21,11 @@
 .card__title {
   text-align: center;
 }
+
+.link {
+  all: unset;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
