@@ -20,7 +20,7 @@ import NotFound404 from '../../pages/not-found/not-found';
 import ProfilePage from '../../pages/profile/profile-page';
 import RegisterPage from '../../pages/register/register-page';
 import IngredientPage from '../../pages/ingredient/ingredient-page';
-import OrdersHistoryPage from '../../pages/orders-history/orders-history-page';
+import OrderHistoryPage from '../../pages/order-history/order-history-page';
 import ResetPasswordPage from '../../pages/reset-password/reset-password-page';
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password-page';
 import ProfileSettingsPage from '../../pages/profile-settings/profile-settings-page';
@@ -36,6 +36,7 @@ import {
   getIngredients,
   getOrder,
 } from '../../utils/store-selectors';
+import OrderFeedPage from '../../pages/order-feed/order-feed-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -70,6 +71,10 @@ function App() {
         <Routes location={background || location}>
           <Route path={PATHS.home} element={<HomePage />} />
           <Route
+            path={PATHS.orderFeed}
+            element={<OnlyAuth component={<OrderFeedPage />} />}
+          />
+          <Route
             path={PATHS.profile.index}
             element={<OnlyAuth component={<ProfilePage />} />}
           >
@@ -78,8 +83,8 @@ function App() {
               element={<OnlyAuth component={<ProfileSettingsPage />} />}
             />
             <Route
-              path={PATHS.profile.ordersHistory}
-              element={<OnlyAuth component={<OrdersHistoryPage />} />}
+              path={PATHS.profile.orderHistory}
+              element={<OnlyAuth component={<OrderHistoryPage />} />}
             />
           </Route>
           <Route

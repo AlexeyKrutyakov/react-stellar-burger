@@ -28,14 +28,14 @@ export const PATHS = {
   home: '/',
   profile: {
     index: '/profile',
-    ordersHistory: 'orders-history',
+    orderHistory: 'order-history',
   },
   login: '/login',
   register: '/register',
   resetPassword: '/reset-password',
   forgotPassword: '/forgot-password',
   ingredient: '/ingredients/:ingredientId',
-  orders: '/orders',
+  orderFeed: '/order-feed',
   orderDetails: 'order-details',
 };
 

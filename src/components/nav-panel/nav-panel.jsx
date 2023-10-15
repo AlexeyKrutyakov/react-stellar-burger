@@ -25,7 +25,7 @@ function NavPanel() {
           </NavLink>
         </li>
         <li className={`${styles.list__element} mt-4 mr-5 mb-4 ml-5`}>
-          <NavLink to={PATHS.orders} style={{ textDecoration: 'none' }}>
+          <NavLink to={PATHS.orderFeed} style={{ textDecoration: 'none' }}>
             {({ isActive }) => (
               <div className={isActive ? styles.link_active : styles.link}>
                 <ListIcon type={isActive ? 'primary' : 'secondary'} />

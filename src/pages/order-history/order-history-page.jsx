@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { STYLES } from '../../utils/constants';
 
-export default function OrdersHistoryPage() {
+export default function OrderHistoryPage() {
   useEffect(() => {
     document.title = 'Stellar Burgers: Orders';
   }, []);
