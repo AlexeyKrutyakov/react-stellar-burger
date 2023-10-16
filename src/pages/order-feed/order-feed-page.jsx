@@ -1,19 +1,23 @@
 import { useSelector } from 'react-redux';
 import styles from './order-feed-page.module.css';
-import { getBurger } from '../../utils/store-selectors';
+import { getIngredients } from '../../utils/store-selectors';
 import { STYLES } from '../../utils/constants';
+import IngredientIcon from '../../components/ingredient-icon/ingredient-icon';
 
 export default function OrderFeedPage() {
-  const burgerData = useSelector(getBurger);
-  const bun = burgerData.bun;
-  const mains = burgerData.mains;
+  // const burgerData = useSelector(getBurger);
+  const burgerData = useSelector(getIngredients).loaded;
+  // const bun = burgerData.bun;
+  const bun = burgerData[0];
+  // const mains = burgerData.mains;
+  const mains = burgerData.slice(2, 7);
   let ingredients = [];
   let visibleIngredients = null;
   let length = 0;
   let last = 0;
   if (bun) {
     ingredients = [bun, ...mains];
-    visibleIngredients = ingredients.slice(0, 6);
+    visibleIngredients = ingredients.slice(0, 7);
     length = visibleIngredients.length;
     last = length - 1;
   }
@@ -44,6 +48,23 @@ export default function OrderFeedPage() {
               )}
             </article>
           </div>
+        ))}
+        {visibleIngredients.map((ingredient, index) => (
+          <IngredientIcon
+            key={ingredient._id}
+            ingredient={ingredient}
+            options={{
+              style: {
+                preview_wrap: {
+                  zIndex: length - index,
+                  left: `${-16 * index}px`,
+                },
+              },
+              index,
+              length,
+              last,
+            }}
+          />
         ))}
       </div>
     );
