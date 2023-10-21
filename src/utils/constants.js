@@ -2,7 +2,8 @@ export const BURGER_API_URL = 'https://norma.nomoreparties.space/api/';
 
 export const MODAL = {
   type: {
-    order: 'order',
+    orderStatus: 'order__status',
+    orderDetails: 'order_details',
     ingredientsDetails: 'ingredient__details',
     loadingSpinner: 'spinner',
   },
@@ -36,7 +37,7 @@ export const PATHS = {
   forgotPassword: '/forgot-password',
   ingredient: '/ingredients/:ingredientId',
   orderFeed: '/order-feed',
-  orderDetails: 'order-details',
+  orderStatus: 'order-status',
 };
 
 export const COLORS = {

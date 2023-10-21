@@ -5,7 +5,7 @@ import styles from './order-card.module.css';
 import IngredientIcon from '../ingredient-icon/ingredient-icon';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export default function OrderCard() {
+export default function OrderCard({ hasStatus }) {
   // const burgerData = useSelector(getBurger);
   const burgerData = useSelector(getIngredients).loaded;
   // const bun = burgerData.bun;
@@ -24,7 +24,7 @@ export default function OrderCard() {
   }
   return (
     <article className={styles.card}>
-      <div className={styles.line_container}>
+      <div className={styles.card_header}>
         <h2 className={styles.digits}>#034535</h2>
         <h3 className={`${styles.date} ${STYLES.text.defaultInactive}`}>
           Сегодня, 16:20 i-GMT+3
@@ -32,8 +32,11 @@ export default function OrderCard() {
       </div>
       <h1 className={`${styles.name} ${STYLES.text.medium}`}>
         Death Star Starship Main бургер
+        {hasStatus && (
+          <span className={`${STYLES.text.default}`}>Готовится</span>
+        )}
       </h1>
-      <div className={styles.line_container}>
+      <div className={styles.card_footer}>
         <div className={styles.ingredients_icons}>
           {visibleIngredients.map((ingredient, index) => (
             <IngredientIcon

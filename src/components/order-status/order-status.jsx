@@ -1,4 +1,4 @@
-import styles from './order-details.module.css';
+import styles from './order-status.module.css';
 // imports from modules
 import { useSelector } from 'react-redux';
 // import images
@@ -7,7 +7,7 @@ import imageDone from '../../images/graphics.png';
 import { getOrder } from '../../utils/store-selectors';
 import { STYLES } from '../../utils/constants';
 
-function OrderDetails() {
+function OrderStatus() {
   const orderNumber = useSelector(getOrder).number;
 
   return (
@@ -27,4 +27,4 @@ function OrderDetails() {
   );
 }
 
-export default OrderDetails;
+export default OrderStatus;

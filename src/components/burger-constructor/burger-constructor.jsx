@@ -53,9 +53,9 @@ function BurgerConstructor() {
     if (burgerConstructorData.bun === null) return;
     if (ingredientsIdList.length >= 1) {
       dispatch(submitOrder(ingredientsIdList));
-      dispatch(openModal({ type: MODAL.type.order })) &&
+      dispatch(openModal({ type: MODAL.type.orderStatus })) &&
         dispatch(resetConstructorData());
-      navigate(PATHS.orderDetails, { state: { background: location } });
+      navigate(PATHS.orderStatus, { state: { background: location } });
     }
   };
 

@@ -6,7 +6,7 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 // import components
 import Modal from '../modal/modal';
 import AppHeader from '../app-header/app-header';
-import OrderDetails from '../order-details/order-details';
+import OrderStatus from '../order-status/order-status';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import {
@@ -123,13 +123,13 @@ function App() {
             }
           />
           <Route
-            path={PATHS.orderDetails}
+            path={PATHS.orderStatus}
             element={
               currentModal.isActive &&
-              currentModal.type === MODAL.type.order &&
+              currentModal.type === MODAL.type.orderStatus &&
               currentOrder.status === 'loaded' && (
                 <Modal onCloseModal={handleCloseModal}>
-                  <OrderDetails />
+                  <OrderStatus />
                 </Modal>
               )
             }
