@@ -4,7 +4,7 @@ import styles from './orders-stats.module.css';
 export default function OrdersStats() {
   return (
     <section className={styles.section}>
-      <acticle
+      <article
         className={`${styles.ready_orders} ${styles.list} ${STYLES.text.default}`}
       >
         <h2 className={styles.title}>Готовы:</h2>
@@ -35,7 +35,7 @@ export default function OrdersStats() {
             034533
           </span>
         </div>
-      </acticle>
+      </article>
       <article
         className={`${styles.inprogress_orders} ${styles.list} ${STYLES.text.default}`}
       >
@@ -46,10 +46,10 @@ export default function OrdersStats() {
           <span className={`${STYLES.digits.default}`}>034533</span>
         </div>
       </article>
-      <acticle className={`${styles.total_orders} ${STYLES.text.default}`}>
+      <article className={`${styles.total_orders} ${STYLES.text.default}`}>
         <h2 className={styles.title}>Выполнено за все время:</h2>
         <span className={`${STYLES.digits.large}`}>28 752</span>
-      </acticle>
+      </article>
       <article className={`${styles.today_orders} ${STYLES.text.default}`}>
         <h2 className={styles.title}>Выполнено за сегодня:</h2>
         <span className={`${STYLES.digits.large}`}>138</span>

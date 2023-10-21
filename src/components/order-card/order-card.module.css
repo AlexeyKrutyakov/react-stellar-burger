@@ -10,6 +10,11 @@
   border-radius: 40px;
 }
 
+.link {
+  text-decoration: none;
+  color: #f2f2f3;
+}
+
 .digits {
   margin: 0;
 

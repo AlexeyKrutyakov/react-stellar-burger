@@ -9,6 +9,7 @@ import AppHeader from '../app-header/app-header';
 import OrderStatus from '../order-status/order-status';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import OrderDetails from '../order-details/order-details';
 import {
   OnlyAuth,
   OnlyUnauth,
@@ -23,6 +24,7 @@ import IngredientPage from '../../pages/ingredient/ingredient-page';
 import OrderHistoryPage from '../../pages/order-history/order-history-page';
 import ResetPasswordPage from '../../pages/reset-password/reset-password-page';
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password-page';
+import OrderPage from '../../pages/order-page/order-page';
 import ProfileSettingsPage from '../../pages/profile-settings/profile-settings-page';
 // import services
 import { closeModal } from '../../services/modalSlice';
@@ -109,6 +111,10 @@ function App() {
             path={PATHS.ingredient}
             element={<OnlyAuth component={<IngredientPage />} />}
           />
+          <Route
+            path={PATHS.order}
+            element={<OnlyAuth component={<OrderPage />} />}
+          />
           <Route path="*" element={<NotFound404 />} />
         </Routes>
       )}
@@ -119,6 +125,14 @@ function App() {
             element={
               <Modal onCloseModal={handleCloseModal}>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path={PATHS.order}
+            element={
+              <Modal onCloseModal={handleCloseModal}>
+                <OrderDetails />
               </Modal>
             }
           />

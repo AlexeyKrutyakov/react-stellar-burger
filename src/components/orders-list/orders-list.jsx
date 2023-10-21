@@ -4,12 +4,20 @@ import styles from './orders-list.module.css';
 export default function OrdersList({ hasStatus = false }) {
   return (
     <section className={`${styles.section} custom-scroll`}>
-      <div className={styles.orders_list}>
-        <OrderCard hasStatus={hasStatus} />
-        <OrderCard hasStatus={hasStatus} />
-        <OrderCard hasStatus={hasStatus} />
-        <OrderCard hasStatus={hasStatus} />
-      </div>
+      <ul className={styles.orders_list}>
+        <li>
+          <OrderCard hasStatus={hasStatus} />
+        </li>
+        <li>
+          <OrderCard hasStatus={hasStatus} />
+        </li>
+        <li>
+          <OrderCard hasStatus={hasStatus} />
+        </li>
+        <li>
+          <OrderCard hasStatus={hasStatus} />
+        </li>
+      </ul>
     </section>
   );
 }

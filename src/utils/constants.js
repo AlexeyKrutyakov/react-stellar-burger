@@ -38,6 +38,7 @@ export const PATHS = {
   ingredient: '/ingredients/:ingredientId',
   orderFeed: '/order-feed',
   orderStatus: 'order-status',
+  order: '/orders/:orderNumber',
 };
 
 export const COLORS = {
