@@ -1,0 +1,49 @@
+.section {
+  grid-area: orders_stats;
+  display: grid;
+  grid-template-areas:
+    'ready_orders inprogress_orders'
+    'total_orders total_orders'
+    'today_orders today_orders';
+  row-gap: 60px;
+  margin-left: 56px;
+  min-width: 584px;
+  min-height: 626px;
+}
+
+.title {
+  margin: 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-items: flex-start;
+}
+
+.ready_orders {
+  grid-area: ready_orders;
+}
+
+.orders_numbers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ready_order_number {
+  color: #0cc;
+}
+
+.inprogress_orders {
+  grid-area: inprogress_orders;
+}
+
+.total_orders {
+  grid-area: total_orders;
+}
+
+.today_orders {
+  grid-area: today_orders;
+}

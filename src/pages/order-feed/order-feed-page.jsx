@@ -1,7 +1,9 @@
 import { useSelector } from 'react-redux';
 import styles from './order-feed-page.module.css';
 import { getIngredients } from '../../utils/store-selectors';
-import OrderCard from '../../components/order-card/order-card';
+import { STYLES } from '../../utils/constants';
+import OrdersList from '../../components/orders-list/orders-list';
+import OrdersStats from '../../components/orders-details/orders-stats';
 
 export default function OrderFeedPage() {
   // const burgerData = useSelector(getBurger);
@@ -19,9 +21,12 @@ export default function OrderFeedPage() {
 
   if (visibleIngredients) {
     return (
-      <div className={styles.section}>
-        <OrderCard />
-        <OrderCard />
+      <div className={styles.content}>
+        <h1 className={`${styles.title} ${STYLES.text.large}`}>
+          Лента заказов
+        </h1>
+        <OrdersList />
+        <OrdersStats />
       </div>
     );
   }

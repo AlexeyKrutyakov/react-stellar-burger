@@ -1,8 +1,13 @@
-.section {
-  display: flex;
-  margin-top: 20px; /* delete line */
-  flex-direction: column; /* delete line */
-  gap: 20px; /* delete line */
+.content {
+  display: grid;
+  grid-template-areas:
+    'title title'
+    'orders_history orders_stats';
   justify-content: center;
-  align-items: center;
+  align-items: self-start;
+}
+
+.title {
+  margin-top: 40px;
+  margin-bottom: 20px;
 }

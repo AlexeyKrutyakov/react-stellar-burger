@@ -26,12 +26,12 @@ export default function HomePage() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <main className={`${styles.content}`}>
+      <section className={`${styles.content}`}>
         {ingredientsLoadingStatus === 'loaded' && (
           <BurgerIngredients onModalOpen={handleOpenModal} />
         )}
         {ingredientsLoadingStatus === 'loaded' && <BurgerConstructor />}
-      </main>
+      </section>
     </DndProvider>
   );
 }
