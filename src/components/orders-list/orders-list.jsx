@@ -4,10 +4,12 @@ import styles from './orders-list.module.css';
 export default function OrdersList() {
   return (
     <section className={`${styles.section} custom-scroll`}>
-      <OrderCard />
-      <OrderCard />
-      <OrderCard />
-      <OrderCard />
+      <div className={styles.orders_list}>
+        <OrderCard />
+        <OrderCard />
+        <OrderCard />
+        <OrderCard />
+      </div>
     </section>
   );
 }

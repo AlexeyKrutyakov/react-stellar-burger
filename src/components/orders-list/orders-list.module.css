@@ -1,9 +1,13 @@
 .section {
   grid-area: orders_history;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  max-height: 768px;
+  max-height: 812px;
   overflow: auto;
   overflow-x: hidden;
+}
+
+.orders_list {
+  padding-right: 8px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
 }
