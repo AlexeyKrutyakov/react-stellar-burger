@@ -115,6 +115,7 @@ function App() {
             path={PATHS.profile.orderDetails}
             element={<OnlyAuth component={<OrderPage />} />}
           />
+          <Route path={PATHS.feedOrderDetails} element={<OrderPage />} />
           <Route path="*" element={<NotFound404 />} />
         </Routes>
       )}
