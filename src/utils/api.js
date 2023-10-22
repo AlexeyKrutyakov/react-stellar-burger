@@ -1,8 +1,8 @@
 // import constants
-import { BURGER_API_URL, TOKENS } from './constants';
+import { API_URLS, TOKENS } from './constants';
 
 const config = {
-  baseUrl: BURGER_API_URL,
+  baseUrl: API_URLS.https,
   headers: {
     'Content-Type': 'application/json',
   },

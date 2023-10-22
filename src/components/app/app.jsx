@@ -31,7 +31,7 @@ import { closeModal } from '../../services/modalSlice';
 import { checkUserAuth } from '../../services/profileSlice';
 import { loadIngredients } from '../../services/ingredientsSlice';
 // import constants
-import { MODAL, TOKENS, PATHS } from '../../utils/constants';
+import { MODAL, TOKENS, PATHS, API_URLS } from '../../utils/constants';
 // import utils
 import {
   getModal,
@@ -42,7 +42,6 @@ import FeedPage from '../../pages/feed/feed-page';
 
 function App() {
   const dispatch = useDispatch();
-
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
