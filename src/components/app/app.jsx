@@ -31,7 +31,7 @@ import { closeModal } from '../../services/modalSlice';
 import { checkUserAuth } from '../../services/profileSlice';
 import { loadIngredients } from '../../services/ingredientsSlice';
 // import constants
-import { MODAL, TOKENS, PATHS, API_URLS } from '../../utils/constants';
+import { MODAL, TOKENS, PATHS } from '../../utils/constants';
 // import utils
 import {
   getModal,

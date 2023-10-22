@@ -59,6 +59,19 @@ function BurgerConstructor() {
     }
   };
 
+  const wsOpenHandler = () => {
+    dispatch({
+      type: 'FEED_WS_CONNECTION_START',
+      payload: 'wss://norma.nomoreparties.space/orders/all',
+    });
+  };
+
+  const wsCloseHandler = () => {
+    dispatch({
+      type: 'FEED_WS_CONNECTION_STOP',
+    });
+  };
+
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'ingredient',
     collect: (monitor) => ({
@@ -141,6 +154,8 @@ function BurgerConstructor() {
           Оформить заказ
         </Button>
       </form>
+      <button onClick={wsOpenHandler}>WebSocket Open</button>
+      <button onClick={wsCloseHandler}>WebSocket Close</button>
     </section>
   );
 }

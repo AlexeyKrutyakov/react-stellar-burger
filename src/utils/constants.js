@@ -1,15 +1,19 @@
 export const API_URLS = {
   https: 'https://norma.nomoreparties.space/api/',
-  wss: 'wss://norma.nomoreparties.space/orders/all',
+  wss: {
+    all: 'wss://norma.nomoreparties.space/orders/all',
+    personal: 'wss://norma.nomoreparties.space/orders',
+  },
 };
 
 export const WS_ACTIONS = {
-  start: 'WS_CONNECTION_START',
-  success: 'WS_CONNECTION_SUCCESS',
-  error: 'WS_CONNECTION_ERROR',
-  closed: 'WS_CONNECTION_CLOSED',
-  getMessage: 'WS_GET_MESSAGE',
-  sendMessage: 'WS_SEND_MESSAGE',
+  wsInit: 'WS_CONNECTION_START',
+  feedWsInit: 'FEED_WS_CONNECTION_START',
+  feedWsStop: 'FEED_WS_CONNECTION_STOP',
+  onOpen: 'WS_CONNECTION_SUCCESS',
+  onError: 'WS_CONNECTION_ERROR',
+  onClose: 'WS_CONNECTION_CLOSED',
+  onMessage: 'WS_GET_MESSAGE',
 };
 
 export const MODAL = {

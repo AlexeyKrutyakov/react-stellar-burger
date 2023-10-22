@@ -1,12 +1,14 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './feed-page.module.css';
 import { getIngredients } from '../../utils/store-selectors';
-import { STYLES } from '../../utils/constants';
+import { API_URLS, STYLES, WS_ACTIONS } from '../../utils/constants';
 import OrdersList from '../../components/orders-list/orders-list';
 import OrdersStats from '../../components/orders-details/orders-stats';
 import { useLocation } from 'react-router';
+import { useEffect } from 'react';
 
 export default function FeedPage() {
+  const dispatch = useDispatch();
   const location = useLocation();
   // const burgerData = useSelector(getBurger);
   const burgerData = useSelector(getIngredients).loaded;
@@ -20,6 +22,13 @@ export default function FeedPage() {
     ingredients = [bun, ...mains];
     visibleIngredients = ingredients.slice(0, 7);
   }
+
+  useEffect(() => {
+    dispatch({
+      type: WS_ACTIONS.feedWsInit,
+      payload: API_URLS.wss.all,
+    });
+  });
 
   if (visibleIngredients) {
     return (
