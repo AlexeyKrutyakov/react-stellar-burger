@@ -38,7 +38,7 @@ export default function ProfilePage() {
           </li>
           <li className={styles.menu_item}>
             <NavLink
-              to={PATHS.profile.orderHistory}
+              to={PATHS.profile.orders}
               style={{ textDecoration: 'none' }}
             >
               {({ isActive }) => (

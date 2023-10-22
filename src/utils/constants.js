@@ -29,16 +29,17 @@ export const PATHS = {
   home: '/',
   profile: {
     index: '/profile',
-    orderHistory: 'order-history',
+    orders: 'orders',
+    orderDetails: '/profile/orders/:orderNumber',
   },
   login: '/login',
   register: '/register',
   resetPassword: '/reset-password',
   forgotPassword: '/forgot-password',
   ingredient: '/ingredients/:ingredientId',
-  orderFeed: '/order-feed',
+  feed: '/feed',
+  feedOrderDetails: '/feed/:orderNumber',
   orderStatus: 'order-status',
-  order: '/orders/:orderNumber',
 };
 
 export const COLORS = {

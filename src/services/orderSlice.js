@@ -9,9 +9,9 @@ export const submitOrder = createAsyncThunk(
 );
 
 const initialState = {
-  status: '',
+  status: 'Выполнен',
   number: 39593,
-  name: '',
+  name: 'Black Hole Singularity острый бургер',
   ingredientsIdList: [
     {
       _id: '643d69a5c3f7b9001cfa093c',

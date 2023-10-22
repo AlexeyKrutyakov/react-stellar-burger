@@ -6,28 +6,33 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { STYLES } from '../../utils/constants';
 
 export default function OrderDetails() {
-  const orderIngredients = useSelector(getOrder).ingredientsIdList;
+  const order = useSelector(getOrder);
+  const orderIngredients = order.ingredientsIdList;
 
   return (
     <article className={styles.card}>
       <span className={`${styles.number} ${STYLES.digits.default}`}>
-        #12345
+        #{order.number}
       </span>
-      <h1 className={`${styles.name} ${STYLES.text.medium}`}>
-        Black Hole Singularity острый бургер
-      </h1>
-      <span className={`${styles.status} ${STYLES.text.default}`}>
-        Выполнен
+      <h1 className={`${styles.name} ${STYLES.text.medium}`}>{order.name}</h1>
+      <span
+        className={`${order.status === 'Выполнен' ? styles.status : ''} ${
+          STYLES.text.default
+        }`}
+      >
+        {order.status}
       </span>
       <h2 className={`${styles.list_title} ${STYLES.text.medium}`}>Состав:</h2>
       <ul className={`${styles.list} custom-scroll`}>
         <li className={styles.ingredient}>
           <IngredientIcon ingredient={orderIngredients[0]} />
           <h3 className={`${styles.ingredient_name} ${STYLES.text.default}`}>
-            Флюоресцентная булка R2-D3
+            {orderIngredients[0].name}
           </h3>
           <h4 className={styles.ingredient_price}>
-            <span className={`${STYLES.digits.default}`}>1 x 30</span>
+            <span className={`${STYLES.digits.default}`}>
+              1 x {orderIngredients[0].price}
+            </span>
             <CurrencyIcon />
           </h4>
         </li>

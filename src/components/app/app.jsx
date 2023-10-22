@@ -21,10 +21,10 @@ import NotFound404 from '../../pages/not-found/not-found';
 import ProfilePage from '../../pages/profile/profile-page';
 import RegisterPage from '../../pages/register/register-page';
 import IngredientPage from '../../pages/ingredient/ingredient-page';
-import OrderHistoryPage from '../../pages/order-history/order-history-page';
+import OrdersPage from '../../pages/orders/orders-page';
 import ResetPasswordPage from '../../pages/reset-password/reset-password-page';
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password-page';
-import OrderPage from '../../pages/order-page/order-page';
+import OrderPage from '../../pages/order/order-page';
 import ProfileSettingsPage from '../../pages/profile-settings/profile-settings-page';
 // import services
 import { closeModal } from '../../services/modalSlice';
@@ -38,7 +38,7 @@ import {
   getIngredients,
   getOrder,
 } from '../../utils/store-selectors';
-import OrderFeedPage from '../../pages/order-feed/order-feed-page';
+import FeedPage from '../../pages/feed/feed-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -73,8 +73,8 @@ function App() {
         <Routes location={background || location}>
           <Route path={PATHS.home} element={<HomePage />} />
           <Route
-            path={PATHS.orderFeed}
-            element={<OnlyAuth component={<OrderFeedPage />} />}
+            path={PATHS.feed}
+            element={<OnlyAuth component={<FeedPage />} />}
           />
           <Route
             path={PATHS.profile.index}
@@ -85,8 +85,8 @@ function App() {
               element={<OnlyAuth component={<ProfileSettingsPage />} />}
             />
             <Route
-              path={PATHS.profile.orderHistory}
-              element={<OnlyAuth component={<OrderHistoryPage />} />}
+              path={PATHS.profile.orders}
+              element={<OnlyAuth component={<OrdersPage />} />}
             />
           </Route>
           <Route
@@ -112,7 +112,7 @@ function App() {
             element={<OnlyAuth component={<IngredientPage />} />}
           />
           <Route
-            path={PATHS.order}
+            path={PATHS.profile.orderDetails}
             element={<OnlyAuth component={<OrderPage />} />}
           />
           <Route path="*" element={<NotFound404 />} />
@@ -129,7 +129,15 @@ function App() {
             }
           />
           <Route
-            path={PATHS.order}
+            path={PATHS.profile.orderDetails}
+            element={
+              <Modal onCloseModal={handleCloseModal}>
+                <OrderDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path={PATHS.feedOrderDetails}
             element={
               <Modal onCloseModal={handleCloseModal}>
                 <OrderDetails />

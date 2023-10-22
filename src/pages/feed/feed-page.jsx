@@ -1,11 +1,13 @@
 import { useSelector } from 'react-redux';
-import styles from './order-feed-page.module.css';
+import styles from './feed-page.module.css';
 import { getIngredients } from '../../utils/store-selectors';
 import { STYLES } from '../../utils/constants';
 import OrdersList from '../../components/orders-list/orders-list';
 import OrdersStats from '../../components/orders-details/orders-stats';
+import { useLocation } from 'react-router';
 
-export default function OrderFeedPage() {
+export default function FeedPage() {
+  const location = useLocation();
   // const burgerData = useSelector(getBurger);
   const burgerData = useSelector(getIngredients).loaded;
   // const bun = burgerData.bun;
@@ -25,7 +27,7 @@ export default function OrderFeedPage() {
         <h1 className={`${styles.title} ${STYLES.text.large}`}>
           Лента заказов
         </h1>
-        <OrdersList />
+        <OrdersList path={location.pathname} />
         <OrdersStats />
       </div>
     );

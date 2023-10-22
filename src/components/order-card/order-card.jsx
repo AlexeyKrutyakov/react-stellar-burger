@@ -8,7 +8,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { openModal } from '../../services/modalSlice';
 import { useDispatch } from 'react-redux';
 
-export default function OrderCard({ hasStatus, onModalOpen }) {
+export default function OrderCard({ path, hasStatus, onModalOpen }) {
   const order = useSelector(getOrder);
   const location = useLocation();
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ export default function OrderCard({ hasStatus, onModalOpen }) {
   return (
     <Link
       className={styles.link}
-      to={`/orders/${orderNumber}`}
+      to={`${path}/${orderNumber}`}
       state={{ background: location }}
     >
       <article
