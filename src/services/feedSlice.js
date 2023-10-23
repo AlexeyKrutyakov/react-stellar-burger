@@ -33,7 +33,6 @@ const feedSlice = createSlice({
       };
     },
     setFeed: (state, action) => {
-      console.log('*** message from server ***', action);
       return {
         ...state,
         success: action.payload.success,

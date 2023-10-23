@@ -27,8 +27,13 @@
 }
 
 .orders_numbers {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 322px;
   gap: 8px;
 }
 
@@ -38,6 +43,7 @@
 
 .inprogress_orders {
   grid-area: inprogress_orders;
+  margin-left: 40px;
 }
 
 .total_orders {

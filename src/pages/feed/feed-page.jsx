@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './feed-page.module.css';
-import { getIngredients } from '../../utils/store-selectors';
+import { getFeed, getIngredients } from '../../utils/store-selectors';
 import { API_URLS, STYLES, WS_ACTIONS } from '../../utils/constants';
 import OrdersList from '../../components/orders-list/orders-list';
 import OrdersStats from '../../components/orders-details/orders-stats';

@@ -25,7 +25,7 @@ const burgerSlice = createSlice({
           mains: [...state.mains, action.payload],
         };
       },
-      prepare: (main) => {
+      prepare: main => {
         const constructorId = nanoid();
         return { payload: { ...main, constructorId } };
       },

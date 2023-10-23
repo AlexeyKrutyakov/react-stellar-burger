@@ -1,6 +1,6 @@
 // imports from modules
 import { configureStore } from '@reduxjs/toolkit';
-import { wsMiddleware } from './wsMiddleware';
+import { socketMiddleware } from './socketMiddleWare';
 
 // import services
 import { modalReducer } from './modalSlice';
@@ -25,16 +25,16 @@ export const store = configureStore({
     modal: modalReducer,
     profile: profileReducer,
   },
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(
-      wsMiddleware({
+      socketMiddleware({
         wsInit: feedActions.wsInit,
         onOpen: setWsConnectionStatus,
         onStop: feedActions.onStop,
         onError: setError,
         onClose: setWsConnectionStatus,
         onMessage: setFeed,
-      })
+      }),
     ),
   devTools: true,
 });
