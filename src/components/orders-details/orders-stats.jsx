@@ -8,7 +8,7 @@ export default function OrdersStats() {
 
   function getOrderNumbers(orders, status) {
     const numbers = orders.map(order => {
-      if (order.status === status) return order.number;
+      if (order && order.status === status) return order.number;
     });
     return numbers.filter(number => number !== undefined);
   }

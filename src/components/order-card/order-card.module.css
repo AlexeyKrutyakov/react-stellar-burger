@@ -3,7 +3,8 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  min-width: 584px;
+  /* min-width: 584px; */
+  width: 584px;
   min-height: 214px;
   color: #f2f2f3;
   background-color: #1c1c21;

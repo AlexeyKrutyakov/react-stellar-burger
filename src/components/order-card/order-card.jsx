@@ -7,11 +7,21 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { Link, useLocation } from 'react-router-dom';
 import { openModal } from '../../services/modalSlice';
 import { useDispatch } from 'react-redux';
+import getIngredientsById from '../../utils/ingredients-by-id';
+import isOrderCorrect from '../../utils/check-order';
 
-export default function OrderCard({ path, hasStatus, onModalOpen }) {
-  const order = useSelector(getOrder);
+export default function OrderCard({ order, path, hasStatus, onModalOpen }) {
   const location = useLocation();
   const dispatch = useDispatch();
+  const allIngredients = useSelector(getIngredients).loaded;
+
+  const loadingIngredients = getIngredientsById(
+    order.ingredients,
+    allIngredients,
+  );
+  console.log(loadingIngredients);
+
+  console.log(isOrderCorrect(loadingIngredients));
 
   const orderNumber = order.number;
   // const burgerData = useSelector(getBurger);
@@ -25,14 +35,19 @@ export default function OrderCard({ path, hasStatus, onModalOpen }) {
   let length = 0;
   let last = 0;
 
-  if (bun) {
-    ingredients = [bun, ...mains];
-    visibleIngredients = ingredients.slice(0, 7);
-    length = visibleIngredients.length;
-    last = length - 1;
-  }
+  // if (bun) {
+  //   ingredients = [bun, ...mains];
+  //   visibleIngredients = ingredients.slice(0, 7);
+  //   length = visibleIngredients.length;
+  //   last = length - 1;
+  // }
 
-  const handleOpenModal = (type) => {
+  ingredients = [bun, ...mains];
+  visibleIngredients = ingredients.slice(0, 7);
+  length = visibleIngredients.length;
+  last = length - 1;
+
+  const handleOpenModal = type => {
     dispatch(openModal(type));
   };
 
@@ -51,11 +66,12 @@ export default function OrderCard({ path, hasStatus, onModalOpen }) {
         <div className={styles.card_header}>
           <h2 className={styles.digits}>#{orderNumber}</h2>
           <h3 className={`${styles.date} ${STYLES.text.defaultInactive}`}>
-            Сегодня, 16:20 i-GMT+3
+            {/* Сегодня, 16:20 i-GMT+3 */}
+            {order.createdAt}
           </h3>
         </div>
         <h1 className={`${styles.name} ${STYLES.text.medium}`}>
-          Death Star Starship Main бургер
+          {order.name}
           {hasStatus && (
             <span className={`${STYLES.text.default}`}>Готовится</span>
           )}
