@@ -7,6 +7,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { Link, useLocation } from 'react-router-dom';
 import { openModal } from '../../services/modalSlice';
 import { useDispatch } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
 
 export default function OrderCard({
   number,
@@ -20,12 +21,16 @@ export default function OrderCard({
   const location = useLocation();
   const dispatch = useDispatch();
 
-  let length = 0;
-  let last = 0;
+  const bun = ingredients.filter(ingredient => ingredient.type === 'bun')[0];
+  const mains = ingredients.filter(
+    ingredient => ingredient.type === 'main' || ingredient.type === 'sauce',
+  );
 
-  const visibleIngredients = ingredients.slice(0, 7);
+  let length = 0;
+  let last = 6;
+
+  const visibleIngredients = [bun, ...mains].slice(0, 7);
   length = visibleIngredients.length;
-  last = length - 1;
 
   const handleOpenModal = type => {
     dispatch(openModal(type));
@@ -53,14 +58,14 @@ export default function OrderCard({
         <h1 className={`${styles.name} ${STYLES.text.medium}`}>
           {name}
           {hasStatus && (
-            <span className={`${STYLES.text.default}`}>Готовится</span>
+            <span className={`${STYLES.text.default}`}>{status}</span>
           )}
         </h1>
         <div className={styles.card_footer}>
           <div className={styles.ingredients_icons}>
             {visibleIngredients.map((ingredient, index) => (
               <IngredientIcon
-                key={ingredient._id}
+                key={nanoid()}
                 ingredient={ingredient}
                 options={{
                   style: {
