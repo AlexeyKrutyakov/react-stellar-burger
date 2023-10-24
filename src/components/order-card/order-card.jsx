@@ -7,43 +7,23 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { Link, useLocation } from 'react-router-dom';
 import { openModal } from '../../services/modalSlice';
 import { useDispatch } from 'react-redux';
-import getIngredientsById from '../../utils/ingredients-by-id';
-import isOrderCorrect from '../../utils/check-order';
 
-export default function OrderCard({ order, path, hasStatus, onModalOpen }) {
+export default function OrderCard({
+  number,
+  date,
+  name,
+  status,
+  ingredients,
+  path,
+  hasStatus,
+}) {
   const location = useLocation();
   const dispatch = useDispatch();
-  const allIngredients = useSelector(getIngredients).loaded;
 
-  const loadingIngredients = getIngredientsById(
-    order.ingredients,
-    allIngredients,
-  );
-  console.log(loadingIngredients);
-
-  console.log(isOrderCorrect(loadingIngredients));
-
-  const orderNumber = order.number;
-  // const burgerData = useSelector(getBurger);
-  const burgerData = useSelector(getIngredients).loaded;
-  // const bun = burgerData.bun;
-  const bun = burgerData[0];
-  // const mains = burgerData.mains;
-  const mains = burgerData.slice(2, 7);
-  let ingredients = [];
-  let visibleIngredients = null;
   let length = 0;
   let last = 0;
 
-  // if (bun) {
-  //   ingredients = [bun, ...mains];
-  //   visibleIngredients = ingredients.slice(0, 7);
-  //   length = visibleIngredients.length;
-  //   last = length - 1;
-  // }
-
-  ingredients = [bun, ...mains];
-  visibleIngredients = ingredients.slice(0, 7);
+  const visibleIngredients = ingredients.slice(0, 7);
   length = visibleIngredients.length;
   last = length - 1;
 
@@ -54,7 +34,7 @@ export default function OrderCard({ order, path, hasStatus, onModalOpen }) {
   return (
     <Link
       className={styles.link}
-      to={`${path}/${orderNumber}`}
+      to={`${path}/${number}`}
       state={{ background: location }}
     >
       <article
@@ -64,14 +44,14 @@ export default function OrderCard({ order, path, hasStatus, onModalOpen }) {
         }}
       >
         <div className={styles.card_header}>
-          <h2 className={styles.digits}>#{orderNumber}</h2>
+          <h2 className={styles.digits}>#{number}</h2>
           <h3 className={`${styles.date} ${STYLES.text.defaultInactive}`}>
             {/* Сегодня, 16:20 i-GMT+3 */}
-            {order.createdAt}
+            {date}
           </h3>
         </div>
         <h1 className={`${styles.name} ${STYLES.text.medium}`}>
-          {order.name}
+          {name}
           {hasStatus && (
             <span className={`${STYLES.text.default}`}>Готовится</span>
           )}
