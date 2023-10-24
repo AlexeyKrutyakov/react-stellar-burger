@@ -8,6 +8,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { openModal } from '../../services/modalSlice';
 import { useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
+import convertDateFromToday from '../../utils/convert-date-from-today';
 
 export default function OrderCard({
   number,
@@ -52,7 +53,7 @@ export default function OrderCard({
           <h2 className={styles.digits}>#{number}</h2>
           <h3 className={`${styles.date} ${STYLES.text.defaultInactive}`}>
             {/* Сегодня, 16:20 i-GMT+3 */}
-            {date}
+            {convertDateFromToday(date)}
           </h3>
         </div>
         <h1 className={`${styles.name} ${STYLES.text.medium}`}>
