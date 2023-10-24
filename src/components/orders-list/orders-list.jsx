@@ -4,6 +4,7 @@ import styles from './orders-list.module.css';
 import { getFeed, getIngredients } from '../../utils/store-selectors';
 import getIngredientsById from '../../utils/ingredients-by-id';
 import isOrderCorrect from '../../utils/check-order';
+import VerifyOrder from '../../utils/verify-order';
 
 export default function OrdersList({ path = '', hasStatus = false }) {
   const feed = useSelector(getFeed);
@@ -21,7 +22,7 @@ export default function OrdersList({ path = '', hasStatus = false }) {
               allIngredients,
             );
 
-            if (isOrderCorrect(orderIngredients)) {
+            if (VerifyOrder(order, allIngredients)) {
               return (
                 <li key={order._id}>
                   <OrderCard

@@ -45,10 +45,10 @@ function BurgerConstructor() {
     mains.reduce((totalPrice, ingredient) => totalPrice + ingredient.price, 0);
 
   const bunId = bun ? bun._id : null;
-  const mainsIdList = mains.map((main) => main._id);
+  const mainsIdList = mains.map(main => main._id);
   const ingredientsIdList = bun ? [bunId, ...mainsIdList] : [...mainsIdList];
 
-  const handleSubmitOrder = (event) => {
+  const handleSubmitOrder = event => {
     event.preventDefault();
     if (burgerConstructorData.bun === null) return;
     if (ingredientsIdList.length >= 1) {
@@ -74,7 +74,7 @@ function BurgerConstructor() {
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'ingredient',
-    collect: (monitor) => ({
+    collect: monitor => ({
       canDrop: monitor.canDrop(),
       isOver: monitor.isOver(),
     }),

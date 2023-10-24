@@ -2,9 +2,15 @@ import { useSelector } from 'react-redux';
 import { STYLES } from '../../utils/constants';
 import styles from './orders-stats.module.css';
 import { getFeed } from '../../utils/store-selectors';
+import VerifyOrder from '../../utils/verify-order';
+import { getIngredients } from '../../utils/store-selectors';
 
 export default function OrdersStats() {
   const feed = useSelector(getFeed);
+  const allIngredients = useSelector(getIngredients).loaded;
+  const correctOrders = feed.orders.filter(order =>
+    VerifyOrder(order, allIngredients),
+  );
 
   function getOrderNumbers(orders, status) {
     const numbers = orders.map(order => {
@@ -13,8 +19,8 @@ export default function OrdersStats() {
     return numbers.filter(number => number !== undefined);
   }
 
-  const doneOrders = getOrderNumbers(feed.orders, 'done');
-  const pengingOrders = getOrderNumbers(feed.orders, 'pending');
+  const doneOrders = getOrderNumbers(correctOrders, 'done');
+  const pengingOrders = getOrderNumbers(correctOrders, 'pending');
 
   return (
     <section className={styles.section}>

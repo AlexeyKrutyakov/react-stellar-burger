@@ -4,6 +4,7 @@ export default function isOrderCorrect(ingredients) {
 
   if (buns[0]._id !== buns[1]._id) return false;
 
-  if (ingredients.includes('' || null || undefined)) return false;
+  if (ingredients.includes('' || null) || ingredients.includes(undefined))
+    return false;
   return true;
 }
