@@ -10,36 +10,10 @@ import { useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 import convertDateFromToday from '../../utils/convert-date-from-today';
 
-export default function OrderCard({
-  number,
-  orderDate,
-  name,
-  orderStatus,
-  orderIngredients,
-  path,
-  hasStatus,
-}) {
+export default function OrderCard({ order, path, hasStatus }) {
+  const { number, date, name, status, ingredients, totalPrice } = order;
   const location = useLocation();
   const dispatch = useDispatch();
-
-  const bun = orderIngredients.filter(
-    ingredient => ingredient.type === 'bun',
-  )[0];
-  const mains = orderIngredients.filter(
-    ingredient => ingredient.type === 'main' || ingredient.type === 'sauce',
-  );
-
-  const ingredients = [bun, ...mains];
-  const date = convertDateFromToday(orderDate);
-  const status =
-    orderStatus === 'done'
-      ? 'Выполнен'
-      : orderStatus === 'pending'
-      ? 'Готовится'
-      : 'Создан';
-  const totalPrice =
-    ingredients.reduce((sum, ingredient) => sum + ingredient.price, 0) +
-    bun.price;
 
   let length = 0;
   let last = 5;
@@ -62,7 +36,6 @@ export default function OrderCard({
         onClick={() => {
           handleOpenModal({
             type: 'order__details',
-            item: { number, date, name, status, ingredients, totalPrice },
           });
         }}
       >
@@ -82,13 +55,13 @@ export default function OrderCard({
                   : `${STYLES.text.default}`
               }
             >
-              {orderStatus}
+              {status}
             </span>
           )}
         </h1>
         <div className={styles.card_footer}>
           <div className={styles.ingredients_icons}>
-            {visibleIngredients.map((ingredient, index) => (
+            {ingredients.map((ingredient, index) => (
               <IngredientIcon
                 key={nanoid()}
                 ingredient={ingredient}

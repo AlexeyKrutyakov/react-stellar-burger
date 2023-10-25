@@ -5,7 +5,6 @@ const initialState = {
   type: '',
   background: '/',
   isActive: false,
-  item: null,
 };
 
 const modalSlice = createSlice({
@@ -16,7 +15,6 @@ const modalSlice = createSlice({
       return {
         ...state,
         type: action.payload.type,
-        item: action.payload.item ? action.payload.item : null,
         isActive: true,
       };
     },

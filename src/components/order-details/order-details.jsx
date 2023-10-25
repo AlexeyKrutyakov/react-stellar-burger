@@ -1,33 +1,53 @@
 import { useSelector } from 'react-redux';
 import IngredientIcon from '../ingredient-icon/ingredient-icon';
 import styles from './order-details.module.css';
-import { getModal, getOrder } from '../../utils/store-selectors';
+import {
+  getFeed,
+  getIngredients,
+  getModal,
+  getOrder,
+} from '../../utils/store-selectors';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { STYLES } from '../../utils/constants';
+import { PATHS, STYLES } from '../../utils/constants';
 import { nanoid } from '@reduxjs/toolkit';
+import { useLocation, useParams } from 'react-router';
+import findOrderByNumber from '../../utils/find-order-by-number';
+import prepareOrderToRender from '../../utils/prepare-order';
 
 export default function OrderDetails() {
-  const order = useSelector(getModal).item;
+  const allIngredients = useSelector(getIngredients).loaded;
+  const feed = useSelector(getFeed);
+  const { orderNumber } = useParams();
+  const location = useLocation();
+  let order = null;
+  if (location.pathname.includes(PATHS.feed)) {
+    order = findOrderByNumber(orderNumber, feed.orders);
+  }
+
+  const preparedOrder = prepareOrderToRender(order, allIngredients);
+  console.log('preparedOrder', preparedOrder);
 
   return (
-    order && (
+    preparedOrder && (
       <article className={styles.card}>
         <span className={`${styles.number} ${STYLES.digits.default}`}>
-          #{order.number}
+          #{preparedOrder.number}
         </span>
-        <h1 className={`${styles.name} ${STYLES.text.medium}`}>{order.name}</h1>
+        <h1 className={`${styles.name} ${STYLES.text.medium}`}>
+          {preparedOrder.name}
+        </h1>
         <span
-          className={`${order.status === 'Выполнен' ? styles.status : ''} ${
-            STYLES.text.default
-          }`}
+          className={`${
+            preparedOrder.status === 'Выполнен' ? styles.status : ''
+          } ${STYLES.text.default}`}
         >
-          {order.status}
+          {preparedOrder.status}
         </span>
         <h2 className={`${styles.list_title} ${STYLES.text.medium}`}>
           Состав:
         </h2>
         <ul className={`${styles.list} custom-scroll`}>
-          {order.ingredients.map(ingredient => (
+          {preparedOrder.ingredients.map(ingredient => (
             <li key={nanoid()} className={styles.ingredient}>
               <IngredientIcon ingredient={ingredient} />
               <h3
@@ -46,10 +66,12 @@ export default function OrderDetails() {
         </ul>
         <div className={styles.order_footer}>
           <p className={`${styles.date} ${STYLES.text.defaultInactive}`}>
-            {order.date}
+            {preparedOrder.date}
           </p>
           <h5 className={`${styles.total_price}`}>
-            <span className={STYLES.digits.default}>{order.totalPrice}</span>{' '}
+            <span className={STYLES.digits.default}>
+              {preparedOrder.totalPrice}
+            </span>{' '}
             <CurrencyIcon />
           </h5>
         </div>

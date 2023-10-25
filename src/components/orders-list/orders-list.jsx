@@ -5,6 +5,7 @@ import { getFeed, getIngredients } from '../../utils/store-selectors';
 import getIngredientsById from '../../utils/ingredients-by-id';
 import isOrderCorrect from '../../utils/check-order';
 import VerifyOrder from '../../utils/verify-order';
+import prepareOrderToRender from '../../utils/prepare-order';
 
 export default function OrdersList({ path = '', hasStatus = false }) {
   const feed = useSelector(getFeed);
@@ -16,21 +17,12 @@ export default function OrdersList({ path = '', hasStatus = false }) {
       <ul className={styles.orders_list}>
         {orders &&
           orders.map(order => {
-            if (!order) return;
-            const orderIngredients = getIngredientsById(
-              order.ingredients,
-              allIngredients,
-            );
-
-            if (VerifyOrder(order, allIngredients)) {
+            const preparedOrder = prepareOrderToRender(order, allIngredients);
+            if (preparedOrder) {
               return (
                 <li key={order._id}>
                   <OrderCard
-                    number={order.number}
-                    orderDate={order.createdAt}
-                    name={order.name}
-                    orderStatus={order.status}
-                    orderIngredients={orderIngredients}
+                    order={preparedOrder}
                     path={path}
                     hasStatus={hasStatus}
                   />

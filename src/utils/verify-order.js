@@ -1,6 +1,3 @@
-import { useSelector } from 'react-redux';
-import { getIngredients } from './store-selectors';
-
 export default function VerifyOrder(order, allIngredients) {
   if (
     order.ingredients.includes('' || null) ||
@@ -14,8 +11,8 @@ export default function VerifyOrder(order, allIngredients) {
   );
   const bunsIdList = allBuns.map(bun => bun._id);
 
-  const orderBunsIdList = order.ingredients.filter(ingredient =>
-    bunsIdList.includes(ingredient),
+  const orderBunsIdList = order.ingredients.filter(ingredientId =>
+    bunsIdList.includes(ingredientId),
   );
 
   if (orderBunsIdList.length > 2 || orderBunsIdList.length < 1) {
