@@ -10,27 +10,22 @@ import { useEffect } from 'react';
 export default function FeedPage() {
   const dispatch = useDispatch();
   const location = useLocation();
-  // const burgerData = useSelector(getBurger);
-  const burgerData = useSelector(getIngredients).loaded;
-  // const bun = burgerData.bun;
-  const bun = burgerData[0];
-  // const mains = burgerData.mains;
-  const mains = burgerData.slice(2, 7);
-  let ingredients = [];
-  let visibleIngredients = null;
-  if (bun) {
-    ingredients = [bun, ...mains];
-    visibleIngredients = ingredients.slice(0, 7);
-  }
+  const feed = useSelector(getFeed);
 
   useEffect(() => {
     dispatch({
       type: WS_ACTIONS.feedWsInit,
-      payload: API_URLS.wss.all,
+      payload: API_URLS.wss.allOrders,
     });
-  });
+    return () => {
+      console.log('unmount');
+      dispatch({
+        type: WS_ACTIONS.feedWsStop,
+      });
+    };
+  }, []);
 
-  if (visibleIngredients) {
+  if (feed.orders.length > 0) {
     return (
       <div className={styles.content}>
         <h1 className={`${styles.title} ${STYLES.text.large}`}>

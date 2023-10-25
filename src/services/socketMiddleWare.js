@@ -1,6 +1,6 @@
 export const socketMiddleware = wsActions => {
   return store => {
-    let ws = null;
+    let socket = null;
 
     return next => action => {
       const { dispatch } = store;
@@ -8,24 +8,24 @@ export const socketMiddleware = wsActions => {
       const { wsInit, onOpen, onStop, onError, onClose, onMessage } = wsActions;
 
       if (type === wsInit) {
-        ws = new WebSocket(payload);
+        socket = new WebSocket(payload);
       }
 
-      if (ws) {
+      if (socket) {
         if (type === onStop) {
-          ws.close(1000, '');
+          socket.close(1000);
         }
-        ws.onopen = event => {
+        socket.onopen = event => {
           dispatch(onOpen(event.type));
         };
-        ws.onerror = event => {
+        socket.onerror = event => {
           dispatch(onError(event.message));
         };
-        ws.onmessage = event => {
+        socket.onmessage = event => {
           const data = JSON.parse(event.data);
           dispatch(onMessage(data));
         };
-        ws.onclose = event => {
+        socket.onclose = event => {
           dispatch(onClose(event.type));
         };
       }

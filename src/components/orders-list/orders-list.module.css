@@ -1,5 +1,6 @@
 .section {
   grid-area: orders_history;
+  /* max-width: 600px; */
   max-height: 812px;
   overflow: auto;
   overflow-x: hidden;

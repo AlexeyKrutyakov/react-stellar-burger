@@ -1,8 +1,8 @@
 export const API_URLS = {
   https: 'https://norma.nomoreparties.space/api/',
   wss: {
-    all: 'wss://norma.nomoreparties.space/orders/all',
-    personal: 'wss://norma.nomoreparties.space/orders',
+    allOrders: 'wss://norma.nomoreparties.space/orders/all',
+    personalOrders: 'wss://norma.nomoreparties.space/orders',
   },
 };
 

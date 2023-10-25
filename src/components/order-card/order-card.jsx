@@ -27,11 +27,23 @@ export default function OrderCard({
     ingredient => ingredient.type === 'main' || ingredient.type === 'sauce',
   );
 
-  let length = 0;
-  let last = 6;
+  const orderIngredients = [bun, ...mains];
+  const orderDate = convertDateFromToday(date);
+  const orderStatus =
+    status === 'done'
+      ? 'Выполнен'
+      : status === 'pending'
+      ? 'Готовится'
+      : 'Создан';
+  const totalPrice =
+    orderIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0) +
+    bun.price;
 
-  const visibleIngredients = [bun, ...mains].slice(0, 7);
-  length = visibleIngredients.length;
+  let length = 0;
+  let last = 5;
+
+  const visibleIngredients = orderIngredients.slice(0, 6);
+  length = orderIngredients.length;
 
   const handleOpenModal = type => {
     dispatch(openModal(type));
@@ -45,21 +57,31 @@ export default function OrderCard({
     >
       <article
         className={styles.card}
-        onClick={() => {
-          handleOpenModal({ type: 'order__details', item: order });
-        }}
+        // onClick={() => {
+        //   handleOpenModal({
+        //     type: 'order__details',
+        //     item: { number, orderDate, name, orderStatus, orderIngredients },
+        //   });
+        // }}
       >
         <div className={styles.card_header}>
           <h2 className={styles.digits}>#{number}</h2>
           <h3 className={`${styles.date} ${STYLES.text.defaultInactive}`}>
-            {/* Сегодня, 16:20 i-GMT+3 */}
-            {convertDateFromToday(date)}
+            {orderDate}
           </h3>
         </div>
         <h1 className={`${styles.name} ${STYLES.text.medium}`}>
           {name}
           {hasStatus && (
-            <span className={`${STYLES.text.default}`}>{status}</span>
+            <span
+              className={
+                status === 'done'
+                  ? `${STYLES.text.default} ${styles.status_done}`
+                  : `${STYLES.text.default}`
+              }
+            >
+              {orderStatus}
+            </span>
           )}
         </h1>
         <div className={styles.card_footer}>
@@ -83,7 +105,7 @@ export default function OrderCard({
             ))}
           </div>
           <h4 className={styles.line_container}>
-            <span className={styles.digits}>560&nbsp;</span>
+            <span className={styles.digits}>{totalPrice}&nbsp;</span>
             <CurrencyIcon />
           </h4>
         </div>

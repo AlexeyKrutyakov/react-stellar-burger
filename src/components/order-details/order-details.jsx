@@ -5,22 +5,25 @@ import { getOrder } from '../../utils/store-selectors';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { STYLES } from '../../utils/constants';
 
-export default function OrderDetails() {
-  const order = useSelector(getOrder);
-  const orderIngredients = order.ingredientsIdList;
-
+export default function OrderDetails({
+  number,
+  orderDate,
+  name,
+  orderStatus,
+  orderIngredients,
+}) {
   return (
     <article className={styles.card}>
       <span className={`${styles.number} ${STYLES.digits.default}`}>
-        #{order.number}
+        #{number}
       </span>
-      <h1 className={`${styles.name} ${STYLES.text.medium}`}>{order.name}</h1>
+      <h1 className={`${styles.name} ${STYLES.text.medium}`}>{name}</h1>
       <span
-        className={`${order.status === 'Выполнен' ? styles.status : ''} ${
+        className={`${orderStatus === 'Выполнен' ? styles.status : ''} ${
           STYLES.text.default
         }`}
       >
-        {order.status}
+        {orderStatus}
       </span>
       <h2 className={`${styles.list_title} ${STYLES.text.medium}`}>Состав:</h2>
       <ul className={`${styles.list} custom-scroll`}>
@@ -39,7 +42,7 @@ export default function OrderDetails() {
       </ul>
       <div className={styles.order_footer}>
         <p className={`${styles.date} ${STYLES.text.defaultInactive}`}>
-          Вчера, 13:50 i-GMT+3
+          {orderDate}
         </p>
         <h5 className={`${styles.total_price}`}>
           <span className={STYLES.digits.default}>510</span> <CurrencyIcon />

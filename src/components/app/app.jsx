@@ -31,7 +31,7 @@ import { closeModal } from '../../services/modalSlice';
 import { checkUserAuth } from '../../services/profileSlice';
 import { loadIngredients } from '../../services/ingredientsSlice';
 // import constants
-import { MODAL, TOKENS, PATHS } from '../../utils/constants';
+import { MODAL, TOKENS, PATHS, WS_ACTIONS } from '../../utils/constants';
 // import utils
 import {
   getModal,
@@ -54,6 +54,10 @@ function App() {
     navigate(-1);
     dispatch(closeModal());
   };
+
+  if (location.pathname !== '/feed') {
+    dispatch({ type: WS_ACTIONS.feedWsStop });
+  }
 
   useEffect(() => {
     dispatch(loadIngredients());

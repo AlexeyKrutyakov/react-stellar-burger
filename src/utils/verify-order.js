@@ -18,7 +18,7 @@ export default function VerifyOrder(order, allIngredients) {
     bunsIdList.includes(ingredient),
   );
 
-  if (orderBunsIdList.length !== 2) {
+  if (orderBunsIdList.length > 2 || orderBunsIdList.length < 1) {
     return false;
   }
 
