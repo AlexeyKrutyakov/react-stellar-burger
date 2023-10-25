@@ -18,7 +18,6 @@ export default function FeedPage() {
       payload: API_URLS.wss.allOrders,
     });
     return () => {
-      console.log('unmount');
       dispatch({
         type: WS_ACTIONS.feedWsStop,
       });

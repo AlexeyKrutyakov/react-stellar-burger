@@ -12,41 +12,43 @@ import convertDateFromToday from '../../utils/convert-date-from-today';
 
 export default function OrderCard({
   number,
-  date,
+  orderDate,
   name,
-  status,
-  ingredients,
+  orderStatus,
+  orderIngredients,
   path,
   hasStatus,
 }) {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const bun = ingredients.filter(ingredient => ingredient.type === 'bun')[0];
-  const mains = ingredients.filter(
+  const bun = orderIngredients.filter(
+    ingredient => ingredient.type === 'bun',
+  )[0];
+  const mains = orderIngredients.filter(
     ingredient => ingredient.type === 'main' || ingredient.type === 'sauce',
   );
 
-  const orderIngredients = [bun, ...mains];
-  const orderDate = convertDateFromToday(date);
-  const orderStatus =
-    status === 'done'
+  const ingredients = [bun, ...mains];
+  const date = convertDateFromToday(orderDate);
+  const status =
+    orderStatus === 'done'
       ? 'Выполнен'
-      : status === 'pending'
+      : orderStatus === 'pending'
       ? 'Готовится'
       : 'Создан';
   const totalPrice =
-    orderIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0) +
+    ingredients.reduce((sum, ingredient) => sum + ingredient.price, 0) +
     bun.price;
 
   let length = 0;
   let last = 5;
 
-  const visibleIngredients = orderIngredients.slice(0, 6);
-  length = orderIngredients.length;
+  const visibleIngredients = ingredients.slice(0, 6);
+  length = ingredients.length;
 
-  const handleOpenModal = type => {
-    dispatch(openModal(type));
+  const handleOpenModal = ({ type, item }) => {
+    dispatch(openModal({ type, item }));
   };
 
   return (
@@ -57,17 +59,17 @@ export default function OrderCard({
     >
       <article
         className={styles.card}
-        // onClick={() => {
-        //   handleOpenModal({
-        //     type: 'order__details',
-        //     item: { number, orderDate, name, orderStatus, orderIngredients },
-        //   });
-        // }}
+        onClick={() => {
+          handleOpenModal({
+            type: 'order__details',
+            item: { number, date, name, status, ingredients, totalPrice },
+          });
+        }}
       >
         <div className={styles.card_header}>
           <h2 className={styles.digits}>#{number}</h2>
           <h3 className={`${styles.date} ${STYLES.text.defaultInactive}`}>
-            {orderDate}
+            {date}
           </h3>
         </div>
         <h1 className={`${styles.name} ${STYLES.text.medium}`}>

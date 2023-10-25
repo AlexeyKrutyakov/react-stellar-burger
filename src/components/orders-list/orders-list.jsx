@@ -27,10 +27,10 @@ export default function OrdersList({ path = '', hasStatus = false }) {
                 <li key={order._id}>
                   <OrderCard
                     number={order.number}
-                    date={order.createdAt}
+                    orderDate={order.createdAt}
                     name={order.name}
-                    status={order.status}
-                    ingredients={orderIngredients}
+                    orderStatus={order.status}
+                    orderIngredients={orderIngredients}
                     path={path}
                     hasStatus={hasStatus}
                   />
