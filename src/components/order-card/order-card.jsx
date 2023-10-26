@@ -1,6 +1,4 @@
 import { STYLES } from '../../utils/constants';
-import { useSelector } from 'react-redux';
-import { getIngredients, getOrder } from '../../utils/store-selectors';
 import styles from './order-card.module.css';
 import IngredientIcon from '../ingredient-icon/ingredient-icon';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -8,18 +6,16 @@ import { Link, useLocation } from 'react-router-dom';
 import { openModal } from '../../services/modalSlice';
 import { useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
-import convertDateFromToday from '../../utils/convert-date-from-today';
 
-export default function OrderCard({ order, path, hasStatus }) {
+export default function OrderCard({ order, hasStatus }) {
   const { number, date, name, status, ingredients, totalPrice } = order;
   const location = useLocation();
   const dispatch = useDispatch();
 
-  let length = 0;
   let last = 5;
 
   const visibleIngredients = ingredients.slice(0, 6);
-  length = ingredients.length;
+  const length = ingredients.length;
 
   const handleOpenModal = ({ type, item }) => {
     dispatch(openModal({ type, item }));
@@ -28,7 +24,7 @@ export default function OrderCard({ order, path, hasStatus }) {
   return (
     <Link
       className={styles.link}
-      to={`${path}/${number}`}
+      to={`${location.pathname}/${number}`}
       state={{ background: location }}
     >
       <article
@@ -50,7 +46,7 @@ export default function OrderCard({ order, path, hasStatus }) {
           {hasStatus && (
             <span
               className={
-                status === 'done'
+                status === 'Выполнен'
                   ? `${STYLES.text.default} ${styles.status_done}`
                   : `${STYLES.text.default}`
               }
@@ -61,7 +57,7 @@ export default function OrderCard({ order, path, hasStatus }) {
         </h1>
         <div className={styles.card_footer}>
           <div className={styles.ingredients_icons}>
-            {ingredients.map((ingredient, index) => (
+            {visibleIngredients.map((ingredient, index) => (
               <IngredientIcon
                 key={nanoid()}
                 ingredient={ingredient}

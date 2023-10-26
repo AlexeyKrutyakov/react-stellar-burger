@@ -4,8 +4,7 @@ import styles from './order-details.module.css';
 import {
   getFeed,
   getIngredients,
-  getModal,
-  getOrder,
+  getProfile,
 } from '../../utils/store-selectors';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { PATHS, STYLES } from '../../utils/constants';
@@ -17,15 +16,17 @@ import prepareOrderToRender from '../../utils/prepare-order';
 export default function OrderDetails() {
   const allIngredients = useSelector(getIngredients).loaded;
   const feed = useSelector(getFeed);
+  const profile = useSelector(getProfile);
   const { orderNumber } = useParams();
   const location = useLocation();
   let order = null;
   if (location.pathname.includes(PATHS.feed)) {
     order = findOrderByNumber(orderNumber, feed.orders);
   }
-
+  if (location.pathname.includes(PATHS.profile.orders) && profile.orders) {
+    order = findOrderByNumber(orderNumber, profile.orders);
+  }
   const preparedOrder = prepareOrderToRender(order, allIngredients);
-  console.log('preparedOrder', preparedOrder);
 
   return (
     preparedOrder && (

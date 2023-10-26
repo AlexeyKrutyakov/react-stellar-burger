@@ -52,24 +52,11 @@ function BurgerConstructor() {
     event.preventDefault();
     if (burgerConstructorData.bun === null) return;
     if (ingredientsIdList.length >= 1) {
-      dispatch(submitOrder(ingredientsIdList));
-      dispatch(openModal({ type: MODAL.type.orderStatus })) &&
+      dispatch(submitOrder(ingredientsIdList)) &&
         dispatch(resetConstructorData());
+      dispatch(openModal({ type: MODAL.type.orderStatus }));
       navigate(PATHS.orderStatus, { state: { background: location } });
     }
-  };
-
-  const wsOpenHandler = () => {
-    dispatch({
-      type: 'FEED_WS_CONNECTION_START',
-      payload: 'wss://norma.nomoreparties.space/orders/all',
-    });
-  };
-
-  const wsCloseHandler = () => {
-    dispatch({
-      type: 'FEED_WS_CONNECTION_STOP',
-    });
   };
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -154,8 +141,6 @@ function BurgerConstructor() {
           Оформить заказ
         </Button>
       </form>
-      <button onClick={wsOpenHandler}>WebSocket Open</button>
-      <button onClick={wsCloseHandler}>WebSocket Close</button>
     </section>
   );
 }

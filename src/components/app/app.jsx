@@ -75,22 +75,14 @@ function App() {
       {ingredients.loaded && (
         <Routes location={background || location}>
           <Route path={PATHS.home} element={<HomePage />} />
-          <Route
-            path={PATHS.feed}
-            element={<OnlyAuth component={<FeedPage />} />}
-          />
+          <Route path={PATHS.feed} element={<FeedPage />} />
+
           <Route
             path={PATHS.profile.index}
             element={<OnlyAuth component={<ProfilePage />} />}
           >
-            <Route
-              path={''}
-              element={<OnlyAuth component={<ProfileSettingsPage />} />}
-            />
-            <Route
-              path={PATHS.profile.orders}
-              element={<OnlyAuth component={<OrdersPage />} />}
-            />
+            <Route path={''} element={<ProfileSettingsPage />} />
+            <Route path={PATHS.profile.orders} element={<OrdersPage />} />
           </Route>
           <Route
             path={PATHS.login}
@@ -115,10 +107,13 @@ function App() {
             element={<OnlyAuth component={<IngredientPage />} />}
           />
           <Route
-            path={PATHS.profile.orderDetails}
+            path={`${PATHS.feed}/${PATHS.orderDetails}`}
+            element={<OrderPage />}
+          />
+          <Route
+            path={`${PATHS.profile.index}/${PATHS.profile.orders}/${PATHS.orderDetails}`}
             element={<OnlyAuth component={<OrderPage />} />}
           />
-          <Route path={PATHS.feedOrderDetails} element={<OrderPage />} />
           <Route path="*" element={<NotFound404 />} />
         </Routes>
       )}
@@ -133,7 +128,7 @@ function App() {
             }
           />
           <Route
-            path={PATHS.profile.orderDetails}
+            path={`${PATHS.profile.index}/${PATHS.profile.orders}/${PATHS.orderDetails}`}
             element={
               <Modal onCloseModal={handleCloseModal}>
                 <OrderDetails />
@@ -141,7 +136,7 @@ function App() {
             }
           />
           <Route
-            path={PATHS.feedOrderDetails}
+            path={`${PATHS.feed}/${PATHS.orderDetails}`}
             element={
               <Modal onCloseModal={handleCloseModal}>
                 <OrderDetails />

@@ -1,6 +1,9 @@
+import { ORDER } from './constants';
 import convertDateFromToday from './convert-date-from-today';
 import getIngredientsById from './ingredients-by-id';
 import VerifyOrder from './verify-order';
+import translateStatus from './translate-status';
+import calculateTotalPrice from './calculate-total-price';
 
 export default function prepareOrderToRender(order, allIngredietns) {
   if (!order) return false;
@@ -18,23 +21,14 @@ export default function prepareOrderToRender(order, allIngredietns) {
     );
     const formattedIngredients = [bun, ...mains];
     const formattedDate = convertDateFromToday(order.createdAt);
-    const formattedStatus =
-      order.status === 'done'
-        ? 'Выполнен'
-        : order.status === 'pending'
-        ? 'Готовится'
-        : 'Создан';
-    const totalPrice =
-      formattedIngredients.reduce(
-        (sum, ingredient) => sum + ingredient.price,
-        0,
-      ) + bun.price;
+    const translatedStatus = translateStatus(order.status);
+    const totalPrice = calculateTotalPrice(formattedIngredients);
 
     return {
       number: order.number,
       date: formattedDate,
       name: order.name,
-      status: formattedStatus,
+      status: translatedStatus,
       ingredients: formattedIngredients,
       totalPrice: totalPrice,
     };

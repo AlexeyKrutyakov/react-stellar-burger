@@ -1,15 +1,26 @@
 import { useSelector } from 'react-redux';
 import OrderCard from '../order-card/order-card';
 import styles from './orders-list.module.css';
-import { getFeed, getIngredients } from '../../utils/store-selectors';
-import getIngredientsById from '../../utils/ingredients-by-id';
-import isOrderCorrect from '../../utils/check-order';
-import VerifyOrder from '../../utils/verify-order';
+import {
+  getFeed,
+  getIngredients,
+  getProfile,
+} from '../../utils/store-selectors';
 import prepareOrderToRender from '../../utils/prepare-order';
+import { useLocation } from 'react-router';
+import { PATHS } from '../../utils/constants';
 
-export default function OrdersList({ path = '', hasStatus = false }) {
+export default function OrdersList({ hasStatus = false }) {
+  let orders = null;
   const feed = useSelector(getFeed);
-  const orders = feed.orders;
+  const profile = useSelector(getProfile);
+  const location = useLocation();
+  if (location.pathname.includes(PATHS.feed)) {
+    orders = feed.orders;
+  }
+  if (location.pathname.includes(PATHS.profile.orders) && profile.orders) {
+    orders = [...profile.orders].reverse();
+  }
   const allIngredients = useSelector(getIngredients).loaded;
 
   return (
@@ -21,11 +32,7 @@ export default function OrdersList({ path = '', hasStatus = false }) {
             if (preparedOrder) {
               return (
                 <li key={order._id}>
-                  <OrderCard
-                    order={preparedOrder}
-                    path={path}
-                    hasStatus={hasStatus}
-                  />
+                  <OrderCard order={preparedOrder} hasStatus={hasStatus} />
                 </li>
               );
             }

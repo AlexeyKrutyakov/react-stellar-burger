@@ -9,7 +9,9 @@ export const API_URLS = {
 export const WS_ACTIONS = {
   wsInit: 'WS_CONNECTION_START',
   feedWsInit: 'FEED_WS_CONNECTION_START',
+  ordersWsInit: 'ORDERS_WS_CONNECTION_START',
   feedWsStop: 'FEED_WS_CONNECTION_STOP',
+  ordersWsStop: 'ORDERS_WS_CONNECTION_STOP',
   onOpen: 'WS_CONNECTION_SUCCESS',
   onError: 'WS_CONNECTION_ERROR',
   onClose: 'WS_CONNECTION_CLOSED',
@@ -33,6 +35,15 @@ export const INGREDIENTS = {
   },
 };
 
+export const ORDER = {
+  status: {
+    done: 'Выполнен',
+    pending: 'Готовится',
+    created: 'Создан',
+    canceled: 'Отменен',
+  },
+};
+
 export const TOKENS = {
   names: {
     access: 'accessToken',
@@ -46,7 +57,6 @@ export const PATHS = {
   profile: {
     index: '/profile',
     orders: 'orders',
-    orderDetails: '/profile/orders/:orderNumber',
   },
   login: '/login',
   register: '/register',
@@ -54,7 +64,7 @@ export const PATHS = {
   forgotPassword: '/forgot-password',
   ingredient: '/ingredients/:ingredientId',
   feed: '/feed',
-  feedOrderDetails: '/feed/:orderNumber',
+  orderDetails: ':orderNumber',
   orderStatus: 'order-status',
 };
 

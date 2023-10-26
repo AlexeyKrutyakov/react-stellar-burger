@@ -51,7 +51,7 @@ function request(endPoint, options) {
 }
 
 function checkResult(res) {
-  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+  return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
 }
 
 export function requestGetUserInfo() {
@@ -162,5 +162,11 @@ export function requestNewTokens() {
     body: {
       token: localStorage.getItem(TOKENS.names.refresh),
     },
+  });
+}
+
+export function requestGetOrder(number) {
+  return requestApi(`orders/${number}`, {
+    method: 'GET',
   });
 }

@@ -1,51 +1,47 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { WS_ACTIONS } from '../utils/constants';
 
-export const feedActions = {
-  wsInit: WS_ACTIONS.feedWsInit,
-  onStop: WS_ACTIONS.feedWsStop,
+export const ordersActions = {
+  wsInit: WS_ACTIONS.ordersWsInit,
+  onStop: WS_ACTIONS.ordersWsStop,
 };
 
 const initialState = {
   wsConnectionStatus: '',
-  success: false,
+  success: '',
   error: '',
   orders: [],
-  total: 0,
-  totalToday: 0,
 };
 
-const feedSlice = createSlice({
-  name: '@@feed',
+const ordersSlice = createSlice({
+  name: '@@orders',
   initialState: initialState,
   reducers: {
-    setFeedWsConnectionStatus: (state, action) => {
+    setWsConnectionStatus: (state, action) => {
       return {
         ...state,
         wsConnectionStatus: action.payload,
       };
     },
-    setFeedWsError: (state, action) => {
+    setError: (state, action) => {
       return {
         ...state,
         success: false,
         error: action.payload,
       };
     },
-    setFeed: (state, action) => {
+    setOrders: (state, action) => {
       return {
         ...state,
         success: action.payload.success,
         error: '',
         orders: action.payload.orders,
-        total: action.payload.total,
-        totalToday: action.payload.totalToday,
       };
     },
   },
 });
 
-export const { setFeedWsConnectionStatus, setFeedWsError, setFeed } =
-  feedSlice.actions;
+export const { setWsConnectionStatus, setError, setOrders } =
+  ordersSlice.actions;
 
-export const feedReducer = feedSlice.reducer;
+export const ordersReducer = ordersSlice.reducer;
