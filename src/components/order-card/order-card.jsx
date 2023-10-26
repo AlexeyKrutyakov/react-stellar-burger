@@ -76,7 +76,9 @@ export default function OrderCard({ order, hasStatus }) {
             ))}
           </div>
           <h4 className={styles.line_container}>
-            <span className={styles.digits}>{totalPrice}&nbsp;</span>
+            <span className={styles.digits}>
+              {totalPrice.toLocaleString('ru-RU')}&nbsp;
+            </span>
             <CurrencyIcon />
           </h4>
         </div>

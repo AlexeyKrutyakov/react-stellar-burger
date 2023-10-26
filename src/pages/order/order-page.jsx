@@ -11,6 +11,7 @@ import getIngredientsById from '../../utils/ingredients-by-id';
 import { nanoid } from '@reduxjs/toolkit';
 import translateStatus from '../../utils/translate-status';
 import calculateTotalPrice from '../../utils/calculate-total-price';
+import convertDateFromToday from '../../utils/convert-date-from-today';
 
 export default function OrderPage() {
   const { orderNumber } = useParams();
@@ -18,6 +19,7 @@ export default function OrderPage() {
   const dispatch = useDispatch();
   const order = useSelector(getOrder);
   const translatedStatus = translateStatus(order.status);
+  const formattedDate = convertDateFromToday(order.createdAt);
   let orderIngredients = null;
   let totalPrice = 0;
   if (order.number) {
@@ -74,9 +76,9 @@ export default function OrderPage() {
                 </h3>
                 <h4 className={styles.ingredient_price}>
                   <span className={`${STYLES.digits.default}`}>
-                    {`${ingredient.type === 'bun' ? '2' : '1'} x ${
-                      ingredient.price
-                    }`}
+                    {`${
+                      ingredient.type === 'bun' ? '2' : '1'
+                    } x ${ingredient.price.toLocaleString('ru-RU')}`}
                   </span>
                   <CurrencyIcon />
                 </h4>
@@ -85,10 +87,12 @@ export default function OrderPage() {
           </ul>
           <div className={styles.order_footer}>
             <p className={`${styles.date} ${STYLES.text.defaultInactive}`}>
-              Вчера, 13:50 i-GMT+3
+              {formattedDate}
             </p>
             <h5 className={`${styles.total_price}`}>
-              <span className={STYLES.digits.default}>{totalPrice}</span>{' '}
+              <span className={STYLES.digits.default}>
+                {totalPrice.toLocaleString('ru-RU')}
+              </span>{' '}
               <CurrencyIcon />
             </h5>
           </div>

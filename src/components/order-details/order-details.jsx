@@ -58,7 +58,8 @@ export default function OrderDetails() {
               </h3>
               <h4 className={styles.ingredient_price}>
                 <span className={`${STYLES.digits.default}`}>
-                  {ingredient.type === 'bun' ? '2' : '1'} x {ingredient.price}
+                  {ingredient.type === 'bun' ? '2' : '1'} x{' '}
+                  {ingredient.price.toLocaleString('ru-RU')}
                 </span>
                 <CurrencyIcon />
               </h4>
@@ -71,7 +72,7 @@ export default function OrderDetails() {
           </p>
           <h5 className={`${styles.total_price}`}>
             <span className={STYLES.digits.default}>
-              {preparedOrder.totalPrice}
+              {preparedOrder.totalPrice.toLocaleString('ru-RU')}
             </span>{' '}
             <CurrencyIcon />
           </h5>
