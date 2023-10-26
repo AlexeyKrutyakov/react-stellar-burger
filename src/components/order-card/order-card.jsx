@@ -2,7 +2,6 @@ import styles from './order-card.module.css';
 // imports from modules
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
 import { Link, useLocation } from 'react-router-dom';
 // import components
 import IngredientIcon from '../ingredient-icon/ingredient-icon';
@@ -65,7 +64,7 @@ export default function OrderCard({ order, hasStatus }) {
           <div className={styles.ingredients_icons}>
             {visibleIngredients.map((ingredient, index) => (
               <IngredientIcon
-                key={nanoid()}
+                key={index}
                 ingredient={ingredient}
                 options={{
                   style: {

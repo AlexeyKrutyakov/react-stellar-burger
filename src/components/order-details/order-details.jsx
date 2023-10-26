@@ -1,7 +1,6 @@
 import styles from './order-details.module.css';
 // imports from modules
 import { useSelector } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
 import { useLocation, useParams } from 'react-router';
 // import components
 import IngredientIcon from '../ingredient-icon/ingredient-icon';
@@ -52,8 +51,8 @@ export default function OrderDetails() {
           Состав:
         </h2>
         <ul className={`${styles.list} custom-scroll`}>
-          {preparedOrder.ingredients.map(ingredient => (
-            <li key={nanoid()} className={styles.ingredient}>
+          {preparedOrder.ingredients.map((ingredient, index) => (
+            <li key={index} className={styles.ingredient}>
               <IngredientIcon ingredient={ingredient} />
               <h3
                 className={`${styles.ingredient_name} ${STYLES.text.default}`}

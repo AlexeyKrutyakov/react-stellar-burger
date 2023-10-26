@@ -10,13 +10,13 @@ import { getIngredients } from '../../utils/store-selectors';
 function IngredientsGallery({ type, onModalOpen }) {
   const ingredients = useSelector(getIngredients).loaded;
   const filteredIngredients = ingredients.filter(
-    (ingredient) => ingredient.type === type
+    ingredient => ingredient.type === type,
   );
   return (
     <ul className={`${styles.ingredients__gallery} mt-6 mr-3 mb-10 ml-3`}>
-      {filteredIngredients.map((item) => (
+      {filteredIngredients.map((item, index) => (
         <IngredientsCard
-          key={item._id}
+          key={index}
           ingredient={item}
           onModalOpen={onModalOpen}
         />
