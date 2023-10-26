@@ -1,12 +1,16 @@
-import { STYLES } from '../../utils/constants';
 import styles from './order-card.module.css';
+// imports from modules
 import PropTypes from 'prop-types';
-import IngredientIcon from '../ingredient-icon/ingredient-icon';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, useLocation } from 'react-router-dom';
-import { openModal } from '../../services/modalSlice';
 import { useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
+import { Link, useLocation } from 'react-router-dom';
+// import components
+import IngredientIcon from '../ingredient-icon/ingredient-icon';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+// import services
+import { openModal } from '../../services/modalSlice';
+// import utils
+import { STYLES } from '../../utils/constants';
 import { preparedOrderPropType } from '../../utils/prop-types';
 
 export default function OrderCard({ order, hasStatus }) {

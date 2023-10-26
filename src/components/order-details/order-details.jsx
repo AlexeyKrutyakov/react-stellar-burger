@@ -1,17 +1,21 @@
-import { useSelector } from 'react-redux';
-import IngredientIcon from '../ingredient-icon/ingredient-icon';
 import styles from './order-details.module.css';
+// imports from modules
+import { useSelector } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
+import { useLocation, useParams } from 'react-router';
+// import components
+import IngredientIcon from '../ingredient-icon/ingredient-icon';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+// import constants
+import { PATHS, STYLES } from '../../utils/constants';
+// import utils
 import {
   getFeed,
   getIngredients,
   getProfile,
 } from '../../utils/store-selectors';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { PATHS, STYLES } from '../../utils/constants';
-import { nanoid } from '@reduxjs/toolkit';
-import { useLocation, useParams } from 'react-router';
-import findOrderByNumber from '../../utils/find-order-by-number';
 import prepareOrderToRender from '../../utils/prepare-order';
+import findOrderByNumber from '../../utils/find-order-by-number';
 
 export default function OrderDetails() {
   const allIngredients = useSelector(getIngredients).loaded;

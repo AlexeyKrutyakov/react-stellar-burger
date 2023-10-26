@@ -1,15 +1,11 @@
 import styles from './orders-page.module.css';
-// import from modules
+// imports from modules
 import { useEffect } from 'react';
-import {
-  API_URLS,
-  PATHS,
-  STYLES,
-  TOKENS,
-  WS_ACTIONS,
-} from '../../utils/constants';
-import OrdersList from '../../components/orders-list/orders-list';
 import { useDispatch } from 'react-redux';
+// import components
+import OrdersList from '../../components/orders-list/orders-list';
+// import constants
+import { API_URLS, STYLES, TOKENS, WS_ACTIONS } from '../../utils/constants';
 
 export default function OrdersPage() {
   const dispatch = useDispatch();

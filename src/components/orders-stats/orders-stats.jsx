@@ -1,8 +1,11 @@
-import { useSelector } from 'react-redux';
-import { STYLES } from '../../utils/constants';
 import styles from './orders-stats.module.css';
-import { getFeed } from '../../utils/store-selectors';
+// imports from modules
+import { useSelector } from 'react-redux';
+// import constants
+import { STYLES } from '../../utils/constants';
+// import utils
 import VerifyOrder from '../../utils/verify-order';
+import { getFeed } from '../../utils/store-selectors';
 import { getIngredients } from '../../utils/store-selectors';
 
 export default function OrdersStats() {

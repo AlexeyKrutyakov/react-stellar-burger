@@ -1,17 +1,22 @@
-import { useDispatch, useSelector } from 'react-redux';
-import IngredientIcon from '../../components/ingredient-icon/ingredient-icon';
 import styles from './order-page.module.css';
-import { getIngredients, getOrder } from '../../utils/store-selectors';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { STYLES } from '../../utils/constants';
-import { useParams } from 'react-router';
+// imports from modules
 import { useEffect } from 'react';
-import { getOrderFromServer } from '../../services/orderSlice';
-import getIngredientsById from '../../utils/ingredients-by-id';
+import { useParams } from 'react-router';
 import { nanoid } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from 'react-redux';
+// import components
+import IngredientIcon from '../../components/ingredient-icon/ingredient-icon';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+// import services
+import { getOrderFromServer } from '../../services/orderSlice';
+// import constants
+import { STYLES } from '../../utils/constants';
+// import utils
 import translateStatus from '../../utils/translate-status';
+import getIngredientsById from '../../utils/ingredients-by-id';
 import calculateTotalPrice from '../../utils/calculate-total-price';
 import convertDateFromToday from '../../utils/convert-date-from-today';
+import { getIngredients, getOrder } from '../../utils/store-selectors';
 
 export default function OrderPage() {
   const { orderNumber } = useParams();

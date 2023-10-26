@@ -1,10 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
 import styles from './feed-page.module.css';
-import { getFeed } from '../../utils/store-selectors';
-import { API_URLS, STYLES, WS_ACTIONS } from '../../utils/constants';
+// imports from modules
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+// import components
 import OrdersList from '../../components/orders-list/orders-list';
 import OrdersStats from '../../components/orders-stats/orders-stats';
-import { useEffect } from 'react';
+// import constants
+import { API_URLS, STYLES, WS_ACTIONS } from '../../utils/constants';
+// import utils
+import { getFeed } from '../../utils/store-selectors';
 
 export default function FeedPage() {
   const dispatch = useDispatch();

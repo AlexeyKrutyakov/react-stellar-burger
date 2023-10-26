@@ -1,5 +1,7 @@
 import styles from './ingredient-icon.module.css';
+// imports from modules
 import PropTypes from 'prop-types';
+// import utils
 import { STYLES } from '../../utils/constants';
 import { ingredientPropType } from '../../utils/prop-types';
 
