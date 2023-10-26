@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import OrderCard from '../order-card/order-card';
 import styles from './orders-list.module.css';
@@ -41,3 +42,7 @@ export default function OrdersList({ hasStatus = false }) {
     </section>
   );
 }
+
+OrdersList.propTypes = {
+  hasStatus: PropTypes.bool,
+};

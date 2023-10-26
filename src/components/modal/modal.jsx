@@ -44,12 +44,13 @@ function Modal({ children, onCloseModal, forSpinner }) {
         )}
       </div>
     </div>,
-    modalRoot
+    modalRoot,
   );
 }
 
 Modal.propTypes = {
   onCloseModal: PropTypes.func.isRequired,
+  forSpinner: PropTypes.bool,
 };
 
 export default Modal;

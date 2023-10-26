@@ -1,5 +1,6 @@
 // import from modules
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Navigate, useLocation } from 'react-router';
 // import utils
 import { getProfile } from '../../utils/store-selectors';
@@ -31,3 +32,7 @@ export const OnlyAuth = ProtectedRouteElement;
 export const OnlyUnauth = ({ component }) => (
   <ProtectedRouteElement component={component} onlyUnauth={true} />
 );
+
+ProtectedRouteElement.propTypes = {
+  onlyUnauth: PropTypes.bool,
+};

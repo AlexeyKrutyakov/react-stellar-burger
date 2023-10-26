@@ -1,5 +1,7 @@
 import styles from './ingredient-icon.module.css';
+import PropTypes from 'prop-types';
 import { STYLES } from '../../utils/constants';
+import { ingredientPropType } from '../../utils/prop-types';
 
 export default function IngredientIcon({
   ingredient,
@@ -31,4 +33,7 @@ export default function IngredientIcon({
   );
 }
 
-// add propTypes
+IngredientIcon.propTypes = {
+  ingredient: ingredientPropType,
+  options: PropTypes.object,
+};

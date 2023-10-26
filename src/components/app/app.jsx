@@ -16,6 +16,7 @@ import {
 } from '../protected-route/protected-route-element';
 // import pages
 import HomePage from '../../pages/home/home-page';
+import FeedPage from '../../pages/feed/feed-page';
 import LoginPage from '../../pages/login/login-page';
 import NotFound404 from '../../pages/not-found/not-found';
 import ProfilePage from '../../pages/profile/profile-page';
@@ -38,7 +39,6 @@ import {
   getIngredients,
   getOrder,
 } from '../../utils/store-selectors';
-import FeedPage from '../../pages/feed/feed-page';
 
 function App() {
   const dispatch = useDispatch();
