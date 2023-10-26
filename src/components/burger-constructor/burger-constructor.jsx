@@ -27,7 +27,7 @@ import {
   STYLES,
 } from '../../utils/constants';
 // import utils
-import { getBurger } from '../../utils/store-selectors';
+import { getBurger, getProfile } from '../../utils/store-selectors';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -35,6 +35,7 @@ function BurgerConstructor() {
   const navigate = useNavigate();
 
   const burgerConstructorData = useSelector(getBurger);
+  const profile = useSelector(getProfile);
 
   const bun = burgerConstructorData.bun;
   const mains = burgerConstructorData.mains;
@@ -51,6 +52,10 @@ function BurgerConstructor() {
   const handleSubmitOrder = event => {
     event.preventDefault();
     if (burgerConstructorData.bun === null) return;
+    if (!profile.user) {
+      navigate(PATHS.login);
+      return;
+    }
     if (ingredientsIdList.length >= 1) {
       dispatch(submitOrder(ingredientsIdList)) &&
         dispatch(resetConstructorData());

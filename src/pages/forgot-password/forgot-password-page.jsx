@@ -21,8 +21,6 @@ export default function ForgotPasswordPage() {
     email: defaultEmail,
   });
 
-  // const [email, setEmail] = React.useState('');
-
   function submitHandler(event) {
     event.preventDefault();
     requestResetToken({ ...values }).then(() => {
@@ -48,7 +46,7 @@ export default function ForgotPasswordPage() {
           size="default"
           placeholder="Укажите&nbsp;e-mail"
           // onChange={(e) => setEmail(e.target.value)}
-          onChange={(e) => handleChange(e)}
+          onChange={e => handleChange(e)}
           value={values.email}
           name="email"
           extraClass="mt-6"
