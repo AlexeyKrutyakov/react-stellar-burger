@@ -45,7 +45,7 @@ function IngredientsCard({ ingredient, onModalOpen }) {
   if (constructorIngredientsList.length > 0) {
     ingredientsQuantity = countIngredients(
       constructorIngredientsList,
-      ingredient._id
+      ingredient._id,
     );
   }
 
@@ -59,9 +59,7 @@ function IngredientsCard({ ingredient, onModalOpen }) {
   return (
     <li
       className={styles.ingredients__card}
-      onClick={() =>
-        onModalOpen({ type: 'ingredient__details', item: ingredient })
-      }
+      onClick={() => onModalOpen({ type: 'ingredient__details' })}
     >
       <Link
         className={styles.link}

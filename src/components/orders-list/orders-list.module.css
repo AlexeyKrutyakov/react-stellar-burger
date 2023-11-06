@@ -1,0 +1,17 @@
+.section {
+  grid-area: orders_history;
+  /* max-width: 600px; */
+  max-height: 812px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.orders_list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-right: 8px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}

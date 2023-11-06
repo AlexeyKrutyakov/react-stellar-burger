@@ -1,8 +1,27 @@
-export const BURGER_API_URL = 'https://norma.nomoreparties.space/api/';
+export const API_URLS = {
+  https: 'https://norma.nomoreparties.space/api/',
+  wss: {
+    allOrders: 'wss://norma.nomoreparties.space/orders/all',
+    personalOrders: 'wss://norma.nomoreparties.space/orders',
+  },
+};
+
+export const WS_ACTIONS = {
+  wsInit: 'WS_CONNECTION_START',
+  feedWsInit: 'FEED_WS_CONNECTION_START',
+  ordersWsInit: 'ORDERS_WS_CONNECTION_START',
+  feedWsStop: 'FEED_WS_CONNECTION_STOP',
+  ordersWsStop: 'ORDERS_WS_CONNECTION_STOP',
+  onOpen: 'WS_CONNECTION_SUCCESS',
+  onError: 'WS_CONNECTION_ERROR',
+  onClose: 'WS_CONNECTION_CLOSED',
+  onMessage: 'WS_GET_MESSAGE',
+};
 
 export const MODAL = {
   type: {
-    order: 'order',
+    orderStatus: 'order__status',
+    orderDetails: 'order_details',
     ingredientsDetails: 'ingredient__details',
     loadingSpinner: 'spinner',
   },
@@ -13,6 +32,15 @@ export const INGREDIENTS = {
     bun: 'bun',
     main: 'main',
     sauce: 'sauce',
+  },
+};
+
+export const ORDER = {
+  status: {
+    done: 'Выполнен',
+    pending: 'Готовится',
+    created: 'Создан',
+    canceled: 'Отменен',
   },
 };
 
@@ -28,15 +56,16 @@ export const PATHS = {
   home: '/',
   profile: {
     index: '/profile',
-    ordersHistory: 'orders-history',
+    orders: 'orders',
   },
   login: '/login',
   register: '/register',
   resetPassword: '/reset-password',
   forgotPassword: '/forgot-password',
   ingredient: '/ingredients/:ingredientId',
-  orders: '/orders',
-  orderDetails: 'order-details',
+  feed: '/feed',
+  orderDetails: ':orderNumber',
+  orderStatus: 'order-status',
 };
 
 export const COLORS = {

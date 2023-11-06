@@ -1,7 +1,7 @@
 // import from modules
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import constants
-import { TOKENS } from '../utils/constants';
+import { TOKENS, WS_ACTIONS } from '../utils/constants';
 // import utils
 import {
   requestLogin,
@@ -12,12 +12,19 @@ import {
   requestEditUserWithRefreshTokens,
 } from '../utils/api';
 
+export const profileOrdersActions = {
+  wsInit: WS_ACTIONS.ordersWsInit,
+  onStop: WS_ACTIONS.ordersWsStop,
+};
+
 const initialState = {
   isAuthChecked: false,
   user: null,
   status: '',
   requestHasError: false,
   errorMessage: '',
+  wsConnectionStatus: '',
+  orders: null,
 };
 
 const rejectedStatus = {
@@ -31,27 +38,27 @@ const noErrors = {
 };
 
 export const getUser = () => {
-  return (dispatch) => {
-    return requestUserInfoWithRefreshTokens().then((res) => {
+  return dispatch => {
+    return requestUserInfoWithRefreshTokens().then(res => {
       dispatch(setUser(res.user));
     });
   };
 };
 
-export const editUser = (user) => {
-  return (dispatch) => {
-    return requestEditUserWithRefreshTokens(user).then((res) => {
+export const editUser = user => {
+  return dispatch => {
+    return requestEditUserWithRefreshTokens(user).then(res => {
       dispatch(setUser(res.user));
     });
   };
 };
 
 export const checkUserAuth = () => {
-  return (dispatch) => {
+  return dispatch => {
     if (localStorage.getItem(TOKENS.names.access)) {
       dispatch(getUser())
-        .catch((err) => {
-          dispatch(setError(err));
+        .catch(err => {
+          dispatch(setProfileError(err));
           dispatch(setUser(null));
         })
         .finally(() => dispatch(setAuthChecked(true)));
@@ -62,10 +69,10 @@ export const checkUserAuth = () => {
 };
 
 export const refreshTokens = () => {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(requestNewTokens(localStorage.getItem(TOKENS.names.refresh)))
-      .then((res) => dispatch(setNewTokens(res)))
-      .catch((err) => {
+      .then(res => dispatch(setNewTokens(res)))
+      .catch(err => {
         dispatch(setError(err));
       });
   };
@@ -73,16 +80,10 @@ export const refreshTokens = () => {
 
 export const register = createAsyncThunk(
   '@@profile/fetchRegister',
-  requestRegistration
+  requestRegistration,
 );
 
-// export const editUser = createAsyncThunk(
-//   '@@profile/fetchEditUser',
-//   requestEditUserWithRefreshTokens
-// );
-
 export const login = createAsyncThunk('@@profile/fetchLogin', requestLogin);
-
 export const logout = createAsyncThunk('@@profile/fetchLogout', requestLogout);
 
 const profileSlice = createSlice({
@@ -95,7 +96,7 @@ const profileSlice = createSlice({
     setAuthChecked: (state, action) => {
       state.isAuthChecked = action.payload;
     },
-    setError: (state, action) => {
+    setProfileError: (state, action) => {
       return {
         ...state,
         status: 'error catched',
@@ -103,14 +104,28 @@ const profileSlice = createSlice({
         errorMessage: action.payload,
       };
     },
-    setNewTokens: (action) => {
+    setNewTokens: action => {
       localStorage.setItem(TOKENS.names.access, action.accessToken);
       localStorage.setItem(TOKENS.names.refresh, action.refreshToken);
     },
+    setProfileOrdersWsConnectionStatus: (state, action) => {
+      return {
+        ...state,
+        wsConnectionStatus: action.payload,
+      };
+    },
+    setOrders: (state, action) => {
+      return {
+        ...state,
+        success: action.payload.success,
+        error: '',
+        orders: action.payload.orders,
+      };
+    },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(register.pending, (state) => {
+      .addCase(register.pending, state => {
         state.status = 'pending';
       })
       .addCase(register.fulfilled, (state, action) => {
@@ -133,28 +148,7 @@ const profileSlice = createSlice({
           errorMessage: action.error.message,
         };
       })
-      // .addCase(editUser.pending, (state) => {
-      //   state.status = 'pending';
-      // })
-      // .addCase(editUser.fulfilled, (state, action) => {
-      //   return {
-      //     ...state,
-      //     ...noErrors,
-      //     status: 'user successfuly edited',
-      //     user: {
-      //       email: action.payload.user.email,
-      //       name: action.payload.user.name,
-      //     },
-      //   };
-      // })
-      // .addCase(editUser.rejected, (state, action) => {
-      //   return {
-      //     ...state,
-      //     ...rejectedStatus,
-      //     errorMessage: action.error.message,
-      //   };
-      // })
-      .addCase(login.pending, (state) => {
+      .addCase(login.pending, state => {
         state.status = 'pending';
       })
       .addCase(login.fulfilled, (state, action) => {
@@ -177,7 +171,7 @@ const profileSlice = createSlice({
           errorMessage: action.error.message,
         };
       })
-      .addCase(logout, (state) => {
+      .addCase(logout, state => {
         state.status = 'pending';
       })
       .addCase(logout.fulfilled, (state, action) => {
@@ -200,7 +194,13 @@ const profileSlice = createSlice({
   },
 });
 
-export const { setNewTokens, setUser, setAuthChecked, setError } =
-  profileSlice.actions;
+export const {
+  setNewTokens,
+  setProfileOrdersWsConnectionStatus,
+  setOrders,
+  setUser,
+  setAuthChecked,
+  setProfileError,
+} = profileSlice.actions;
 
 export const profileReducer = profileSlice.reducer;

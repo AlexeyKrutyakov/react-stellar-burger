@@ -1,30 +1,86 @@
 import styles from './order-details.module.css';
 // imports from modules
 import { useSelector } from 'react-redux';
-// import images
-import imageDone from '../../images/graphics.png';
+import { useLocation, useParams } from 'react-router';
+// import components
+import IngredientIcon from '../ingredient-icon/ingredient-icon';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+// import constants
+import { PATHS, STYLES } from '../../utils/constants';
 // import utils
-import { getOrder } from '../../utils/store-selectors';
-import { STYLES } from '../../utils/constants';
+import {
+  getFeed,
+  getIngredients,
+  getProfile,
+} from '../../utils/store-selectors';
+import prepareOrderToRender from '../../utils/prepare-order';
+import findOrderByNumber from '../../utils/find-order-by-number';
 
-function OrderDetails() {
-  const orderNumber = useSelector(getOrder).number;
+export default function OrderDetails() {
+  const allIngredients = useSelector(getIngredients).loaded;
+  const feed = useSelector(getFeed);
+  const profile = useSelector(getProfile);
+  const { orderNumber } = useParams();
+  const location = useLocation();
+  let order = null;
+  if (location.pathname.includes(PATHS.feed)) {
+    order = findOrderByNumber(orderNumber, feed.orders);
+  }
+  if (location.pathname.includes(PATHS.profile.orders) && profile.orders) {
+    order = findOrderByNumber(orderNumber, profile.orders);
+  }
+  const preparedOrder = prepareOrderToRender(order, allIngredients);
 
   return (
-    <>
-      <p className={`${styles.text_glow} ${STYLES.digits.large} mt-30`}>
-        {orderNumber}
-      </p>
-      <h1 className={`${STYLES.text.medium} mt-8`}>идентификатор заказа</h1>
-      <img className={`${styles.done} mt-15`} src={imageDone} alt="done" />
-      <p className={`${STYLES.text.default} mt-15`}>
-        Ваш заказ начали готовить
-      </p>
-      <p className={`${STYLES.text.defaultInactive} mt-2 mb-30`}>
-        Дождитесь готовности на орбитальной станции
-      </p>
-    </>
+    preparedOrder && (
+      <article className={styles.card}>
+        <span className={`${styles.number} ${STYLES.digits.default}`}>
+          #{preparedOrder.number}
+        </span>
+        <h1 className={`${styles.name} ${STYLES.text.medium}`}>
+          {preparedOrder.name}
+        </h1>
+        <span
+          className={`${
+            preparedOrder.status === 'Выполнен' ? styles.status : ''
+          } ${STYLES.text.default}`}
+        >
+          {preparedOrder.status}
+        </span>
+        <h2 className={`${styles.list_title} ${STYLES.text.medium}`}>
+          Состав:
+        </h2>
+        <ul className={`${styles.list} custom-scroll`}>
+          {preparedOrder.ingredients.map((ingredient, index) => (
+            <li key={index} className={styles.ingredient}>
+              <IngredientIcon ingredient={ingredient} />
+              <h3
+                className={`${styles.ingredient_name} ${STYLES.text.default}`}
+              >
+                {ingredient.name}
+              </h3>
+              <h4 className={styles.ingredient_price}>
+                <span className={`${STYLES.digits.default}`}>
+                  {ingredient.type === 'bun' ? '2' : '1'} x{' '}
+                  {ingredient.price.toLocaleString('ru-RU')}
+                </span>
+                <CurrencyIcon />
+              </h4>
+            </li>
+          ))}
+        </ul>
+        <div className={styles.order_footer}>
+          <p className={`${styles.date} ${STYLES.text.defaultInactive}`}>
+            {preparedOrder.date}
+          </p>
+          <h5 className={`${styles.total_price}`}>
+            <span className={STYLES.digits.default}>
+              {preparedOrder.totalPrice.toLocaleString('ru-RU')}
+            </span>{' '}
+            <CurrencyIcon />
+          </h5>
+        </div>
+      </article>
+    )
   );
 }
-
-export default OrderDetails;

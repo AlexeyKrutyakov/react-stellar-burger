@@ -1,6 +1,7 @@
 import styles from './constructor-ingredient.module.css';
 // imports from modules
 import { useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 // import components
@@ -12,6 +13,7 @@ import {
 import { deleteMain, sortMains } from '../../services/burgerSlice';
 // import constants
 import { COLORS } from '../../utils/constants';
+import { ingredientPropType } from '../../utils/prop-types';
 
 export default function ConstructorIngredient({ main, index }) {
   const dispatch = useDispatch();
@@ -56,7 +58,7 @@ export default function ConstructorIngredient({ main, index }) {
     item: () => {
       return { index };
     },
-    collect: (monitor) => ({
+    collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),
   });
@@ -84,3 +86,8 @@ export default function ConstructorIngredient({ main, index }) {
     </div>
   );
 }
+
+ConstructorIngredient.propTypes = {
+  main: ingredientPropType.isRequired,
+  index: PropTypes.number.isRequired,
+};

@@ -1,12 +1,19 @@
+.section {
+  display: flex;
+  width: 640px;
+  align-self: center;
+}
+
 .card {
   display: flex;
   flex-direction: column;
-  margin: 40px;
+  margin: 120px 0 0;
   min-width: 640px;
 }
 
 .number {
-  height: 44px;
+  height: 64px;
+  align-self: center;
 }
 
 .name {
@@ -15,7 +22,14 @@
 
 .status {
   margin-top: 8px;
+}
+
+.status_done {
   color: #0cc;
+}
+
+.status_rejected {
+  color: red;
 }
 
 .list_title {

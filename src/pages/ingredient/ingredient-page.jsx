@@ -4,9 +4,9 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
 // import utils
+import { STYLES } from '../../utils/constants';
 import getIngredient from '../../utils/getIngredient';
 import { getIngredients } from '../../utils/store-selectors';
-import { STYLES } from '../../utils/constants';
 
 export default function IngredientPage() {
   const { ingredientId } = useParams();

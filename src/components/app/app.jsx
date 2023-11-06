@@ -6,30 +6,33 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 // import components
 import Modal from '../modal/modal';
 import AppHeader from '../app-header/app-header';
-import OrderDetails from '../order-details/order-details';
+import OrderStatus from '../order-status/order-status';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import OrderDetails from '../order-details/order-details';
 import {
   OnlyAuth,
   OnlyUnauth,
 } from '../protected-route/protected-route-element';
 // import pages
 import HomePage from '../../pages/home/home-page';
+import FeedPage from '../../pages/feed/feed-page';
 import LoginPage from '../../pages/login/login-page';
 import NotFound404 from '../../pages/not-found/not-found';
 import ProfilePage from '../../pages/profile/profile-page';
 import RegisterPage from '../../pages/register/register-page';
 import IngredientPage from '../../pages/ingredient/ingredient-page';
-import OrdersHistoryPage from '../../pages/orders-history/orders-history-page';
+import OrdersPage from '../../pages/orders/orders-page';
 import ResetPasswordPage from '../../pages/reset-password/reset-password-page';
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password-page';
+import OrderPage from '../../pages/order/order-page';
 import ProfileSettingsPage from '../../pages/profile-settings/profile-settings-page';
 // import services
 import { closeModal } from '../../services/modalSlice';
 import { checkUserAuth } from '../../services/profileSlice';
 import { loadIngredients } from '../../services/ingredientsSlice';
 // import constants
-import { MODAL, TOKENS, PATHS } from '../../utils/constants';
+import { MODAL, TOKENS, PATHS, WS_ACTIONS } from '../../utils/constants';
 // import utils
 import {
   getModal,
@@ -39,7 +42,6 @@ import {
 
 function App() {
   const dispatch = useDispatch();
-
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
@@ -52,6 +54,10 @@ function App() {
     navigate(-1);
     dispatch(closeModal());
   };
+
+  if (location.pathname !== '/feed') {
+    dispatch({ type: WS_ACTIONS.feedWsStop });
+  }
 
   useEffect(() => {
     dispatch(loadIngredients());
@@ -69,18 +75,14 @@ function App() {
       {ingredients.loaded && (
         <Routes location={background || location}>
           <Route path={PATHS.home} element={<HomePage />} />
+          <Route path={PATHS.feed} element={<FeedPage />} />
+
           <Route
             path={PATHS.profile.index}
             element={<OnlyAuth component={<ProfilePage />} />}
           >
-            <Route
-              path={''}
-              element={<OnlyAuth component={<ProfileSettingsPage />} />}
-            />
-            <Route
-              path={PATHS.profile.ordersHistory}
-              element={<OnlyAuth component={<OrdersHistoryPage />} />}
-            />
+            <Route path={''} element={<ProfileSettingsPage />} />
+            <Route path={PATHS.profile.orders} element={<OrdersPage />} />
           </Route>
           <Route
             path={PATHS.login}
@@ -104,6 +106,14 @@ function App() {
             path={PATHS.ingredient}
             element={<OnlyAuth component={<IngredientPage />} />}
           />
+          <Route
+            path={`${PATHS.feed}/${PATHS.orderDetails}`}
+            element={<OrderPage />}
+          />
+          <Route
+            path={`${PATHS.profile.index}/${PATHS.profile.orders}/${PATHS.orderDetails}`}
+            element={<OnlyAuth component={<OrderPage />} />}
+          />
           <Route path="*" element={<NotFound404 />} />
         </Routes>
       )}
@@ -118,13 +128,29 @@ function App() {
             }
           />
           <Route
-            path={PATHS.orderDetails}
+            path={`${PATHS.profile.index}/${PATHS.profile.orders}/${PATHS.orderDetails}`}
+            element={
+              <Modal onCloseModal={handleCloseModal}>
+                <OrderDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path={`${PATHS.feed}/${PATHS.orderDetails}`}
+            element={
+              <Modal onCloseModal={handleCloseModal}>
+                <OrderDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path={PATHS.orderStatus}
             element={
               currentModal.isActive &&
-              currentModal.type === MODAL.type.order &&
+              currentModal.type === MODAL.type.orderStatus &&
               currentOrder.status === 'loaded' && (
                 <Modal onCloseModal={handleCloseModal}>
-                  <OrderDetails />
+                  <OrderStatus />
                 </Modal>
               )
             }

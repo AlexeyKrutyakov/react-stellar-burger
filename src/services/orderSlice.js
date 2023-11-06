@@ -1,27 +1,52 @@
 // imports from modules
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import utils
-import { requestOrder } from '../utils/api';
+import { requestGetOrder, requestOrder } from '../utils/api';
 
 export const submitOrder = createAsyncThunk(
   '@@order/submitOrder',
-  requestOrder
+  requestOrder,
 );
 
 const initialState = {
+  id: '',
+  ingredientsIdList: null,
   status: '',
-  number: 0,
   name: '',
-  ingredientsIdList: [],
+  createdAt: '',
+  updatedAt: '',
+  number: null,
+};
+
+export const getOrderFromServer = number => {
+  return dispatch => {
+    return requestGetOrder(number).then(res => {
+      dispatch(setOrder(res));
+    });
+  };
 };
 
 const orderSlice = createSlice({
   name: '@@order',
   initialState: initialState,
-  reducers: {},
-  extraReducers: (builder) => {
+  reducers: {
+    setOrder: (state, action) => {
+      const data = action.payload.orders[0];
+      return {
+        ...state,
+        id: data._id,
+        ingredientsIdList: data.ingredients,
+        status: data.status,
+        name: data.name,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt,
+        number: data.number,
+      };
+    },
+  },
+  extraReducers: builder => {
     builder
-      .addCase(submitOrder.pending, (state) => {
+      .addCase(submitOrder.pending, state => {
         state.status = 'loading';
       })
       .addCase(submitOrder.fulfilled, (state, action) => {
@@ -32,7 +57,7 @@ const orderSlice = createSlice({
           name: action.payload.name,
         };
       })
-      .addCase(submitOrder.rejected, (state) => {
+      .addCase(submitOrder.rejected, state => {
         return {
           ...state,
           status: 'rejected',
@@ -42,5 +67,7 @@ const orderSlice = createSlice({
       });
   },
 });
+
+export const { setOrder } = orderSlice.actions;
 
 export const orderReducer = orderSlice.reducer;

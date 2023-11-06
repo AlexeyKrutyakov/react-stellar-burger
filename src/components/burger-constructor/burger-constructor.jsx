@@ -27,7 +27,7 @@ import {
   STYLES,
 } from '../../utils/constants';
 // import utils
-import { getBurger } from '../../utils/store-selectors';
+import { getBurger, getProfile } from '../../utils/store-selectors';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -35,6 +35,7 @@ function BurgerConstructor() {
   const navigate = useNavigate();
 
   const burgerConstructorData = useSelector(getBurger);
+  const profile = useSelector(getProfile);
 
   const bun = burgerConstructorData.bun;
   const mains = burgerConstructorData.mains;
@@ -45,23 +46,27 @@ function BurgerConstructor() {
     mains.reduce((totalPrice, ingredient) => totalPrice + ingredient.price, 0);
 
   const bunId = bun ? bun._id : null;
-  const mainsIdList = mains.map((main) => main._id);
+  const mainsIdList = mains.map(main => main._id);
   const ingredientsIdList = bun ? [bunId, ...mainsIdList] : [...mainsIdList];
 
-  const handleSubmitOrder = (event) => {
+  const handleSubmitOrder = event => {
     event.preventDefault();
     if (burgerConstructorData.bun === null) return;
+    if (!profile.user) {
+      navigate(PATHS.login);
+      return;
+    }
     if (ingredientsIdList.length >= 1) {
-      dispatch(submitOrder(ingredientsIdList));
-      dispatch(openModal({ type: MODAL.type.order })) &&
+      dispatch(submitOrder(ingredientsIdList)) &&
         dispatch(resetConstructorData());
-      navigate(PATHS.orderDetails, { state: { background: location } });
+      dispatch(openModal({ type: MODAL.type.orderStatus }));
+      navigate(PATHS.orderStatus, { state: { background: location } });
     }
   };
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'ingredient',
-    collect: (monitor) => ({
+    collect: monitor => ({
       canDrop: monitor.canDrop(),
       isOver: monitor.isOver(),
     }),
