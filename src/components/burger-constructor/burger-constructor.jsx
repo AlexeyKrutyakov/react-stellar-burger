@@ -28,6 +28,7 @@ import {
 } from '../../utils/constants';
 // import utils
 import { getBurger, getProfile } from '../../utils/store-selectors';
+// import types
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
