@@ -12,6 +12,7 @@ export type Feed = {
   wsConnectionStatus: string;
   succes: boolean;
   orders: FeedOrder[];
+  errorMessage: string;
   total: number;
   totalToday: number;
 };

@@ -16,7 +16,7 @@ export type Ingredient = {
 };
 
 export type Ingredients = {
-  loaded: Ingredient[];
+  loaded: Ingredient[] | null;
   status: string;
   loadingHasError: boolean;
   errorMessage: string;

@@ -9,13 +9,15 @@ export const submitOrder = createAsyncThunk(
 );
 
 const initialState = {
-  id: '',
-  ingredientsIdList: null,
+  _id: '',
+  ingredients: null,
+  owner: '',
   status: '',
   name: '',
   createdAt: '',
   updatedAt: '',
   number: null,
+  __v: 0,
 };
 
 export const getOrderFromServer = number => {
@@ -35,7 +37,7 @@ const orderSlice = createSlice({
       return {
         ...state,
         id: data._id,
-        ingredientsIdList: data.ingredients,
+        ingredients: data.ingredients,
         status: data.status,
         name: data.name,
         createdAt: data.createdAt,

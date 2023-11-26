@@ -1,3 +1,5 @@
+import { Order } from './order';
+
 type User = {
   email: string;
   name: string;
@@ -5,11 +7,11 @@ type User = {
 
 export type Profile = {
   isAuthChecked: boolean;
-  user: User;
+  user: User | null;
   status: string;
   success: boolean;
   requestHasError: boolean;
   errorMessage: '';
   wsConnectionStatus: string;
-  orders: null;
+  orders: Order[] | null;
 };

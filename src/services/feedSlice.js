@@ -9,8 +9,8 @@ export const feedActions = {
 const initialState = {
   wsConnectionStatus: '',
   success: false,
-  error: '',
   orders: [],
+  errorMessage: '',
   total: 0,
   totalToday: 0,
 };
@@ -29,14 +29,14 @@ const feedSlice = createSlice({
       return {
         ...state,
         success: false,
-        error: action.payload,
+        errorMessage: action.payload,
       };
     },
     setFeed: (state, action) => {
       return {
         ...state,
         success: action.payload.success,
-        error: '',
+        errorMessage: '',
         orders: action.payload.orders,
         total: action.payload.total,
         totalToday: action.payload.totalToday,
