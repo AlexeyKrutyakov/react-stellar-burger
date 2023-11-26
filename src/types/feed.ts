@@ -10,7 +10,7 @@ type FeedOrder = {
 
 export type Feed = {
   wsConnectionStatus: string;
-  succes: boolean;
+  success: boolean;
   orders: FeedOrder[];
   errorMessage: string;
   total: number;
