@@ -1,7 +1,8 @@
 // import from modules
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Modal } from 'types';
 
-const initialState = {
+const initialState: Modal = {
   type: '',
   background: '/',
   isActive: false,
@@ -9,12 +10,12 @@ const initialState = {
 
 const modalSlice = createSlice({
   name: '@@modal',
-  initialState: initialState,
+  initialState,
   reducers: {
-    openModal: (state, action) => {
+    openModal: (state, action: PayloadAction<string>) => {
       return {
         ...state,
-        type: action.payload.type,
+        type: action.payload,
         isActive: true,
       };
     },

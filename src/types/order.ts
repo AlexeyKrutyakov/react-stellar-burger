@@ -6,6 +6,19 @@ export type Order = {
   name: string;
   createdAt: string;
   updatedAt: string;
-  number: number;
+  number: number | null;
   __v: number;
+};
+
+export type responseSubmitOrder = {
+  success: boolean;
+  name: string;
+  order: {
+    number: number;
+  };
+};
+
+export type responseGetOrderByNumber = {
+  success: boolean;
+  orders: Order[];
 };

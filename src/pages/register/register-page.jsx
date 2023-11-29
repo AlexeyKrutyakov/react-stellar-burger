@@ -39,19 +39,19 @@ export default function RegisterPage() {
           type="text"
           value={name}
           placeholder="Имя"
-          onChange={(e) => setName(e.target.value)}
+          onChange={e => setName(e.target.value)}
           extraClass="mt-6"
         />
         <EmailInput
           size="default"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
           extraClass="mt-6"
         />
         <PasswordInput
           size="default"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
           extraClass="mt-6"
         />
         <Button

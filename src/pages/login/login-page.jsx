@@ -40,14 +40,14 @@ export default function LoginPage() {
           size="default"
           value={values.email}
           name="email"
-          onChange={(e) => handleChange(e)}
+          onChange={e => handleChange(e)}
           extraClass="mt-6"
         />
         <PasswordInput
           size="default"
           value={values.password}
           name="password"
-          onChange={(e) => handleChange(e)}
+          onChange={e => handleChange(e)}
           extraClass="mt-6"
         />
         <Button

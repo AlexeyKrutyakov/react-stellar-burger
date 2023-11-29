@@ -13,11 +13,17 @@ export type Ingredient = {
   image_mobile: string;
   image_large: string;
   __v: number;
+  constructorId?: string;
 };
 
-export type Ingredients = {
+export type StoreIngredients = {
   loaded: Ingredient[] | null;
   status: string;
   loadingHasError: boolean;
-  errorMessage: string;
+  errorMessage?: string;
+};
+
+export type responseIngredients = {
+  success: string;
+  data: Ingredient[];
 };

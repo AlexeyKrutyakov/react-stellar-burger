@@ -1,14 +1,20 @@
 // imports from modules
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import utils
 import { requestGetOrder, requestOrder } from '../utils/api';
+import { Order, responseGetOrderByNumber, responseSubmitOrder } from 'types';
+import { AppDispatch } from 'types';
 
-export const submitOrder = createAsyncThunk(
-  '@@order/submitOrder',
-  requestOrder,
-);
+export const submitOrder = createAsyncThunk<
+  responseSubmitOrder,
+  string[],
+  { state: { order: Order } }
+>('@@order/submitOrder', async (ingredients: string[]) => {
+  const response = await requestOrder(ingredients);
+  return await response;
+});
 
-const initialState = {
+const initialState: Order = {
   _id: '',
   ingredients: null,
   owner: '',
@@ -20,29 +26,30 @@ const initialState = {
   __v: 0,
 };
 
-export const getOrderFromServer = number => {
-  return dispatch => {
-    return requestGetOrder(number).then(res => {
-      dispatch(setOrder(res));
-    });
+export const getOrderFromServer = (number: number) => {
+  return async (dispatch: AppDispatch) => {
+    const response = await requestGetOrder(number);
+    return dispatch(setOrder(response));
   };
 };
 
 const orderSlice = createSlice({
   name: '@@order',
-  initialState: initialState,
+  initialState,
   reducers: {
-    setOrder: (state, action) => {
+    setOrder: (state, action: PayloadAction<responseGetOrderByNumber>) => {
       const data = action.payload.orders[0];
       return {
         ...state,
-        id: data._id,
+        _id: data._id,
         ingredients: data.ingredients,
+        owner: data.owner,
         status: data.status,
         name: data.name,
         createdAt: data.createdAt,
         updatedAt: data.updatedAt,
         number: data.number,
+        __v: data.__v,
       };
     },
   },
@@ -63,7 +70,7 @@ const orderSlice = createSlice({
         return {
           ...state,
           status: 'rejected',
-          number: 0,
+          number: null,
           name: '',
         };
       });

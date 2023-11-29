@@ -1,5 +1,5 @@
 // imports from modules
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { socketMiddleware } from './socketMiddleWare';
 
 // import services
@@ -22,15 +22,17 @@ import {
   setFeed,
 } from './feedSlice';
 
+export const rootReducer = combineReducers({
+  feed: feedReducer,
+  ingredients: ingredientsReducer,
+  burger: burgerReducer,
+  order: orderReducer,
+  modal: modalReducer,
+  profile: profileReducer,
+});
+
 export const store = configureStore({
-  reducer: {
-    feed: feedReducer,
-    ingredients: ingredientsReducer,
-    burger: burgerReducer,
-    order: orderReducer,
-    modal: modalReducer,
-    profile: profileReducer,
-  },
+  reducer: rootReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(
       socketMiddleware({

@@ -59,7 +59,7 @@ export default function ProfileSettingsPage() {
         value={values.name}
         name="name"
         icon="EditIcon"
-        onChange={(e) => {
+        onChange={e => {
           handleChange(e);
           setFormIsChanged(true);
         }}
@@ -70,14 +70,14 @@ export default function ProfileSettingsPage() {
         name="email"
         isIcon={true}
         extraClass="mt-6"
-        onChange={(e) => handleChange(e)}
+        onChange={e => handleChange(e)}
       />
       <PasswordInput
         value={values.password}
         name="password"
         icon="EditIcon"
         extraClass="mt-6"
-        onChange={(e) => handleChange(e)}
+        onChange={e => handleChange(e)}
       />
       <div className={`${styles.buttons} mt-6`}>
         {formIsChanged && (

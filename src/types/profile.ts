@@ -1,8 +1,9 @@
 import { Order } from './order';
 
-type User = {
+export type User = {
   email: string;
   name: string;
+  password?: string;
 };
 
 export type Profile = {
@@ -11,7 +12,21 @@ export type Profile = {
   status: string;
   success: boolean;
   requestHasError: boolean;
-  errorMessage: '';
   wsConnectionStatus: string;
   orders: Order[] | null;
+  errorMessage?: '';
+};
+
+export type requestGetNewTokens = {
+  success: string;
+  accessToken: string;
+  refreshToken: string;
+};
+
+export type WebSocketUserOrders = {
+  success: boolean;
+  orders: Order[];
+  total: number | null;
+  totalToday: number | null;
+  socketConnectionStatus: string | null;
 };

@@ -1,14 +1,19 @@
 // imports from modules
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 // import utils
 import { requestIngredients } from '../utils/api';
+import { StoreIngredients, responseIngredients } from 'types';
 
-export const loadIngredients = createAsyncThunk(
-  '@@ingredients/fetchIngredients',
-  requestIngredients
-);
+export const loadIngredients = createAsyncThunk<
+  responseIngredients,
+  undefined,
+  { state: { ingredients: StoreIngredients } }
+>('@@ingredients/fetchIngredients', async () => {
+  const response = await requestIngredients();
+  return await response;
+});
 
-const initialState = {
+const initialState: StoreIngredients = {
   loaded: null,
   status: '',
   loadingHasError: false,
@@ -17,11 +22,11 @@ const initialState = {
 
 const ingredientsSlice = createSlice({
   name: '@@ingredients',
-  initialState: initialState,
+  initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(loadIngredients.pending, (state) => {
+      .addCase(loadIngredients.pending, state => {
         state.status = 'pending';
       })
       .addCase(loadIngredients.fulfilled, (state, action) => {
@@ -41,7 +46,5 @@ const ingredientsSlice = createSlice({
       });
   },
 });
-
-export const { saveIngredients, saveError } = ingredientsSlice.actions;
 
 export const ingredientsReducer = ingredientsSlice.reducer;

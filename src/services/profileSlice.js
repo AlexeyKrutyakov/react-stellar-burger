@@ -21,7 +21,6 @@ const initialState = {
   isAuthChecked: false,
   user: null,
   status: '',
-  success: false,
   requestHasError: false,
   errorMessage: '',
   wsConnectionStatus: '',
