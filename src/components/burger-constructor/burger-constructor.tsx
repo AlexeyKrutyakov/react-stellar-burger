@@ -29,9 +29,10 @@ import {
 // import utils
 import { getBurger, getProfile } from '../../utils/store-selectors';
 // import types
+import { AppDispatch, Ingredient } from 'types';
 
 function BurgerConstructor() {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -44,13 +45,17 @@ function BurgerConstructor() {
   const bunPrice = bun ? bun.price * 2 : 0;
   const totalPrice =
     bunPrice +
-    mains.reduce((totalPrice, ingredient) => totalPrice + ingredient.price, 0);
+    mains.reduce(
+      (totalPrice: number, ingredient: Ingredient) =>
+        totalPrice + ingredient.price,
+      0,
+    );
 
   const bunId = bun ? bun._id : null;
-  const mainsIdList = mains.map(main => main._id);
+  const mainsIdList = mains.map((main: Ingredient) => main._id);
   const ingredientsIdList = bun ? [bunId, ...mainsIdList] : [...mainsIdList];
 
-  const handleSubmitOrder = event => {
+  const handleSubmitOrder = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     if (burgerConstructorData.bun === null) return;
     if (!profile.user) {
@@ -58,9 +63,9 @@ function BurgerConstructor() {
       return;
     }
     if (ingredientsIdList.length >= 1) {
-      dispatch(submitOrder(ingredientsIdList)) &&
+      (await dispatch(submitOrder(ingredientsIdList))) &&
         dispatch(resetConstructorData());
-      dispatch(openModal({ type: MODAL.type.orderStatus }));
+      dispatch(openModal(MODAL.type.orderStatus));
       navigate(PATHS.orderStatus, { state: { background: location } });
     }
   };
@@ -71,7 +76,7 @@ function BurgerConstructor() {
       canDrop: monitor.canDrop(),
       isOver: monitor.isOver(),
     }),
-    drop(ingredient) {
+    drop(ingredient: Ingredient) {
       switch (ingredient.type) {
         case INGREDIENTS.type.bun:
           dispatch(addBun(ingredient));
@@ -112,7 +117,7 @@ function BurgerConstructor() {
       )}
       <ul className={`${styles.ingredients_unlocked} custom-scroll`}>
         {mains &&
-          mains.map((main, index) => (
+          mains.map((main: Ingredient, index: number) => (
             <ConstructorIngredient
               main={main}
               index={index}
