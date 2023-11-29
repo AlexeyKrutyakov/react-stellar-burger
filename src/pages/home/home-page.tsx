@@ -11,14 +11,11 @@ import BurgerConstructor from '../../components/burger-constructor/burger-constr
 import { openModal } from '../../services/modalSlice';
 // import utils
 import { getIngredients } from '../../utils/store-selectors';
+import { AppDispatch } from 'types';
 
 export default function HomePage() {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const ingredientsLoadingStatus = useSelector(getIngredients).status;
-
-  const handleOpenModal = (type) => {
-    dispatch(openModal(type));
-  };
 
   useEffect(() => {
     document.title = 'Stellar Burgers: Home';
@@ -27,9 +24,7 @@ export default function HomePage() {
   return (
     <DndProvider backend={HTML5Backend}>
       <section className={`${styles.content}`}>
-        {ingredientsLoadingStatus === 'loaded' && (
-          <BurgerIngredients onModalOpen={handleOpenModal} />
-        )}
+        {ingredientsLoadingStatus === 'loaded' && <BurgerIngredients />}
         {ingredientsLoadingStatus === 'loaded' && <BurgerConstructor />}
       </section>
     </DndProvider>

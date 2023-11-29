@@ -1,6 +1,7 @@
 import styles from './burger-ingredients.module.css';
 // imports from modules
 import PropTypes from 'prop-types';
+import React, { RefObject } from 'react';
 import { useState, useRef } from 'react';
 // import components
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -9,32 +10,42 @@ import IngredientsGallery from '../ingredients-gallery/ingredients-gallery';
 import scroll from '../../utils/scroll';
 import { STYLES } from '../../utils/constants';
 
-function BurgerIngredients({ onModalOpen }) {
+function BurgerIngredients() {
   const [current, setCurrent] = useState('buns');
 
-  const ingredients = useRef(null);
-  const bunsGallery = useRef(null);
-  const saucesGallery = useRef(null);
-  const mainsGallery = useRef(null);
+  const ingredients = useRef<HTMLDivElement>(null);
+  const bunsGallery = useRef<HTMLHeadingElement>(null);
+  const saucesGallery = useRef<HTMLHeadingElement>(null);
+  const mainsGallery = useRef<HTMLHeadingElement>(null);
   const delta = 150;
 
-  function getTopBorder(element) {
-    return element.current.getBoundingClientRect().top;
-  }
+  let elem = document.querySelector('h1');
+  let rect = elem?.getBoundingClientRect();
 
-  function setCategory(value) {
+  function setCategory(value: string) {
     setCurrent(value);
     scroll(value);
   }
 
-  // TODO: try to use @researchgate/react-intersection-observer
   function handleIngredientsScroll() {
-    const ingredientsBorder = getTopBorder(ingredients);
-    const topBunsBorder = getTopBorder(bunsGallery);
-    const topSaucesBorder = getTopBorder(saucesGallery);
-    const topMainsBorder = getTopBorder(mainsGallery);
+    const ingredientsBorder =
+      ingredients.current !== null
+        ? ingredients.current.getBoundingClientRect().top
+        : 0;
+    const topBunsBorder =
+      bunsGallery.current !== null
+        ? bunsGallery.current.getBoundingClientRect().top
+        : 0;
+    const topSaucesBorder =
+      saucesGallery.current !== null
+        ? saucesGallery.current.getBoundingClientRect().top
+        : 0;
+    const topMainsBorder =
+      mainsGallery.current !== null
+        ? mainsGallery.current.getBoundingClientRect().top
+        : 0;
 
-    function approximation(border) {
+    function approximation(border: number) {
       return border - ingredientsBorder;
     }
 
@@ -82,7 +93,7 @@ function BurgerIngredients({ onModalOpen }) {
         >
           Булки
         </h3>
-        <IngredientsGallery type="bun" onModalOpen={onModalOpen} />
+        <IngredientsGallery type="bun" />
         <h3
           className={`${STYLES.text.medium} mt-10`}
           id="sauces"
@@ -90,7 +101,7 @@ function BurgerIngredients({ onModalOpen }) {
         >
           Соусы
         </h3>
-        <IngredientsGallery type="sauce" onModalOpen={onModalOpen} />
+        <IngredientsGallery type="sauce" />
         <h3
           className={`${STYLES.text.medium} mt-10`}
           id="mains"
@@ -98,14 +109,10 @@ function BurgerIngredients({ onModalOpen }) {
         >
           Начинки
         </h3>
-        <IngredientsGallery type="main" onModalOpen={onModalOpen} />
+        <IngredientsGallery type="main" />
       </div>
     </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  onModalOpen: PropTypes.func.isRequired,
-};
 
 export default BurgerIngredients;

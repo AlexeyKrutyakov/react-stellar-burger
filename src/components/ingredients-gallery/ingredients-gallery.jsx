@@ -7,7 +7,10 @@ import IngredientsCard from '../ingredients-card/ingredients-card';
 // import utils
 import { getIngredients } from '../../utils/store-selectors';
 
-function IngredientsGallery({ type, onModalOpen }) {
+function IngredientsGallery({ type }) {
+  const handleOpenModal = type => {
+    dispatch(openModal(type));
+  };
   const ingredients = useSelector(getIngredients).loaded;
   const filteredIngredients = ingredients.filter(
     ingredient => ingredient.type === type,
@@ -18,7 +21,7 @@ function IngredientsGallery({ type, onModalOpen }) {
         <IngredientsCard
           key={index}
           ingredient={item}
-          onModalOpen={onModalOpen}
+          onModalOpen={handleOpenModal}
         />
       ))}
     </ul>
@@ -27,7 +30,6 @@ function IngredientsGallery({ type, onModalOpen }) {
 
 IngredientsGallery.propTypes = {
   type: PropTypes.string.isRequired,
-  onModalOpen: PropTypes.func.isRequired,
 };
 
 export default IngredientsGallery;
