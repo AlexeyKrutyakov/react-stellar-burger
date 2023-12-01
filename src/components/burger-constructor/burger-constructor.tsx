@@ -51,9 +51,9 @@ function BurgerConstructor() {
       0,
     );
 
-  const bunId = bun ? bun._id : null;
   const mainsIdList = mains.map((main: Ingredient) => main._id);
-  const ingredientsIdList = bun ? [bunId, ...mainsIdList] : [...mainsIdList];
+  let ingredientsIdList: string[];
+  if (bun) ingredientsIdList = [bun._id, ...mainsIdList];
 
   const handleSubmitOrder = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
