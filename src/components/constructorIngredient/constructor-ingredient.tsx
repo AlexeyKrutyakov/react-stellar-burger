@@ -4,6 +4,7 @@ import { FC, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
+import { Identifier, XYCoord } from 'dnd-core';
 // import components
 import {
   DragIcon,
@@ -25,40 +26,47 @@ export const ConstructorIngredient: FC<BurgerIngredient> = ({
   const dispatch: AppDispatch = useDispatch();
   const ingredients: Ingredient[] = useSelector(getBurger).mains;
 
-  const [{ isOver }, drop] = useDrop({
+  const [{ handlerId }, drop] = useDrop<
+    BurgerIngredient,
+    void,
+    { handlerId: Identifier | null }
+  >({
     accept: 'burgerIngredient',
     collect(monitor) {
       return {
-        isOver: monitor.isOver(),
+        handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item: Ingredient, monitor) {
+    hover(item: BurgerIngredient, monitor) {
       if (!ref.current) {
         return;
       }
-      const dragIndex = ingredients.findIndex(
-        ingredient => ingredient.constructorId === item.constructorId,
-      );
+      const dragIndex = item.index;
       const hoverIndex = index;
+
       if (dragIndex === hoverIndex) {
         return;
       }
+
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
+
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
       const clientOffset = monitor.getClientOffset();
-      const hoverClientY =
-        (clientOffset ? clientOffset.y : 0) - hoverBoundingRect.top;
+
+      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
+
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
 
       dispatch(sortMains({ dragIndex, hoverIndex }));
-      index = hoverIndex;
+      item.index = hoverIndex;
     },
   });
 
@@ -73,7 +81,8 @@ export const ConstructorIngredient: FC<BurgerIngredient> = ({
   });
 
   const opacity = isDragging ? 0 : 1;
-  const borderColor = isOver ? COLORS.mainBlue : COLORS.transparent;
+
+  const borderColor = COLORS.transparent;
 
   drag(drop(ref));
 
