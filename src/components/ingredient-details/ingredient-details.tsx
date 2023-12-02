@@ -6,11 +6,12 @@ import { useSelector } from 'react-redux';
 import getIngredient from '../../utils/getIngredient';
 import { getIngredients } from '../../utils/store-selectors';
 import { STYLES } from '../../utils/constants';
+import { Ingredient } from 'types';
 
 function IngredientDetails() {
   const { ingredientId } = useParams();
-  const ingredients = useSelector(getIngredients).loaded;
-  const ingredient = getIngredient(ingredients, ingredientId);
+  const ingredients: Ingredient[] | null = useSelector(getIngredients).loaded;
+  const ingredient: Ingredient = getIngredient(ingredients, ingredientId);
 
   return (
     <>

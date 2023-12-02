@@ -1,7 +1,6 @@
 import styles from './constructor-ingredient.module.css';
 // imports from modules
 import { FC, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { Identifier, XYCoord } from 'dnd-core';
@@ -104,8 +103,3 @@ export const ConstructorIngredient: FC<BurgerIngredient> = ({
     </div>
   );
 };
-
-// ConstructorIngredient.propTypes = {
-//   main: ingredientPropType.isRequired,
-//   index: PropTypes.number.isRequired,
-// };
