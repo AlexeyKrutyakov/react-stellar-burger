@@ -7,7 +7,13 @@ import { getProfile } from '../../utils/store-selectors';
 // import constants
 import { PATHS } from '../../utils/constants';
 
-function ProtectedRouteElement({ component, onlyUnauth = false }) {
+function ProtectedRouteElement({
+  component,
+  onlyUnauth = false,
+}: {
+  component: JSX.Element;
+  onlyUnauth: boolean;
+}) {
   const isAuthChecked = useSelector(getProfile).isAuthChecked;
   const user = useSelector(getProfile).user;
   const location = useLocation();
@@ -29,7 +35,7 @@ function ProtectedRouteElement({ component, onlyUnauth = false }) {
 }
 
 export const OnlyAuth = ProtectedRouteElement;
-export const OnlyUnauth = ({ component }) => (
+export const OnlyUnauth = ({ component }: { component: JSX.Element }) => (
   <ProtectedRouteElement component={component} onlyUnauth={true} />
 );
 
