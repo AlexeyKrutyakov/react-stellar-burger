@@ -16,19 +16,23 @@ import getIngredientsById from '../../utils/ingredients-by-id';
 import calculateTotalPrice from '../../utils/calculate-total-price';
 import convertDateFromToday from '../../utils/convert-date-from-today';
 import { getIngredients, getOrder } from '../../utils/store-selectors';
+import { AppDispatch } from 'types';
 
 export default function OrderPage() {
   const { orderNumber } = useParams();
+  const dispatch: AppDispatch = useDispatch();
+
   const allIngredients = useSelector(getIngredients).loaded;
-  const dispatch = useDispatch();
   const order = useSelector(getOrder);
   const translatedStatus = translateStatus(order.status);
   const formattedDate = convertDateFromToday(order.createdAt);
+
   let orderIngredients = null;
   let totalPrice = 0;
+
   if (order.number) {
     const ingredientsFromServer = getIngredientsById(
-      order.ingredientsIdList,
+      order.ingredients,
       allIngredients,
     );
     const buns = ingredientsFromServer.filter(
@@ -42,7 +46,7 @@ export default function OrderPage() {
   }
 
   useEffect(() => {
-    dispatch(getOrderFromServer(orderNumber));
+    if (orderNumber) dispatch(getOrderFromServer(orderNumber));
   }, []);
 
   return (
@@ -70,24 +74,25 @@ export default function OrderPage() {
             Состав:
           </h2>
           <ul className={`${styles.list} custom-scroll`}>
-            {orderIngredients.map((ingredient, index) => (
-              <li key={index} className={styles.ingredient}>
-                <IngredientIcon ingredient={ingredient} />
-                <h3
-                  className={`${styles.ingredient_name} ${STYLES.text.default}`}
-                >
-                  {ingredient.name}
-                </h3>
-                <h4 className={styles.ingredient_price}>
-                  <span className={`${STYLES.digits.default}`}>
-                    {`${
-                      ingredient.type === 'bun' ? '2' : '1'
-                    } x ${ingredient.price.toLocaleString('ru-RU')}`}
-                  </span>
-                  <CurrencyIcon />
-                </h4>
-              </li>
-            ))}
+            {orderIngredients &&
+              orderIngredients.map((ingredient, index) => (
+                <li key={index} className={styles.ingredient}>
+                  <IngredientIcon ingredient={ingredient} />
+                  <h3
+                    className={`${styles.ingredient_name} ${STYLES.text.default}`}
+                  >
+                    {ingredient.name}
+                  </h3>
+                  <h4 className={styles.ingredient_price}>
+                    <span className={`${STYLES.digits.default}`}>
+                      {`${
+                        ingredient.type === 'bun' ? '2' : '1'
+                      } x ${ingredient.price.toLocaleString('ru-RU')}`}
+                    </span>
+                    <CurrencyIcon type="primary" />
+                  </h4>
+                </li>
+              ))}
           </ul>
           <div className={styles.order_footer}>
             <p className={`${styles.date} ${STYLES.text.defaultInactive}`}>
@@ -97,7 +102,7 @@ export default function OrderPage() {
               <span className={STYLES.digits.default}>
                 {totalPrice.toLocaleString('ru-RU')}
               </span>{' '}
-              <CurrencyIcon />
+              <CurrencyIcon type="primary" />
             </h5>
           </div>
         </article>

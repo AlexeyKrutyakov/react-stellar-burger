@@ -26,7 +26,7 @@ const initialState: Order = {
   __v: 0,
 };
 
-export const getOrderFromServer = (number: number) => {
+export const getOrderFromServer = (number: string) => {
   return async (dispatch: AppDispatch) => {
     const response = await requestGetOrder(number);
     return dispatch(setOrder(response));
