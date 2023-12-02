@@ -1,4 +1,4 @@
-type FeedOrder = {
+export type FeedOrder = {
   _id: string;
   ingredients: string[];
   status: string;

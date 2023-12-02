@@ -7,6 +7,9 @@ import { STYLES } from '../../utils/constants';
 import VerifyOrder from '../../utils/verify-order';
 import { getFeed } from '../../utils/store-selectors';
 import { getIngredients } from '../../utils/store-selectors';
+// import types
+import { Order, FeedOrder } from 'types';
+import { FC } from 'react';
 
 export default function OrdersStats() {
   const feed = useSelector(getFeed);
@@ -15,12 +18,12 @@ export default function OrdersStats() {
     VerifyOrder(order, allIngredients),
   );
 
-  function getOrderNumbers(orders, status) {
+  const getOrderNumbers = (orders: FeedOrder[], status: string) => {
     const numbers = orders.map(order => {
       if (order && order.status === status) return order.number;
     });
     return numbers.filter(number => number !== undefined);
-  }
+  };
 
   const doneOrders = getOrderNumbers(correctOrders, 'done');
   const pengingOrders = getOrderNumbers(correctOrders, 'pending');
