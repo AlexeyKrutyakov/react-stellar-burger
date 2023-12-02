@@ -1,7 +1,6 @@
 import styles from './ingredient-icon.module.css';
 // import utils
 import { STYLES } from '../../utils/constants';
-import { ingredientPropType } from '../../utils/prop-types';
 // import types
 import { IngredientIconType } from 'types';
 import { FC } from 'react';

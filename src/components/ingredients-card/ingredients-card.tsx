@@ -12,7 +12,6 @@ import {
 // imort constants
 import { INGREDIENTS, STYLES } from '../../utils/constants';
 // import utils
-import { ingredientPropType } from '../../utils/prop-types';
 import countIngredients from '../../utils/count-ingredients';
 import { getBurger } from '../../utils/store-selectors';
 import { AppDispatch, Ingredient } from 'types';
