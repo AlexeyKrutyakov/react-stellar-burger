@@ -13,6 +13,7 @@ import { useForm } from '../../hooks/useForm';
 import { PATHS, STYLES, TOKENS } from '../../utils/constants';
 // import utils
 import { requestResetToken } from '../../utils/api';
+import { useFormProps } from 'types';
 
 export default function ForgotPasswordPage() {
   const defaultEmail = '';
@@ -21,18 +22,20 @@ export default function ForgotPasswordPage() {
     email: defaultEmail,
   });
 
-  function submitHandler(event) {
-    // function submitHandler(event: React.FormEvent<HTMLFormElement>) {
+  function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    requestResetToken({ ...values }).then(() => {
-      localStorage.setItem(TOKENS.resetTokenSent, true);
-      setValues({
-        ...values,
-        email: defaultEmail,
-      });
-      navigate(PATHS.resetPassword);
-    });
+    const response = requestResetToken({ ...values } as { email: string });
+    if (response) {
+      () => {
+        localStorage.setItem(TOKENS.resetTokenSent, 'true');
+        setValues({
+          ...values,
+          email: defaultEmail,
+        });
+        navigate(PATHS.resetPassword);
+      };
+    }
   }
 
   useEffect(() => {
@@ -47,9 +50,8 @@ export default function ForgotPasswordPage() {
         <EmailInput
           size="default"
           placeholder="Укажите&nbsp;e-mail"
-          // onChange={(e) => setEmail(e.target.value)}
           onChange={e => handleChange(e)}
-          value={values.email}
+          value={values.email as string}
           name="email"
           extraClass="mt-6"
         />
