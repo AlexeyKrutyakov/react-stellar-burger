@@ -15,7 +15,7 @@ export default function ProfilePage() {
   const navigate = useNavigate();
 
   function logoutHandler() {
-    dispatch(logout(refreshToken));
+    dispatch(logout());
     navigate(PATHS.login);
   }
 

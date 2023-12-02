@@ -22,8 +22,9 @@ export default function RegisterPage() {
 
   const dispatch = useDispatch();
 
-  function submitHandler(event) {
+  function submitHandler(event: React.FormEvent<HTMLElement>) {
     event.preventDefault();
+
     dispatch(register({ email, password, name }));
   }
 

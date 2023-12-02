@@ -1,6 +1,6 @@
 import styles from './profile-settings-page.module.css';
 // imports from modules
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import components
 import {
@@ -15,10 +15,12 @@ import { useForm } from '../../hooks/useForm';
 import { editUser } from '../../services/profileSlice';
 // import utils
 import { getProfile } from '../../utils/store-selectors';
+import { User, RootState } from 'types';
 
 export default function ProfileSettingsPage() {
   const user = useSelector(getProfile).user;
-  const defaultName = user.name;
+
+  const defaultName = user ? user.name : '';
   const defaultEmail = user.email;
   const defaultPassword = '';
 
@@ -42,13 +44,14 @@ export default function ProfileSettingsPage() {
   }
   function submitHandler(event) {
     event.preventDefault();
+
     setFormIsChanged(false);
     dispatch(editUser({ ...values }));
     setValues({
       ...values,
       password: defaultPassword,
     });
-    event.target.blur();
+    event.currentTarget.blur();
   }
 
   return (

@@ -14,9 +14,9 @@ export default function OrdersPage() {
     document.title = 'Stellar Burgers: Orders';
     dispatch({
       type: WS_ACTIONS.ordersWsInit,
-      payload: `${API_URLS.wss.personalOrders}?token=${
-        localStorage.getItem(TOKENS.names.access).split('Bearer ')[1]
-      }`,
+      payload: `${API_URLS.wss.personalOrders}?token=${localStorage
+        .getItem(TOKENS.names.access)
+        ?.split('Bearer ')[1]}`,
     });
     return () => {
       dispatch({
