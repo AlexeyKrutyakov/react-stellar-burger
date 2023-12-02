@@ -71,7 +71,7 @@ export default function OrderDetails() {
         </ul>
         <div className={styles.order_footer}>
           <p className={`${styles.date} ${STYLES.text.defaultInactive}`}>
-            {preparedOrder.date}
+            {preparedOrder.createdAt}
           </p>
           <h5 className={`${styles.total_price}`}>
             <span className={STYLES.digits.default}>

@@ -25,12 +25,16 @@ export default function prepareOrderToRender(order, allIngredietns) {
     const totalPrice = calculateTotalPrice(formattedIngredients);
 
     return {
-      number: order.number,
-      date: formattedDate,
-      name: order.name,
-      status: translatedStatus,
+      _id: order._id,
       ingredients: formattedIngredients,
+      owner: order.owner,
+      status: translatedStatus,
+      name: order.name,
+      createdAt: formattedDate,
+      updatedAt: order.updatedAt,
+      number: order.number,
       totalPrice: totalPrice,
+      __v: order.__v,
     };
   }
   return false;
