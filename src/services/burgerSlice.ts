@@ -12,11 +12,17 @@ const burgerSlice = createSlice({
   name: '@@burger',
   initialState,
   reducers: {
-    addBun: (state, action: PayloadAction<Ingredient>) => {
-      return {
-        ...state,
-        bun: action.payload,
-      };
+    addBun: {
+      reducer: (state, action: PayloadAction<Ingredient>) => {
+        return {
+          ...state,
+          bun: action.payload,
+        };
+      },
+      prepare: bun => {
+        const constructorId = nanoid();
+        return { payload: { ...bun, constructorId } };
+      },
     },
     addMain: {
       reducer: (state, action: PayloadAction<Ingredient>) => {

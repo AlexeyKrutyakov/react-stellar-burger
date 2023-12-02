@@ -1,13 +1,16 @@
 import styles from './ingredients-gallery.module.css';
 // imports from modules
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import components
 import IngredientsCard from '../ingredients-card/ingredients-card';
 // import utils
 import { getIngredients } from '../../utils/store-selectors';
+import { openModal } from 'services/modalSlice';
 
 function IngredientsGallery({ type }) {
+  const dispatch = useDispatch();
+
   const handleOpenModal = type => {
     dispatch(openModal(type));
   };

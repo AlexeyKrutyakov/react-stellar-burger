@@ -4,7 +4,7 @@ import { useDrop } from 'react-dnd';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 // import components
-import ConstructorIngredient from '../constructorIngredient/constructor-ingredient';
+import { ConstructorIngredient } from '../constructorIngredient/constructor-ingredient';
 import {
   Button,
   CurrencyIcon,
@@ -40,20 +40,26 @@ function BurgerConstructor() {
   const profile = useSelector(getProfile);
 
   const bun = burgerConstructorData.bun;
-  const mains = burgerConstructorData.mains;
+  let bunPrice: number = 0;
+  let mains: Ingredient[] = burgerConstructorData.mains;
+  let mainsIdList: string[];
+  let mainsPrice: number = 0;
+  let ingredientsIdList: string[] = [];
+  let totalPrice: number = 0;
 
-  const bunPrice = bun ? bun.price * 2 : 0;
-  const totalPrice =
-    bunPrice +
-    mains.reduce(
-      (totalPrice: number, ingredient: Ingredient) =>
-        totalPrice + ingredient.price,
-      0,
-    );
+  if (bun) {
+    bunPrice = bun.price * 2;
+    ingredientsIdList = [bun._id];
+  }
 
-  const mainsIdList = mains.map((main: Ingredient) => main._id);
-  let ingredientsIdList: string[];
-  if (bun) ingredientsIdList = [bun._id, ...mainsIdList];
+  if (mains.length > 0) {
+    mains = burgerConstructorData.mains;
+    mainsIdList = mains.map((main: Ingredient) => main._id);
+    mainsPrice = mains.reduce((acc, item) => acc + item.price, 0);
+    ingredientsIdList = [...ingredientsIdList, ...mainsIdList];
+  }
+
+  totalPrice = bunPrice + mainsPrice;
 
   const handleSubmitOrder = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -116,12 +122,12 @@ function BurgerConstructor() {
         </article>
       )}
       <ul className={`${styles.ingredients_unlocked} custom-scroll`}>
-        {mains &&
+        {mains.length > 0 &&
           mains.map((main: Ingredient, index: number) => (
             <ConstructorIngredient
-              main={main}
-              index={index}
               key={main.constructorId}
+              data={main}
+              index={index}
             />
           ))}
       </ul>

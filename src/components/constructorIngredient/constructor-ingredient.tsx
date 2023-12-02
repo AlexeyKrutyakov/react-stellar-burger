@@ -1,8 +1,8 @@
 import styles from './constructor-ingredient.module.css';
 // imports from modules
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 // import components
 import {
@@ -13,12 +13,18 @@ import {
 import { deleteMain, sortMains } from '../../services/burgerSlice';
 // import constants
 import { COLORS } from '../../utils/constants';
-import { ingredientPropType } from '../../utils/prop-types';
+// import { ingredientPropType } from '../../utils/prop-types';
+import { AppDispatch, BurgerIngredient, Ingredient } from 'types';
+import { getBurger } from 'utils/store-selectors';
 
-export default function ConstructorIngredient({ main, index }) {
-  const dispatch = useDispatch();
+export const ConstructorIngredient: FC<BurgerIngredient> = ({
+  data,
+  index,
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const dispatch: AppDispatch = useDispatch();
+  const ingredients: Ingredient[] = useSelector(getBurger).mains;
 
-  const ref = useRef(null);
   const [{ isOver }, drop] = useDrop({
     accept: 'burgerIngredient',
     collect(monitor) {
@@ -26,11 +32,13 @@ export default function ConstructorIngredient({ main, index }) {
         isOver: monitor.isOver(),
       };
     },
-    hover(item, monitor) {
+    hover(item: Ingredient, monitor) {
       if (!ref.current) {
         return;
       }
-      const dragIndex = item.index;
+      const dragIndex = ingredients.findIndex(
+        ingredient => ingredient.constructorId === item.constructorId,
+      );
       const hoverIndex = index;
       if (dragIndex === hoverIndex) {
         return;
@@ -39,7 +47,8 @@ export default function ConstructorIngredient({ main, index }) {
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY =
+        (clientOffset ? clientOffset.y : 0) - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -49,7 +58,7 @@ export default function ConstructorIngredient({ main, index }) {
       }
 
       dispatch(sortMains({ dragIndex, hoverIndex }));
-      item.index = hoverIndex;
+      index = hoverIndex;
     },
   });
 
@@ -77,17 +86,17 @@ export default function ConstructorIngredient({ main, index }) {
       <li className={`${styles.ingredient} mr-1`}>
         <DragIcon type="primary" />
         <ConstructorElement
-          text={`${main.name}`}
-          price={main.price}
-          thumbnail={main.image}
+          text={`${data.name}`}
+          price={data.price}
+          thumbnail={data.image}
           handleClose={() => dispatch(deleteMain({ index }))}
         />
       </li>
     </div>
   );
-}
-
-ConstructorIngredient.propTypes = {
-  main: ingredientPropType.isRequired,
-  index: PropTypes.number.isRequired,
 };
+
+// ConstructorIngredient.propTypes = {
+//   main: ingredientPropType.isRequired,
+//   index: PropTypes.number.isRequired,
+// };
