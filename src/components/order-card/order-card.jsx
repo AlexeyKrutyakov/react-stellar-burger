@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 // import components
-import IngredientIcon from '../ingredient-icon/ingredient-icon';
+import { IngredientIcon } from '../ingredient-icon/ingredient-icon';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
 import { openModal } from '../../services/modalSlice';

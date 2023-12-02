@@ -23,7 +23,22 @@ export type StoreIngredients = {
   errorMessage?: string;
 };
 
-export type responseIngredients = {
+export type ResponseIngredients = {
   success: string;
   data: Ingredient[];
+};
+
+export type IngredientIconType = {
+  ingredient: Ingredient;
+  options: {
+    style: {
+      preview_wrap: {
+        zIndex: number;
+        left: string;
+      };
+    };
+    index: number;
+    length: number;
+    last: number;
+  };
 };

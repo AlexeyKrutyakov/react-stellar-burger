@@ -1,20 +1,22 @@
 import styles from './ingredient-icon.module.css';
-// imports from modules
-import PropTypes from 'prop-types';
 // import utils
 import { STYLES } from '../../utils/constants';
 import { ingredientPropType } from '../../utils/prop-types';
+// import types
+import { IngredientIconType } from 'types';
+import { FC } from 'react';
 
-export default function IngredientIcon({
+export const IngredientIcon: FC<IngredientIconType> = ({
   ingredient,
   options = {
     style: {
       preview_wrap: {},
     },
+    index: 1,
     length: 0,
     last: 0,
   },
-}) {
+}) => {
   const { style, index, length, last } = options;
   return (
     <div className={styles.preview_wrap} style={style.preview_wrap}>
@@ -33,9 +35,4 @@ export default function IngredientIcon({
       </article>
     </div>
   );
-}
-
-IngredientIcon.propTypes = {
-  ingredient: ingredientPropType,
-  options: PropTypes.object,
 };

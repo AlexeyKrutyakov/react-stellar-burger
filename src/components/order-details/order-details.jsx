@@ -3,7 +3,7 @@ import styles from './order-details.module.css';
 import { useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
 // import components
-import IngredientIcon from '../ingredient-icon/ingredient-icon';
+import { IngredientIcon } from '../ingredient-icon/ingredient-icon';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 // import constants
 import { PATHS, STYLES } from '../../utils/constants';

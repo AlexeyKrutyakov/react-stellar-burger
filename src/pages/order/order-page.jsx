@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 // import components
-import IngredientIcon from '../../components/ingredient-icon/ingredient-icon';
+import { IngredientIcon } from '../../components/ingredient-icon/ingredient-icon';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
 import { getOrderFromServer } from '../../services/orderSlice';
