@@ -4,7 +4,10 @@ import { useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
 // import components
 import { IngredientIcon } from '../ingredient-icon/ingredient-icon';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {
+  CurrencyIcon,
+  FormattedDate,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 // import constants
 import { PATHS, STYLES } from '../../utils/constants';
 // import utils
@@ -68,7 +71,7 @@ export default function OrderDetails() {
       </ul>
       <div className={styles.order_footer}>
         <p className={`${styles.date} ${STYLES.text.defaultInactive}`}>
-          {preparedOrder.createdAt}
+          <FormattedDate date={new Date(preparedOrder.createdAt)} />
         </p>
         <h5 className={`${styles.total_price}`}>
           <span className={STYLES.digits.default}>

@@ -5,7 +5,10 @@ import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 // import components
 import { IngredientIcon } from '../../components/ingredient-icon/ingredient-icon';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {
+  CurrencyIcon,
+  FormattedDate,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
 import { getOrderFromServer } from '../../services/orderSlice';
 // import constants
@@ -14,7 +17,6 @@ import { STYLES } from '../../utils/constants';
 import translateStatus from '../../utils/translate-status';
 import getIngredientsById from '../../utils/ingredients-by-id';
 import calculateTotalPrice from '../../utils/calculate-total-price';
-import convertDateFromToday from '../../utils/convert-date-from-today';
 import { getIngredients, getOrder } from '../../utils/store-selectors';
 import { AppDispatch } from 'types';
 
@@ -25,7 +27,6 @@ export default function OrderPage() {
   const allIngredients = useSelector(getIngredients).loaded;
   const order = useSelector(getOrder);
   const translatedStatus = translateStatus(order.status);
-  const formattedDate = convertDateFromToday(order.createdAt);
 
   let orderIngredients = null;
   let totalPrice = 0;
@@ -96,7 +97,7 @@ export default function OrderPage() {
           </ul>
           <div className={styles.order_footer}>
             <p className={`${styles.date} ${STYLES.text.defaultInactive}`}>
-              {formattedDate}
+              <FormattedDate date={new Date(order.createdAt)} />
             </p>
             <h5 className={`${styles.total_price}`}>
               <span className={STYLES.digits.default}>

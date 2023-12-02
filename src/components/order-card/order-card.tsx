@@ -4,7 +4,10 @@ import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 // import components
 import { IngredientIcon } from '../ingredient-icon/ingredient-icon';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {
+  CurrencyIcon,
+  FormattedDate,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 // import services
 import { openModal } from '../../services/modalSlice';
 // import utils
@@ -40,7 +43,7 @@ export default function OrderCard({ order, hasStatus }: OrderProps) {
         <div className={styles.card_header}>
           <h2 className={styles.digits}>#{number}</h2>
           <h3 className={`${styles.date} ${STYLES.text.defaultInactive}`}>
-            {createdAt}
+            <FormattedDate date={new Date(createdAt)} />
           </h3>
         </div>
         <h1 className={`${styles.name} ${STYLES.text.medium}`}>
