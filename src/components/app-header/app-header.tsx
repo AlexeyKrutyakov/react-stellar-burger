@@ -1,6 +1,6 @@
 import styles from './app-header.module.css';
 // import components
-import NavPanel from '../nav-panel/nav-panel.jsx';
+import NavPanel from '../nav-panel/nav-panel';
 
 function AppHeader() {
   return (

@@ -10,7 +10,7 @@ import {
 // import constants
 import { PATHS, STYLES } from '../../utils/constants';
 
-function NavPanel() {
+export default function NavPanel() {
   return (
     <nav className={`${styles.panel} mt-4 mb-4`}>
       <ul className={styles.list}>
@@ -53,5 +53,3 @@ function NavPanel() {
     </nav>
   );
 }
-
-export default NavPanel;

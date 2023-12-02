@@ -1,6 +1,5 @@
 import styles from './order-card.module.css';
 // imports from modules
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 // import components
@@ -10,20 +9,20 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { openModal } from '../../services/modalSlice';
 // import utils
 import { STYLES } from '../../utils/constants';
-import { preparedOrderPropType } from '../../utils/prop-types';
+import { OrderProps } from 'types';
 
-export default function OrderCard({ order, hasStatus }) {
-  const { number, date, name, status, ingredients, totalPrice } = order;
+export default function OrderCard({ order, hasStatus }: OrderProps) {
+  const { number, createdAt, name, status, ingredients, totalPrice } = order;
   const location = useLocation();
   const dispatch = useDispatch();
 
   let last = 5;
 
-  const visibleIngredients = ingredients.slice(0, 6);
-  const length = ingredients.length;
+  const visibleIngredients = ingredients!.slice(0, 6);
+  const length = ingredients!.length;
 
-  const handleOpenModal = ({ type, item }) => {
-    dispatch(openModal({ type, item }));
+  const handleOpenModal = (type: string) => {
+    dispatch(openModal(type));
   };
 
   return (
@@ -35,15 +34,13 @@ export default function OrderCard({ order, hasStatus }) {
       <article
         className={styles.card}
         onClick={() => {
-          handleOpenModal({
-            type: 'order__details',
-          });
+          handleOpenModal('order__details');
         }}
       >
         <div className={styles.card_header}>
           <h2 className={styles.digits}>#{number}</h2>
           <h3 className={`${styles.date} ${STYLES.text.defaultInactive}`}>
-            {date}
+            {createdAt}
           </h3>
         </div>
         <h1 className={`${styles.name} ${STYLES.text.medium}`}>
@@ -82,17 +79,12 @@ export default function OrderCard({ order, hasStatus }) {
           </div>
           <h4 className={styles.line_container}>
             <span className={styles.digits}>
-              {totalPrice.toLocaleString('ru-RU')}&nbsp;
+              {totalPrice && totalPrice.toLocaleString('ru-RU')}&nbsp;
             </span>
-            <CurrencyIcon />
+            <CurrencyIcon type="primary" />
           </h4>
         </div>
       </article>
     </Link>
   );
 }
-
-OrderCard.propTypes = {
-  order: preparedOrderPropType,
-  hasStatus: PropTypes.bool,
-};
