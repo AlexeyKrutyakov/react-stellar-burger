@@ -19,9 +19,8 @@ import { User, RootState } from 'types';
 
 export default function ProfileSettingsPage() {
   const user = useSelector(getProfile).user;
-
   const defaultName = user ? user.name : '';
-  const defaultEmail = user.email;
+  const defaultEmail = user ? user.email : '';
   const defaultPassword = '';
 
   const [formIsChanged, setFormIsChanged] = useState(false);
@@ -42,11 +41,17 @@ export default function ProfileSettingsPage() {
     });
     setFormIsChanged(false);
   }
-  function submitHandler(event) {
+  function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setFormIsChanged(false);
-    dispatch(editUser({ ...values }));
+    dispatch(
+      editUser({ ...values } as {
+        name: string;
+        email: string;
+        password: string;
+      }),
+    );
     setValues({
       ...values,
       password: defaultPassword,
@@ -59,7 +64,7 @@ export default function ProfileSettingsPage() {
       <Input
         type="text"
         placeholder="Имя"
-        value={values.name}
+        value={values.name as string}
         name="name"
         icon="EditIcon"
         onChange={e => {
@@ -69,14 +74,14 @@ export default function ProfileSettingsPage() {
       />
       <EmailInput
         placeholder="Логин"
-        value={values.email}
+        value={values.email as string}
         name="email"
         isIcon={true}
         extraClass="mt-6"
         onChange={e => handleChange(e)}
       />
       <PasswordInput
-        value={values.password}
+        value={values.password as string}
         name="password"
         icon="EditIcon"
         extraClass="mt-6"
