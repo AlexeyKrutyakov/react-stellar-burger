@@ -2,7 +2,7 @@ import styles from './ingredients-card.module.css';
 // imports from modules
 import PropTypes from 'prop-types';
 import { useDrag } from 'react-dnd';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 // import components
 import {
@@ -15,18 +15,21 @@ import { INGREDIENTS, STYLES } from '../../utils/constants';
 import { ingredientPropType } from '../../utils/prop-types';
 import countIngredients from '../../utils/count-ingredients';
 import { getBurger } from '../../utils/store-selectors';
+import { AppDispatch, Ingredient } from 'types';
+import { openModal } from 'services/modalSlice';
 
-export const IngredientsCard = ({ ingredient }) => {
+export const IngredientsCard = ({ ingredient }: { ingredient: Ingredient }) => {
   const location = useLocation();
-  const burgerConstructorData = useSelector(getBurger);
+  const dispatch: AppDispatch = useDispatch();
 
+  const burgerConstructorData = useSelector(getBurger);
   const bun = burgerConstructorData.bun;
   const mains = burgerConstructorData.mains;
 
   let ingredientsQuantity = 0;
-  let constructorIngredientsList = [];
+  let constructorIngredientsList: Ingredient[] | [] = [];
 
-  const handleOpenModal = type => {
+  const handleOpenModal = (type: string) => {
     dispatch(openModal(type));
   };
 
@@ -63,7 +66,7 @@ export const IngredientsCard = ({ ingredient }) => {
   return (
     <li
       className={styles.ingredients__card}
-      onClick={() => handleOpenModal({ type: 'ingredient__details' })}
+      onClick={() => handleOpenModal('ingredient__details')}
     >
       <Link
         className={styles.link}
@@ -95,8 +98,3 @@ export const IngredientsCard = ({ ingredient }) => {
     </li>
   );
 };
-
-// IngredientsCard.propTypes = {
-//   ingredient: ingredientPropType,
-//   onModalOpen: PropTypes.func.isRequired,
-// };
