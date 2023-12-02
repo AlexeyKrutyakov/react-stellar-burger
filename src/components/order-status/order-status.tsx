@@ -7,7 +7,7 @@ import imageDone from '../../images/graphics.png';
 import { getOrder } from '../../utils/store-selectors';
 import { STYLES } from '../../utils/constants';
 
-function OrderStatus() {
+export default function OrderStatus() {
   const orderNumber = useSelector(getOrder).number;
 
   return (
@@ -26,5 +26,3 @@ function OrderStatus() {
     </>
   );
 }
-
-export default OrderStatus;
