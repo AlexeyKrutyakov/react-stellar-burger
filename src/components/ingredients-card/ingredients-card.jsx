@@ -16,7 +16,7 @@ import { ingredientPropType } from '../../utils/prop-types';
 import countIngredients from '../../utils/count-ingredients';
 import { getBurger } from '../../utils/store-selectors';
 
-function IngredientsCard({ ingredient, onModalOpen }) {
+export const IngredientsCard = ({ ingredient }) => {
   const location = useLocation();
   const burgerConstructorData = useSelector(getBurger);
 
@@ -25,6 +25,10 @@ function IngredientsCard({ ingredient, onModalOpen }) {
 
   let ingredientsQuantity = 0;
   let constructorIngredientsList = [];
+
+  const handleOpenModal = type => {
+    dispatch(openModal(type));
+  };
 
   switch (ingredient.type) {
     case INGREDIENTS.type.bun:
@@ -59,7 +63,7 @@ function IngredientsCard({ ingredient, onModalOpen }) {
   return (
     <li
       className={styles.ingredients__card}
-      onClick={() => onModalOpen({ type: 'ingredient__details' })}
+      onClick={() => handleOpenModal({ type: 'ingredient__details' })}
     >
       <Link
         className={styles.link}
@@ -90,11 +94,9 @@ function IngredientsCard({ ingredient, onModalOpen }) {
       </Link>
     </li>
   );
-}
-
-IngredientsCard.propTypes = {
-  ingredient: ingredientPropType,
-  onModalOpen: PropTypes.func.isRequired,
 };
 
-export default IngredientsCard;
+// IngredientsCard.propTypes = {
+//   ingredient: ingredientPropType,
+//   onModalOpen: PropTypes.func.isRequired,
+// };

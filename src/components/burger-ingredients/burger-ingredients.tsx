@@ -5,7 +5,7 @@ import React, { RefObject } from 'react';
 import { useState, useRef } from 'react';
 // import components
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import IngredientsGallery from '../ingredients-gallery/ingredients-gallery';
+import { IngredientsGallery } from '../ingredients-gallery/ingredients-gallery';
 // import utils
 import scroll from '../../utils/scroll';
 import { STYLES } from '../../utils/constants';
