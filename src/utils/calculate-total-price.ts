@@ -1,4 +1,6 @@
-export default function calculateTotalPrice(ingredients) {
+import { Ingredient } from 'types';
+
+export default function calculateTotalPrice(ingredients: Ingredient[]) {
   const buns = ingredients.filter(item => item.type === 'bun');
   const mains = ingredients.filter(item => item.type !== 'bun');
 
