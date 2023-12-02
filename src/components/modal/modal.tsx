@@ -1,6 +1,6 @@
 import styles from './modal.module.css';
 // imports from modules
-import React from 'react';
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
@@ -9,16 +9,16 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 // import utils
 import { getModal } from '../../utils/store-selectors';
+import { ModalProps } from 'types';
 
-function Modal({ children, onCloseModal, forSpinner }) {
-  const modalType = useSelector(getModal);
+function Modal({ children, onCloseModal, forSpinner }: ModalProps) {
   const modalRoot = document.getElementById('modal-root');
 
   function closeModal() {
-    onCloseModal({ type: modalType });
+    onCloseModal();
   }
 
-  function handleEscapeDown(e) {
+  function handleEscapeDown(e: KeyboardEvent) {
     if (e.key === 'Escape') {
       closeModal();
     }
@@ -44,7 +44,7 @@ function Modal({ children, onCloseModal, forSpinner }) {
         )}
       </div>
     </div>,
-    modalRoot,
+    modalRoot!,
   );
 }
 
