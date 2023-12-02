@@ -9,7 +9,7 @@ import {
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import hooks
-import useForm from '../../hooks/useForm';
+import { useForm } from '../../hooks/useForm';
 // import constants
 import { TOKENS, PATHS, STYLES } from '../../utils/constants';
 // import utils
@@ -27,7 +27,7 @@ export default function ResetPasswordPage() {
   function submitHandler(event) {
     event.preventDefault();
     requestResetPassword({ ...values })
-      .then((res) => {
+      .then(res => {
         setValues({
           password: defaultPassword,
           token: defaultToken,
@@ -35,7 +35,7 @@ export default function ResetPasswordPage() {
         navigate(PATHS.home);
         localStorage.removeItem(TOKENS.resetTokenSent);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -57,7 +57,7 @@ export default function ResetPasswordPage() {
           placeholder="Введите новый пароль"
           value={values.password}
           name="password"
-          onChange={(e) => handleChange(e)}
+          onChange={e => handleChange(e)}
           extraClass="mt-6"
         />
         <Input
@@ -65,7 +65,7 @@ export default function ResetPasswordPage() {
           placeholder="Введите код из письма"
           value={values.token}
           name="token"
-          onChange={(e) => handleChange(e)}
+          onChange={e => handleChange(e)}
           extraClass="mt-6"
         />
         <Button

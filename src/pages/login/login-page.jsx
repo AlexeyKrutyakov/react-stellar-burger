@@ -10,7 +10,7 @@ import {
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import hooks
-import useForm from '../../hooks/useForm';
+import { useForm } from '../../hooks/useForm';
 // import services
 import { login } from '../../services/profileSlice';
 // import constants

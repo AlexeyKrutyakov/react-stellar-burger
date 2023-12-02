@@ -8,7 +8,7 @@ import {
   EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import hooks
-import useForm from '../../hooks/useForm';
+import { useForm } from '../../hooks/useForm';
 // import constants
 import { PATHS, STYLES, TOKENS } from '../../utils/constants';
 // import utils
@@ -22,7 +22,9 @@ export default function ForgotPasswordPage() {
   });
 
   function submitHandler(event) {
+    // function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     requestResetToken({ ...values }).then(() => {
       localStorage.setItem(TOKENS.resetTokenSent, true);
       setValues({

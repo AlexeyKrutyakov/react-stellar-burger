@@ -10,7 +10,7 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import hooks
-import useForm from '../../hooks/useForm';
+import { useForm } from '../../hooks/useForm';
 // import services
 import { editUser } from '../../services/profileSlice';
 // import utils
