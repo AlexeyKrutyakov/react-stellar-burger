@@ -64,7 +64,7 @@ export default function OrderDetails() {
                   {ingredient.type === 'bun' ? '2' : '1'} x{' '}
                   {ingredient.price.toLocaleString('ru-RU')}
                 </span>
-                <CurrencyIcon />
+                <CurrencyIcon type="primary" />
               </h4>
             </li>
           ))}
@@ -77,7 +77,7 @@ export default function OrderDetails() {
             <span className={STYLES.digits.default}>
               {preparedOrder.totalPrice.toLocaleString('ru-RU')}
             </span>{' '}
-            <CurrencyIcon />
+            <CurrencyIcon type="primary" />
           </h5>
         </div>
       </article>

@@ -30,7 +30,7 @@ export type ResponseIngredients = {
 
 export type IngredientIconType = {
   ingredient: Ingredient;
-  options: {
+  options?: {
     style: {
       preview_wrap: {
         zIndex: number;
