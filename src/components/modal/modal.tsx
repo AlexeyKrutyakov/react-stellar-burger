@@ -11,7 +11,11 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getModal } from '../../utils/store-selectors';
 import { ModalProps } from 'types';
 
-function Modal({ children, onCloseModal, forSpinner }: ModalProps) {
+export default function Modal({
+  children,
+  onCloseModal,
+  forSpinner,
+}: ModalProps) {
   const modalRoot = document.getElementById('modal-root');
 
   function closeModal() {
@@ -32,7 +36,8 @@ function Modal({ children, onCloseModal, forSpinner }: ModalProps) {
     };
   });
 
-  return createPortal(
+  // return createPortal(
+  return (
     <div className={styles.modal__container}>
       <ModalOverlay onOverlayClick={closeModal} />
       <div className={styles.modal}>
@@ -43,14 +48,7 @@ function Modal({ children, onCloseModal, forSpinner }: ModalProps) {
           </button>
         )}
       </div>
-    </div>,
-    modalRoot!,
+    </div>
+    // modalRoot as HTMLElement,
   );
 }
-
-Modal.propTypes = {
-  onCloseModal: PropTypes.func.isRequired,
-  forSpinner: PropTypes.bool,
-};
-
-export default Modal;

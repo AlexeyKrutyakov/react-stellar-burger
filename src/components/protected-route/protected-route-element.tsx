@@ -1,6 +1,5 @@
 // import from modules
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Navigate, useLocation } from 'react-router';
 // import utils
 import { getProfile } from '../../utils/store-selectors';
@@ -12,7 +11,7 @@ function ProtectedRouteElement({
   onlyUnauth = false,
 }: {
   component: JSX.Element;
-  onlyUnauth: boolean;
+  onlyUnauth?: boolean;
 }) {
   const isAuthChecked = useSelector(getProfile).isAuthChecked;
   const user = useSelector(getProfile).user;
@@ -35,10 +34,7 @@ function ProtectedRouteElement({
 }
 
 export const OnlyAuth = ProtectedRouteElement;
+
 export const OnlyUnauth = ({ component }: { component: JSX.Element }) => (
   <ProtectedRouteElement component={component} onlyUnauth={true} />
 );
-
-ProtectedRouteElement.propTypes = {
-  onlyUnauth: PropTypes.bool,
-};

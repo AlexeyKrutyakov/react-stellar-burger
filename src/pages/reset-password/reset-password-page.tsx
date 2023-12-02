@@ -46,53 +46,50 @@ export default function ResetPasswordPage() {
         };
       }
     }
-
-    useEffect(() => {
-      document.title = 'Stellar Burgers: Reset password';
-    }, []);
-
-    if (!localStorage.getItem(TOKENS.resetTokenSent)) {
-      return <Navigate to={PATHS.home} state={{ from: PATHS.home }} />;
-    }
-
-    return (
-      <div className={styles.content}>
-        <form action="login" onSubmit={submitHandler}>
-          <h1 className={`${STYLES.text.medium}`}>
-            Восстановление&nbsp;пароля
-          </h1>
-          <PasswordInput
-            size="default"
-            placeholder="Введите новый пароль"
-            value={values.password as string}
-            name="password"
-            onChange={e => handleChange(e)}
-            extraClass="mt-6"
-          />
-          <Input
-            sizes="default"
-            placeholder="Введите код из письма"
-            value={values.token as string}
-            name="token"
-            onChange={e => handleChange(e)}
-            extraClass="mt-6"
-          />
-          <Button
-            htmlType="submit"
-            type="primary"
-            size="medium"
-            extraClass="mt-6"
-          >
-            Сохранить
-          </Button>
-        </form>
-        <p className={`${STYLES.text.defaultInactive} mt-20`}>
-          Вспомнили пароль?&nbsp;
-          <Link to={PATHS.login} style={{ textDecoration: 'none' }}>
-            <span className={styles.link}>Войти</span>
-          </Link>
-        </p>
-      </div>
-    );
   }
+  useEffect(() => {
+    document.title = 'Stellar Burgers: Reset password';
+  }, []);
+
+  if (!localStorage.getItem(TOKENS.resetTokenSent)) {
+    return <Navigate to={PATHS.home} state={{ from: PATHS.home }} />;
+  }
+
+  return (
+    <div className={styles.content}>
+      <form action="login" onSubmit={submitHandler}>
+        <h1 className={`${STYLES.text.medium}`}>Восстановление&nbsp;пароля</h1>
+        <PasswordInput
+          size="default"
+          placeholder="Введите новый пароль"
+          value={values.password as string}
+          name="password"
+          onChange={e => handleChange(e)}
+          extraClass="mt-6"
+        />
+        <Input
+          sizes="default"
+          placeholder="Введите код из письма"
+          value={values.token as string}
+          name="token"
+          onChange={e => handleChange(e)}
+          extraClass="mt-6"
+        />
+        <Button
+          htmlType="submit"
+          type="primary"
+          size="medium"
+          extraClass="mt-6"
+        >
+          Сохранить
+        </Button>
+      </form>
+      <p className={`${STYLES.text.defaultInactive} mt-20`}>
+        Вспомнили пароль?&nbsp;
+        <Link to={PATHS.login} style={{ textDecoration: 'none' }}>
+          <span className={styles.link}>Войти</span>
+        </Link>
+      </p>
+    </div>
+  );
 }

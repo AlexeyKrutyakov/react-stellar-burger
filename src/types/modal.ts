@@ -9,5 +9,5 @@ export type Modal = {
 export type ModalProps = {
   children: ReactElement;
   onCloseModal: () => void;
-  forSpinner: string;
+  forSpinner?: boolean;
 };
