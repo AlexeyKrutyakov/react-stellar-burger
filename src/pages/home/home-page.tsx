@@ -8,13 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import BurgerIngredients from '../../components/burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
 // import services
-import { openModal } from '../../services/modalSlice';
 // import utils
 import { getIngredients } from '../../utils/store-selectors';
 import { AppDispatch } from 'types';
 
 export default function HomePage() {
-  const dispatch: AppDispatch = useDispatch();
   const ingredientsLoadingStatus = useSelector(getIngredients).status;
 
   useEffect(() => {

@@ -23,9 +23,10 @@ export default function LoginPage() {
   });
   const dispatch = useDispatch();
 
-  function submitHandler(event) {
+  function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    dispatch(login({ ...values }));
+
+    dispatch(login({ ...values } as { email: string; password: string }));
   }
 
   useEffect(() => {
@@ -38,14 +39,14 @@ export default function LoginPage() {
         <h1 className={`${STYLES.text.medium}`}>Вход</h1>
         <EmailInput
           size="default"
-          value={values.email}
+          value={values.email as string}
           name="email"
           onChange={e => handleChange(e)}
           extraClass="mt-6"
         />
         <PasswordInput
           size="default"
-          value={values.password}
+          value={values.password as string}
           name="password"
           onChange={e => handleChange(e)}
           extraClass="mt-6"

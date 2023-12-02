@@ -13,7 +13,6 @@ import { useForm } from '../../hooks/useForm';
 import { PATHS, STYLES, TOKENS } from '../../utils/constants';
 // import utils
 import { requestResetToken } from '../../utils/api';
-import { useFormProps } from 'types';
 
 export default function ForgotPasswordPage() {
   const defaultEmail = '';
