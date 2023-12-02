@@ -2,7 +2,7 @@ import { ORDER } from './constants';
 
 const dictionary = ORDER.status;
 
-export default function translateStatus(status) {
+export default function translateStatus(status: string) {
   switch (status) {
     case 'done':
       return dictionary.done;
