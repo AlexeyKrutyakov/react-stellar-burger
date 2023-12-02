@@ -14,7 +14,7 @@ export type Profile = {
   requestHasError: boolean;
   wsConnectionStatus: string;
   orders: Order[] | null;
-  errorMessage?: '';
+  errorMessage?: string;
 };
 
 export type requestGetNewTokens = {

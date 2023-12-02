@@ -1,5 +1,5 @@
 // import from modules
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import constants
 import { TOKENS, WS_ACTIONS } from '../utils/constants';
 // import utils
@@ -11,20 +11,22 @@ import {
   requestUserInfoWithRefreshTokens,
   requestEditUserWithRefreshTokens,
 } from '../utils/api';
+import { AppDispatch, Profile, User, requestGetNewTokens } from 'types';
 
 export const profileOrdersActions = {
   wsInit: WS_ACTIONS.ordersWsInit,
   onStop: WS_ACTIONS.ordersWsStop,
 };
 
-const initialState = {
+const initialState: Profile = {
   isAuthChecked: false,
   user: null,
   status: '',
+  success: false,
   requestHasError: false,
-  errorMessage: '',
   wsConnectionStatus: '',
   orders: null,
+  errorMessage: '',
 };
 
 const rejectedStatus = {
@@ -38,23 +40,21 @@ const noErrors = {
 };
 
 export const getUser = () => {
-  return dispatch => {
-    return requestUserInfoWithRefreshTokens().then(res => {
-      dispatch(setUser(res.user));
-    });
+  return async (dispatch: AppDispatch) => {
+    const res = await requestUserInfoWithRefreshTokens();
+    dispatch(setUser(res.user));
   };
 };
 
-export const editUser = user => {
-  return dispatch => {
-    return requestEditUserWithRefreshTokens(user).then(res => {
-      dispatch(setUser(res.user));
-    });
+export const editUser = (user: User) => {
+  return async (dispatch: AppDispatch) => {
+    const res = await requestEditUserWithRefreshTokens(user);
+    dispatch(setUser(res.user));
   };
 };
 
 export const checkUserAuth = () => {
-  return dispatch => {
+  return (dispatch: AppDispatch) => {
     if (localStorage.getItem(TOKENS.names.access)) {
       dispatch(getUser())
         .catch(err => {
@@ -69,12 +69,15 @@ export const checkUserAuth = () => {
 };
 
 export const refreshTokens = () => {
-  return dispatch => {
-    dispatch(requestNewTokens(localStorage.getItem(TOKENS.names.refresh)))
-      .then(res => dispatch(setNewTokens(res)))
-      .catch(err => {
-        dispatch(setError(err));
-      });
+  return async (dispatch: AppDispatch) => {
+    const response = await requestNewTokens(); //todo dispatch ?
+
+    if (response)
+      try {
+        return dispatch(setNewTokens(response));
+      } catch {
+        (err: string) => console.log(err);
+      }
   };
 };
 
@@ -104,9 +107,9 @@ const profileSlice = createSlice({
         errorMessage: action.payload,
       };
     },
-    setNewTokens: action => {
-      localStorage.setItem(TOKENS.names.access, action.accessToken);
-      localStorage.setItem(TOKENS.names.refresh, action.refreshToken);
+    setNewTokens: (_, action: PayloadAction<requestGetNewTokens>) => {
+      localStorage.setItem(TOKENS.names.access, action.payload.accessToken);
+      localStorage.setItem(TOKENS.names.refresh, action.payload.refreshToken);
     },
     setProfileOrdersWsConnectionStatus: (state, action) => {
       return {
@@ -171,7 +174,7 @@ const profileSlice = createSlice({
           errorMessage: action.error.message,
         };
       })
-      .addCase(logout, state => {
+      .addCase(logout.pending, state => {
         state.status = 'pending';
       })
       .addCase(logout.fulfilled, (state, action) => {
