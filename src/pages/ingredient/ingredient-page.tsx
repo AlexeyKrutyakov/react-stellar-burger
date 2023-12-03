@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { STYLES } from '../../utils/constants';
 import getIngredient from '../../utils/getIngredient';
 import { getIngredients } from '../../utils/store-selectors';
+import { Ingredient } from 'types';
 
 export default function IngredientPage() {
   const { ingredientId } = useParams();
@@ -16,38 +17,41 @@ export default function IngredientPage() {
     document.title = 'Stellar Burgers: Ingredient Details';
   }, []);
 
-  const ingredient = getIngredient(ingredients, ingredientId);
+  let ingredient: Ingredient | null = null;
+
+  if (ingredients && ingredientId)
+    ingredient = getIngredient(ingredients, ingredientId);
 
   return (
     <div className={styles.content}>
       <h1 className={`${styles.title} ${STYLES.text.large}`}>
         Детали ингредиента
       </h1>
-      <img src={ingredient.image_large} alt={ingredient.name} />
-      <h1 className={`${STYLES.text.medium} mt-4`}>{ingredient.name}</h1>
+      <img src={ingredient?.image_large} alt={ingredient?.name} />
+      <h1 className={`${STYLES.text.medium} mt-4`}>{ingredient?.name}</h1>
       <div className={`${styles.nutritional_values} mt-8 mb-15`}>
         <article className={styles.value}>
           <p className={`${STYLES.text.defaultInactive}`}>Калории,ккал</p>
           <span className={`${STYLES.digits.defaultInactive}`}>
-            {ingredient.calories}
+            {ingredient?.calories}
           </span>
         </article>
         <article className={styles.value}>
           <p className={`${STYLES.text.defaultInactive}`}>Белки, г</p>
           <span className={`${STYLES.digits.defaultInactive}`}>
-            {ingredient.proteins}
+            {ingredient?.proteins}
           </span>
         </article>
         <article className={styles.value}>
           <p className={`${STYLES.text.defaultInactive}`}>Жиры, г</p>
           <span className={`${STYLES.digits.defaultInactive}`}>
-            {ingredient.fat}
+            {ingredient?.fat}
           </span>
         </article>
         <article className={styles.value}>
           <p className={`${STYLES.text.defaultInactive}`}>Углеводы, г</p>
           <span className={`${STYLES.digits.defaultInactive}`}>
-            {ingredient.carbohydrates}
+            {ingredient?.carbohydrates}
           </span>
         </article>
       </div>
