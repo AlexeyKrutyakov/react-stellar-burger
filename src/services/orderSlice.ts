@@ -9,9 +9,9 @@ export const submitOrder = createAsyncThunk<
   responseSubmitOrder,
   string[],
   { state: { order: Order } }
->('@@order/submitOrder', async (ingredients: string[]) => {
+>('@@order/submitOrder', async ingredients => {
   const response = await requestOrder(ingredients);
-  return await response;
+  return response;
 });
 
 const initialState: Order = {
@@ -28,7 +28,9 @@ const initialState: Order = {
 
 export const getOrderFromServer = (number: string) => {
   return async (dispatch: AppDispatch) => {
-    const response = await requestGetOrder(number);
+    const response = (await requestGetOrder(
+      number,
+    )) as responseGetOrderByNumber;
     return dispatch(setOrder(response));
   };
 };

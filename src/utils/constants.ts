@@ -21,9 +21,6 @@ export const WS_ACTIONS = {
 export const MODAL = {
   type: {
     orderStatus: 'order__status',
-    // orderDetails: 'order_details',
-    // ingredientsDetails: 'ingredient__details',
-    // loadingSpinner: 'spinner',
   },
 };
 

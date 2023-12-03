@@ -11,7 +11,7 @@ import {
   requestUserInfoWithRefreshTokens,
   requestEditUserWithRefreshTokens,
 } from '../utils/api';
-import { AppDispatch, Profile, User, requestGetNewTokens } from 'types';
+import { AppDispatch, Profile, User, requestNewTokensResponse } from 'types';
 
 export const profileOrdersActions = {
   wsInit: WS_ACTIONS.ordersWsInit,
@@ -57,7 +57,7 @@ export const checkUserAuth = () => {
   return (dispatch: AppDispatch) => {
     if (localStorage.getItem(TOKENS.names.access)) {
       dispatch(getUser())
-        .catch(err => {
+        .catch((err: any) => {
           dispatch(setProfileError(err));
           dispatch(setUser(null));
         })
@@ -107,7 +107,7 @@ const profileSlice = createSlice({
         errorMessage: action.payload,
       };
     },
-    setNewTokens: (_, action: PayloadAction<requestGetNewTokens>) => {
+    setNewTokens: (_, action: PayloadAction<requestNewTokensResponse>) => {
       localStorage.setItem(TOKENS.names.access, action.payload.accessToken);
       localStorage.setItem(TOKENS.names.refresh, action.payload.refreshToken);
     },

@@ -24,17 +24,13 @@ export default function ForgotPasswordPage() {
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const response = requestResetToken({ ...values } as { email: string });
-    if (response) {
-      () => {
-        localStorage.setItem(TOKENS.resetTokenSent, 'true');
-        setValues({
-          ...values,
-          email: defaultEmail,
-        });
-        navigate(PATHS.resetPassword);
-      };
-    }
+    requestResetToken({ ...values } as { email: string });
+    localStorage.setItem(TOKENS.resetTokenSent, 'true');
+    setValues({
+      ...values,
+      email: defaultEmail,
+    });
+    navigate(PATHS.resetPassword);
   }
 
   useEffect(() => {

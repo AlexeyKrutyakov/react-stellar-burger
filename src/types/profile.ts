@@ -17,12 +17,6 @@ export type Profile = {
   errorMessage?: string;
 };
 
-export type requestGetNewTokens = {
-  success: string;
-  accessToken: string;
-  refreshToken: string;
-};
-
 export type WebSocketUserOrders = {
   success: boolean;
   orders: Order[];
