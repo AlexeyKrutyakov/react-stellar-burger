@@ -1,8 +1,10 @@
-export default function VerifyOrder(order, allIngredients) {
-  if (
-    order.ingredients.includes('' || null) ||
-    order.ingredients.includes(undefined)
-  ) {
+import { Ingredient, Order } from 'types';
+
+export default function VerifyOrder(
+  order: Order,
+  allIngredients: Ingredient[],
+) {
+  if (order.ingredients.includes('')) {
     return false;
   }
 
@@ -16,10 +18,6 @@ export default function VerifyOrder(order, allIngredients) {
   );
 
   if (orderBunsIdList.length > 2 || orderBunsIdList.length < 1) {
-    return false;
-  }
-
-  if ([...new Set(orderBunsIdList)].length !== 1) {
     return false;
   }
 

@@ -14,19 +14,29 @@ import { FC } from 'react';
 export default function OrdersStats() {
   const feed = useSelector(getFeed);
   const allIngredients = useSelector(getIngredients).loaded;
-  const correctOrders = feed.orders.filter(order =>
-    VerifyOrder(order, allIngredients),
-  );
+
+  let correctOrders: Order[] = [];
+
+  if (allIngredients)
+    correctOrders = feed.orders.filter(order =>
+      VerifyOrder(order, allIngredients),
+    );
 
   const getOrderNumbers = (orders: Order[], status: string) => {
     const numbers = orders.map(order => {
-      if (order && order.status === status) return order.number;
+      if (order.number && order.status === status) return order.number;
     });
-    return numbers.filter(number => number !== undefined);
+    const result = numbers.filter(num => num);
+    return result;
   };
 
-  const doneOrders = getOrderNumbers(correctOrders, 'done');
-  const pengingOrders = getOrderNumbers(correctOrders, 'pending');
+  let doneOrders: number[] = [];
+  let pendingOrders: number[] = [];
+
+  if (correctOrders) {
+    doneOrders = getOrderNumbers(correctOrders, 'done') as number[];
+    pendingOrders = getOrderNumbers(correctOrders, 'pending') as number[];
+  }
 
   return (
     <section className={styles.section}>
@@ -52,8 +62,8 @@ export default function OrdersStats() {
       >
         <h2 className={styles.title}>В работе:</h2>
         <ul className={styles.orders_numbers}>
-          {pengingOrders.length > 0 &&
-            pengingOrders.map(orderNumber => (
+          {pendingOrders.length > 0 &&
+            pendingOrders.map(orderNumber => (
               <li key={orderNumber}>
                 <span className={`${STYLES.digits.default}`}>
                   {orderNumber}
