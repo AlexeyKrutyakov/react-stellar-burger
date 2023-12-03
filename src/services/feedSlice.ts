@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { WS_ACTIONS } from '../utils/constants';
-import { Feed } from 'types';
+import { Feed, WebSocketPayload } from 'types';
 
 export const feedActions = {
   wsInit: WS_ACTIONS.feedWsInit,
@@ -33,7 +33,7 @@ const feedSlice = createSlice({
         errorMessage: action.payload,
       };
     },
-    setFeed: (state, action: PayloadAction<Feed>) => {
+    setFeed: (state, action: PayloadAction<WebSocketPayload>) => {
       return {
         ...state,
         success: action.payload.success,

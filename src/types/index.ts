@@ -8,3 +8,4 @@ export * from './hooks';
 export * from './actions';
 export * from './state';
 export * from './api';
+export * from './middleware';
