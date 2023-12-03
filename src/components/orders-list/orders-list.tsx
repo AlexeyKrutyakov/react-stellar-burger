@@ -14,11 +14,13 @@ import {
   getProfile,
 } from '../../utils/store-selectors';
 import prepareOrderToRender from '../../utils/prepare-order';
+import { Order, PreparedOrder } from 'types';
 
 export default function OrdersList({ hasStatus = false }) {
   let orders = null;
   const feed = useSelector(getFeed);
   const profile = useSelector(getProfile);
+
   const location = useLocation();
   if (location.pathname.includes(PATHS.feed)) {
     orders = feed.orders;
@@ -33,7 +35,9 @@ export default function OrdersList({ hasStatus = false }) {
       <ul className={styles.orders_list}>
         {orders &&
           orders.map(order => {
-            const preparedOrder = prepareOrderToRender(order, allIngredients);
+            let preparedOrder: PreparedOrder | false = false;
+            if (allIngredients)
+              preparedOrder = prepareOrderToRender(order, allIngredients);
             if (preparedOrder) {
               return (
                 <li key={order._id}>

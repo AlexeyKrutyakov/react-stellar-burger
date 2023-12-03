@@ -16,7 +16,7 @@ export const submitOrder = createAsyncThunk<
 
 const initialState: Order = {
   _id: '',
-  ingredients: null,
+  ingredients: [],
   owner: '',
   status: '',
   name: '',

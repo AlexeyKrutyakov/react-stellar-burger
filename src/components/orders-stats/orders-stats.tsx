@@ -8,7 +8,7 @@ import VerifyOrder from '../../utils/verify-order';
 import { getFeed } from '../../utils/store-selectors';
 import { getIngredients } from '../../utils/store-selectors';
 // import types
-import { Order, FeedOrder } from 'types';
+import { Order } from 'types';
 import { FC } from 'react';
 
 export default function OrdersStats() {
@@ -18,7 +18,7 @@ export default function OrdersStats() {
     VerifyOrder(order, allIngredients),
   );
 
-  const getOrderNumbers = (orders: FeedOrder[], status: string) => {
+  const getOrderNumbers = (orders: Order[], status: string) => {
     const numbers = orders.map(order => {
       if (order && order.status === status) return order.number;
     });

@@ -1,17 +1,9 @@
-export type FeedOrder = {
-  _id: string;
-  ingredients: string[];
-  status: string;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-  number: number;
-};
+import { Order } from './order';
 
 export type Feed = {
   wsConnectionStatus: string;
   success: boolean;
-  orders: FeedOrder[];
+  orders: Order[];
   total: number;
   totalToday: number;
   errorMessage?: string;

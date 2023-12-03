@@ -1,9 +1,8 @@
 import { Ingredient } from './ingredients';
 
 export type Order = {
-  _id: string; //todo change id -> _id
-  ingredients: string[]; //todo change ingredientsIdList -> ingredients
-  // ingredients: Ingredient[] | null; //todo change ingredientsIdList -> ingredients
+  _id: string;
+  ingredients: string[];
   owner: string;
   status: string;
   name: string;
@@ -12,6 +11,10 @@ export type Order = {
   number: number | null;
   totalPrice?: number;
   __v: number;
+};
+
+export type PreparedOrder = Omit<Order, 'ingredients'> & {
+  ingredients: Ingredient[];
 };
 
 export type responseSubmitOrder = {
@@ -28,6 +31,6 @@ export type responseGetOrderByNumber = {
 };
 
 export type OrderProps = {
-  order: Order;
+  order: PreparedOrder;
   hasStatus: boolean;
 };

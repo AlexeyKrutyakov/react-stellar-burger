@@ -18,6 +18,7 @@ import {
 } from '../../utils/store-selectors';
 import prepareOrderToRender from '../../utils/prepare-order';
 import findOrderByNumber from '../../utils/find-order-by-number';
+import { PreparedOrder } from 'types';
 
 export default function OrderDetails() {
   const allIngredients = useSelector(getIngredients).loaded;
@@ -32,7 +33,9 @@ export default function OrderDetails() {
   if (location.pathname.includes(PATHS.profile.orders) && profile.orders) {
     order = findOrderByNumber(orderNumber, profile.orders);
   }
-  const preparedOrder = prepareOrderToRender(order, allIngredients);
+  let preparedOrder: PreparedOrder | false = false;
+  if (allIngredients)
+    preparedOrder = prepareOrderToRender(order, allIngredients);
 
   return !preparedOrder ? (
     <></>
@@ -75,7 +78,8 @@ export default function OrderDetails() {
         </p>
         <h5 className={`${styles.total_price}`}>
           <span className={STYLES.digits.default}>
-            {preparedOrder.totalPrice.toLocaleString('ru-RU')}
+            {preparedOrder.totalPrice &&
+              preparedOrder.totalPrice.toLocaleString('ru-RU')}
           </span>{' '}
           <CurrencyIcon type="primary" />
         </h5>

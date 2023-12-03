@@ -3,8 +3,12 @@ import getIngredientsById from './ingredients-by-id';
 import VerifyOrder from './verify-order';
 import translateStatus from './translate-status';
 import calculateTotalPrice from './calculate-total-price';
+import { Order, PreparedOrder, Ingredient } from 'types';
 
-export default function prepareOrderToRender(order, allIngredietns) {
+export default function prepareOrderToRender(
+  order: Order,
+  allIngredietns: Ingredient[],
+): PreparedOrder | false {
   if (!order) return false;
 
   if (VerifyOrder(order, allIngredietns)) {

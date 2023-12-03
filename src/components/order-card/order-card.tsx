@@ -21,7 +21,7 @@ export default function OrderCard({ order, hasStatus }: OrderProps) {
 
   let last = 5;
 
-  const visibleIngredients = ingredients!.slice(0, 6);
+  const visibleIngredients = ingredients.slice(0, 6);
   const length = ingredients!.length;
 
   const handleOpenModal = (type: string) => {
