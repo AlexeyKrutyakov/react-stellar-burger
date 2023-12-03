@@ -2,15 +2,19 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 // import utils
 import { requestIngredients } from '../utils/api';
-import { StoreIngredients, ResponseIngredients } from 'types';
+import {
+  StoreIngredients,
+  ResponseIngredients,
+  requestIngredientsResponse,
+} from 'types';
 
 export const loadIngredients = createAsyncThunk<
-  ResponseIngredients,
+  requestIngredientsResponse,
   undefined,
   { state: { ingredients: StoreIngredients } }
 >('@@ingredients/fetchIngredients', async () => {
   const response = await requestIngredients();
-  return await response;
+  return response;
 });
 
 const initialState: StoreIngredients = {

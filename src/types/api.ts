@@ -95,3 +95,8 @@ export type requestGetOrderResponse = {
   success: boolean;
   orders: Order[];
 };
+
+export type requestIngredientsResponse = {
+  success: boolean;
+  data: Ingredient[];
+};

@@ -5,6 +5,7 @@ import {
   requestEditUserResponse,
   requestGetOrderResponse,
   requestGetUserInfoResponse,
+  requestIngredientsResponse,
   requestLoginResponse,
   requestLogoutResponse,
   requestNewTokensResponse,
@@ -124,7 +125,7 @@ export async function requestEditUserWithRefreshTokens(user: User) {
 }
 
 export function requestIngredients() {
-  return requestApi('ingredients', {
+  return requestApi<requestIngredientsResponse>('ingredients', {
     method: 'GET',
   });
 }
