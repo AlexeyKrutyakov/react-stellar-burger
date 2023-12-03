@@ -31,7 +31,7 @@ export default function OrderPage() {
   let orderIngredients = null;
   let totalPrice = 0;
 
-  if (order.number) {
+  if (order.number && allIngredients) {
     const ingredientsFromServer = getIngredientsById(
       order.ingredients,
       allIngredients,
