@@ -27,14 +27,19 @@ export default function OrderDetails() {
   const { orderNumber } = useParams();
   const location = useLocation();
   let order = null;
-  if (location.pathname.includes(PATHS.feed)) {
+  if (orderNumber && location.pathname.includes(PATHS.feed)) {
     order = findOrderByNumber(orderNumber, feed.orders);
   }
-  if (location.pathname.includes(PATHS.profile.orders) && profile.orders) {
+  if (
+    orderNumber &&
+    location.pathname.includes(PATHS.profile.orders) &&
+    profile.orders
+  ) {
     order = findOrderByNumber(orderNumber, profile.orders);
   }
   let preparedOrder: PreparedOrder | false = false;
-  if (allIngredients)
+
+  if (order && allIngredients)
     preparedOrder = prepareOrderToRender(order, allIngredients);
 
   return !preparedOrder ? (
