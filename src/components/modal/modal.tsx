@@ -1,14 +1,10 @@
 import styles from './modal.module.css';
 // imports from modules
-import React, { ReactElement } from 'react';
-import PropTypes from 'prop-types';
-import { createPortal } from 'react-dom';
-import { useSelector } from 'react-redux';
+import React from 'react';
 // import components
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 // import utils
-import { getModal } from '../../utils/store-selectors';
 import { ModalProps } from 'types';
 
 export default function Modal({
@@ -36,7 +32,6 @@ export default function Modal({
     };
   });
 
-  // return createPortal(
   return (
     <div className={styles.modal__container}>
       <ModalOverlay onOverlayClick={closeModal} />
@@ -49,6 +44,5 @@ export default function Modal({
         )}
       </div>
     </div>
-    // modalRoot as HTMLElement,
   );
 }

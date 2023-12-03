@@ -1,14 +1,15 @@
 import styles from './orders-page.module.css';
 // imports from modules
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 // import components
 import OrdersList from '../../components/orders-list/orders-list';
 // import constants
 import { API_URLS, STYLES, TOKENS, WS_ACTIONS } from '../../utils/constants';
+// import types
+import { useAppDispatch } from 'types';
 
 export default function OrdersPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     document.title = 'Stellar Burgers: Orders';

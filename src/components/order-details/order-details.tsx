@@ -1,6 +1,5 @@
 import styles from './order-details.module.css';
 // imports from modules
-import { useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
 // import components
 import { IngredientIcon } from '../ingredient-icon/ingredient-icon';
@@ -18,12 +17,13 @@ import {
 } from '../../utils/store-selectors';
 import prepareOrderToRender from '../../utils/prepare-order';
 import findOrderByNumber from '../../utils/find-order-by-number';
-import { PreparedOrder } from 'types';
+// import types
+import { PreparedOrder, useAppSelector } from 'types';
 
 export default function OrderDetails() {
-  const allIngredients = useSelector(getIngredients).loaded;
-  const feed = useSelector(getFeed);
-  const profile = useSelector(getProfile);
+  const allIngredients = useAppSelector(getIngredients).loaded;
+  const feed = useAppSelector(getFeed);
+  const profile = useAppSelector(getProfile);
   const { orderNumber } = useParams();
   const location = useLocation();
   let order = null;

@@ -1,6 +1,5 @@
 import styles from './orders-stats.module.css';
 // imports from modules
-import { useSelector } from 'react-redux';
 // import constants
 import { STYLES } from '../../utils/constants';
 // import utils
@@ -8,12 +7,11 @@ import VerifyOrder from '../../utils/verify-order';
 import { getFeed } from '../../utils/store-selectors';
 import { getIngredients } from '../../utils/store-selectors';
 // import types
-import { Order } from 'types';
-import { FC } from 'react';
+import { Order, useAppSelector } from 'types';
 
 export default function OrdersStats() {
-  const feed = useSelector(getFeed);
-  const allIngredients = useSelector(getIngredients).loaded;
+  const feed = useAppSelector(getFeed);
+  const allIngredients = useAppSelector(getIngredients).loaded;
 
   let correctOrders: Order[] = [];
 

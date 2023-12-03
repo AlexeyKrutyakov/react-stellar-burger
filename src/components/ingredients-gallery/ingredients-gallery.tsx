@@ -1,16 +1,15 @@
 // imports
 import styles from './ingredients-gallery.module.css';
 // imports from modules
-import { useSelector } from 'react-redux';
 // import components
 import { IngredientsCard } from '../ingredients-card/ingredients-card';
 // import utils
 import { getIngredients } from '../../utils/store-selectors';
 // import types
-import { Ingredient } from 'types';
+import { Ingredient, useAppSelector } from 'types';
 
 export const IngredientsGallery = ({ type }: { type: string }) => {
-  const ingredients = useSelector(getIngredients).loaded;
+  const ingredients = useAppSelector(getIngredients).loaded;
   let filteredIngredients: Ingredient[] | null = null;
 
   if (ingredients)

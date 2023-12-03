@@ -1,5 +1,6 @@
 import { Middleware } from 'redux';
-import { RootState, WsActions, WsConfig } from 'types';
+// import types
+import { RootState, WsConfig } from 'types';
 
 export const socketMiddleware = (
   wsActions: WsConfig,

@@ -1,8 +1,6 @@
 import styles from './ingredients-card.module.css';
 // imports from modules
-import PropTypes from 'prop-types';
 import { useDrag } from 'react-dnd';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 // import components
 import {
@@ -14,14 +12,14 @@ import { INGREDIENTS, STYLES } from '../../utils/constants';
 // import utils
 import countIngredients from '../../utils/count-ingredients';
 import { getBurger } from '../../utils/store-selectors';
-import { AppDispatch, Ingredient } from 'types';
+import { AppDispatch, Ingredient, useAppDispatch, useAppSelector } from 'types';
 import { openModal } from 'services/modalSlice';
 
 export const IngredientsCard = ({ ingredient }: { ingredient: Ingredient }) => {
   const location = useLocation();
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useAppDispatch();
 
-  const burgerConstructorData = useSelector(getBurger);
+  const burgerConstructorData = useAppSelector(getBurger);
   const bun = burgerConstructorData.bun;
   const mains = burgerConstructorData.mains;
 

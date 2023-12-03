@@ -1,14 +1,15 @@
 import styles from './order-status.module.css';
 // imports from modules
-import { useSelector } from 'react-redux';
 // import images
 import imageDone from '../../images/graphics.png';
 // import utils
 import { getOrder } from '../../utils/store-selectors';
 import { STYLES } from '../../utils/constants';
+// import types
+import { useAppSelector } from 'types';
 
 export default function OrderStatus() {
-  const orderNumber = useSelector(getOrder).number;
+  const orderNumber = useAppSelector(getOrder).number;
 
   return (
     <>

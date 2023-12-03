@@ -1,7 +1,6 @@
 import styles from './burger-constructor.module.css';
 // imports from modules
 import { useDrop } from 'react-dnd';
-import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 // import components
 import { ConstructorIngredient } from '../constructorIngredient/constructor-ingredient';
@@ -29,15 +28,15 @@ import {
 // import utils
 import { getBurger, getProfile } from '../../utils/store-selectors';
 // import types
-import { AppDispatch, Ingredient } from 'types';
+import { AppDispatch, Ingredient, useAppDispatch, useAppSelector } from 'types';
 
 function BurgerConstructor() {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const burgerConstructorData = useSelector(getBurger);
-  const profile = useSelector(getProfile);
+  const burgerConstructorData = useAppSelector(getBurger);
+  const profile = useAppSelector(getProfile);
 
   const bun = burgerConstructorData.bun;
   let bunPrice: number = 0;

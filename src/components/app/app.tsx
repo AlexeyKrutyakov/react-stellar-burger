@@ -1,7 +1,6 @@
 import styles from './app.module.css';
 // imports from modules
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 // import components
 import Modal from '../modal/modal';
@@ -39,16 +38,17 @@ import {
   getIngredients,
   getOrder,
 } from '../../utils/store-selectors';
+import { useAppDispatch, useAppSelector } from 'types';
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
 
-  const currentModal = useSelector(getModal);
-  const ingredients = useSelector(getIngredients);
-  const currentOrder = useSelector(getOrder);
+  const currentModal = useAppSelector(getModal);
+  const ingredients = useAppSelector(getIngredients);
+  const currentOrder = useAppSelector(getOrder);
 
   const handleCloseModal = () => {
     navigate(-1);

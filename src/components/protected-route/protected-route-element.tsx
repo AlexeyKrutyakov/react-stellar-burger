@@ -1,10 +1,11 @@
 // import from modules
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router';
 // import utils
 import { getProfile } from '../../utils/store-selectors';
 // import constants
 import { PATHS } from '../../utils/constants';
+// import types
+import { useAppSelector } from 'types';
 
 function ProtectedRouteElement({
   component,
@@ -13,8 +14,8 @@ function ProtectedRouteElement({
   component: JSX.Element;
   onlyUnauth?: boolean;
 }) {
-  const isAuthChecked = useSelector(getProfile).isAuthChecked;
-  const user = useSelector(getProfile).user;
+  const isAuthChecked = useAppSelector(getProfile).isAuthChecked;
+  const user = useAppSelector(getProfile).user;
   const location = useLocation();
 
   if (!isAuthChecked) {

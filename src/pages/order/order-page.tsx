@@ -2,7 +2,6 @@ import styles from './order-page.module.css';
 // imports from modules
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
 // import components
 import { IngredientIcon } from '../../components/ingredient-icon/ingredient-icon';
 import {
@@ -18,14 +17,15 @@ import translateStatus from '../../utils/translate-status';
 import getIngredientsById from '../../utils/ingredients-by-id';
 import calculateTotalPrice from '../../utils/calculate-total-price';
 import { getIngredients, getOrder } from '../../utils/store-selectors';
-import { AppDispatch } from 'types';
+// import types
+import { AppDispatch, useAppDispatch, useAppSelector } from 'types';
 
 export default function OrderPage() {
   const { orderNumber } = useParams();
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useAppDispatch();
 
-  const allIngredients = useSelector(getIngredients).loaded;
-  const order = useSelector(getOrder);
+  const allIngredients = useAppSelector(getIngredients).loaded;
+  const order = useAppSelector(getOrder);
   const translatedStatus = translateStatus(order.status);
 
   let orderIngredients = null;

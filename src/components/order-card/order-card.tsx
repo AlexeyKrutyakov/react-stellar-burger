@@ -1,6 +1,5 @@
 import styles from './order-card.module.css';
 // imports from modules
-import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 // import components
 import { IngredientIcon } from '../ingredient-icon/ingredient-icon';
@@ -12,12 +11,13 @@ import {
 import { openModal } from '../../services/modalSlice';
 // import utils
 import { STYLES } from '../../utils/constants';
-import { OrderProps } from 'types';
+// import types
+import { OrderProps, useAppDispatch } from 'types';
 
 export default function OrderCard({ order, hasStatus }: OrderProps) {
   const { number, createdAt, name, status, ingredients, totalPrice } = order;
   const location = useLocation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   let last = 5;
 

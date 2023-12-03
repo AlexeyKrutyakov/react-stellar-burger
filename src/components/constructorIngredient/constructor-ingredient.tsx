@@ -1,7 +1,6 @@
 import styles from './constructor-ingredient.module.css';
 // imports from modules
 import { FC, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { Identifier, XYCoord } from 'dnd-core';
 // import components
@@ -14,7 +13,13 @@ import { deleteMain, sortMains } from '../../services/burgerSlice';
 // import constants
 import { COLORS } from '../../utils/constants';
 // import { ingredientPropType } from '../../utils/prop-types';
-import { AppDispatch, BurgerIngredient, Ingredient } from 'types';
+import {
+  AppDispatch,
+  BurgerIngredient,
+  Ingredient,
+  useAppDispatch,
+  useAppSelector,
+} from 'types';
 import { getBurger } from 'utils/store-selectors';
 
 export const ConstructorIngredient: FC<BurgerIngredient> = ({
@@ -22,8 +27,8 @@ export const ConstructorIngredient: FC<BurgerIngredient> = ({
   index,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const dispatch: AppDispatch = useDispatch();
-  const ingredients: Ingredient[] = useSelector(getBurger).mains;
+  const dispatch: AppDispatch = useAppDispatch();
+  const ingredients: Ingredient[] = useAppSelector(getBurger).mains;
 
   const [{ handlerId }, drop] = useDrop<
     BurgerIngredient,

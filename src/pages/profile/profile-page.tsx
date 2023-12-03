@@ -1,17 +1,18 @@
 import styles from './profile-page.module.css';
 // imports from modules
-import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useNavigate, NavLink, Outlet } from 'react-router-dom';
 // import services
 import { logout } from '../../services/profileSlice';
 // import constants
 import { PATHS, STYLES } from '../../utils/constants';
+// import types
+import { useAppDispatch } from 'types';
 
 export default function ProfilePage() {
   const refreshToken = localStorage.getItem('refreshToken');
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   function logoutHandler() {

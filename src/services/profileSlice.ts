@@ -11,6 +11,7 @@ import {
   requestUserInfoWithRefreshTokens,
   requestEditUserWithRefreshTokens,
 } from '../utils/api';
+// import types
 import { AppDispatch, Profile, User, requestNewTokensResponse } from 'types';
 
 export const profileOrdersActions = {

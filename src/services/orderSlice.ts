@@ -2,6 +2,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // import utils
 import { requestGetOrder, requestOrder } from '../utils/api';
+// import types
 import { Order, responseGetOrderByNumber, responseSubmitOrder } from 'types';
 import { AppDispatch } from 'types';
 

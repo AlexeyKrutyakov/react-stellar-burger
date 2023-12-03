@@ -1,7 +1,6 @@
 import styles from './feed-page.module.css';
 // imports from modules
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 // import components
 import OrdersList from '../../components/orders-list/orders-list';
 import OrdersStats from '../../components/orders-stats/orders-stats';
@@ -9,10 +8,12 @@ import OrdersStats from '../../components/orders-stats/orders-stats';
 import { API_URLS, STYLES, WS_ACTIONS } from '../../utils/constants';
 // import utils
 import { getFeed } from '../../utils/store-selectors';
+// import types
+import { useAppDispatch, useAppSelector } from 'types';
 
 export default function FeedPage() {
-  const dispatch = useDispatch();
-  const feed = useSelector(getFeed);
+  const dispatch = useAppDispatch();
+  const feed = useAppSelector(getFeed);
 
   useEffect(() => {
     dispatch({

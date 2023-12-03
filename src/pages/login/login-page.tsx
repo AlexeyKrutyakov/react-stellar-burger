@@ -2,7 +2,6 @@ import styles from './login-page.module.css';
 // imports from modules
 import { Link } from 'react-router-dom';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 // import components
 import {
   Button,
@@ -15,13 +14,15 @@ import { useForm } from '../../hooks/useForm';
 import { login } from '../../services/profileSlice';
 // import constants
 import { PATHS, STYLES } from '../../utils/constants';
+// import types
+import { useAppDispatch } from 'types';
 
 export default function LoginPage() {
   const { values, handleChange } = useForm({
     email: '',
     password: '',
   });
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

@@ -2,16 +2,16 @@ import styles from './ingredient-page.module.css';
 // imports from modules
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
-import { useSelector } from 'react-redux';
 // import utils
 import { STYLES } from '../../utils/constants';
 import getIngredient from '../../utils/getIngredient';
 import { getIngredients } from '../../utils/store-selectors';
-import { Ingredient } from 'types';
+// imoprt types
+import { Ingredient, useAppSelector } from 'types';
 
 export default function IngredientPage() {
   const { ingredientId } = useParams();
-  const ingredients = useSelector(getIngredients).loaded;
+  const ingredients = useAppSelector(getIngredients).loaded;
 
   useEffect(() => {
     document.title = 'Stellar Burgers: Ingredient Details';

@@ -2,6 +2,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 // import utils
 import { requestIngredients } from '../utils/api';
+// import types
 import { StoreIngredients, requestIngredientsResponse } from 'types';
 
 export const loadIngredients = createAsyncThunk<

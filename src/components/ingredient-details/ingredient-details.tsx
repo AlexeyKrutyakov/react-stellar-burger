@@ -1,16 +1,16 @@
 import styles from './ingredient-details.module.css';
 // imports from modules
 import { useParams } from 'react-router';
-import { useSelector } from 'react-redux';
 // import utils
 import getIngredient from '../../utils/getIngredient';
 import { getIngredients } from '../../utils/store-selectors';
 import { STYLES } from '../../utils/constants';
-import { Ingredient } from 'types';
+import { Ingredient, useAppSelector } from 'types';
 
 function IngredientDetails() {
   const { ingredientId } = useParams();
-  const ingredients: Ingredient[] | null = useSelector(getIngredients).loaded;
+  const ingredients: Ingredient[] | null =
+    useAppSelector(getIngredients).loaded;
   let ingredient: Ingredient | null = null;
   if (ingredients && ingredientId)
     ingredient = getIngredient(ingredients, ingredientId);

@@ -2,7 +2,6 @@ import styles from './register-page.module.css';
 // imports from modules
 import { Link } from 'react-router-dom';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 // import components
 import {
   Button,
@@ -14,13 +13,15 @@ import {
 import { register } from '../../services/profileSlice';
 // imports constants
 import { PATHS, STYLES } from '../../utils/constants';
+// import types
+import { useAppDispatch } from 'types';
 
 export default function RegisterPage() {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   function submitHandler(event: React.FormEvent<HTMLElement>) {
     event.preventDefault();
