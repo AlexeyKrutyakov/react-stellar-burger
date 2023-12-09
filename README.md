@@ -10,6 +10,7 @@
 - реализация Drag and Drop в приложении с применением библиотеки **_react-dnd_** и её связью с **_Redux_**
 - работа с протоколом **_WebSocket_** для получения информации от сервера в режиме реального времени
 - создание собственного **_middleWare_**
+- полный рефакторинг проекта для перевода на **_TypeScript_**
 
 #### _Разработчик:_
 
@@ -17,4 +18,4 @@
 
 #### _Используемые инструменты и технологии:_
 
-![Stack](https://skillicons.dev/icons?i=vscode,figma,git,html,css,js,react,redux,babel&perline=10)
+![Stack](https://skillicons.dev/icons?i=vscode,figma,git,html,css,ts,react,redux,babel&perline=10)
