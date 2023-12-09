@@ -1,8 +1,10 @@
+// import from modules
 import { Middleware } from 'redux';
-// import types
-import { RootState, WsConfig } from 'types';
+// import utils
 import { requestNewTokens } from 'utils/api';
 import { API_URLS, TOKENS, WS_ACTIONS } from 'utils/constants';
+// import types
+import { RootState, WsConfig } from 'types';
 
 export const socketMiddleware = (
   wsActions: WsConfig,
