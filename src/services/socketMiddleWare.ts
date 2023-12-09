@@ -1,4 +1,8 @@
+// import from modules
 import { Middleware } from 'redux';
+// import utils
+import { requestNewTokens } from 'utils/api';
+import { API_URLS, TOKENS, WS_ACTIONS } from 'utils/constants';
 // import types
 import { RootState, WsConfig } from 'types';
 
@@ -29,6 +33,22 @@ export const socketMiddleware = (
         };
         socket.onmessage = event => {
           const data = JSON.parse(event.data);
+          if (data.message === 'Invalid or missing token') {
+            requestNewTokens()
+              .then(res => {
+                localStorage.setItem(TOKENS.names.refresh, res.refreshToken);
+                localStorage.setItem(TOKENS.names.access, res.accessToken);
+              })
+              .then(() => {
+                const token = localStorage.getItem(TOKENS.names.access);
+                dispatch({
+                  type: WS_ACTIONS.ordersWsInit,
+                  payload: `${API_URLS.wss.personalOrders}?token=${
+                    token ? token.split('Bearer ')[1] : ''
+                  }`,
+                });
+              });
+          }
           dispatch(onMessage(data));
         };
         socket.onclose = event => {
